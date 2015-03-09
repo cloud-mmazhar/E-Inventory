@@ -1,0 +1,4 @@
+G:\IMS(Moiz)-9-45\IMS\IMSCommon\bin\Release\IMSCommon.dll
+G:\IMS(Moiz)-9-45\IMS\IMSCommon\bin\Release\IMSCommon.pdb
+G:\IMS(Moiz)-9-45\IMS\IMSCommon\obj\Release\IMSCommon.dll
+G:\IMS(Moiz)-9-45\IMS\IMSCommon\obj\Release\IMSCommon.pdb
