@@ -21,7 +21,7 @@ namespace IMS
 
         protected void btnManageOrders_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("ManageOrders.aspx");
         }
 
         protected void btnRegisterUser_Click(object sender, EventArgs e)
