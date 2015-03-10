@@ -29,7 +29,31 @@ namespace IMS
                     DataSet ds = new DataSet();
                     SqlDataAdapter sA = new SqlDataAdapter(command);
                     sA.Fill(ds);
-                    BarCodeSerial.Text = "444" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();  
+
+                    if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(5))
+                    {
+                        BarCodeSerial.Text = "444" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(4))
+                    {
+                        BarCodeSerial.Text = "4440" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(3))
+                    {
+                        BarCodeSerial.Text = "44400" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(2))
+                    {
+                        BarCodeSerial.Text = "444000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(1))
+                    {
+                        BarCodeSerial.Text = "4440000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                    }
+                    else if (ds.Tables[0].Rows[0][0].ToString().Length < 1)
+                    {
+                        BarCodeSerial.Text = "4440000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                    }
                 }
                 catch(Exception ex)
                 {
@@ -42,8 +66,9 @@ namespace IMS
                 #endregion
 
                 #region Populating Product Type DropDown
-                ProductType.Items.Add("Medicine");
-                ProductType.Items.Add("Product");
+                ProductType.Items.Add("Medicine (HAAD)");
+                ProductType.Items.Add("Medicine (Non HAAD)");
+                ProductType.Items.Add("Non Medicine");
                 #endregion
 
                 #region Populating Product Department DropDown
@@ -108,6 +133,8 @@ namespace IMS
 
         protected void btnCreateProduct_Click(object sender, EventArgs e)
         {
+            int x = 0;
+            string errorMessage = "";
             try
             {
                 connection.Open();
@@ -119,6 +146,7 @@ namespace IMS
                 command.Parameters.AddWithValue("@p_Description", ProdcutDesc.Text.ToString());
                 command.Parameters.AddWithValue("@p_BrandName", ProdcutBrand.Text.ToString());
                 command.Parameters.AddWithValue("@p_ProductType", ProductType.SelectedItem.ToString());
+
                 int res1,res4;
                  float res2, res3;
                 if (int.TryParse(ProductSubCat.SelectedValue.ToString(), out res1))
@@ -156,17 +184,46 @@ namespace IMS
                 {
                     command.Parameters.AddWithValue("@p_MaxiMumDiscount", 0);
                 }
-                
 
-                command.ExecuteNonQuery();
+
+                command.Parameters.AddWithValue("@p_shelf", shelfNumber.Text.ToString());
+                command.Parameters.AddWithValue("@p_rack", rackNumber.Text.ToString());
+                command.Parameters.AddWithValue("@p_bin", binNumber.Text.ToString());
+
+                x = command.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-
+                errorMessage = ex.Message;
             }
             finally
             {
                 connection.Close();
+            }
+
+            if(x==1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record Inserted Successfully')", true);
+                BarCodeSerial.Text ="";
+                GreenRainCode.Text = "";
+                ProductName.Text = "";
+                ProdcutDesc.Text = "";
+                ProdcutBrand.Text = "";
+                ProductType.SelectedIndex = -1;
+                ProductSubCat.SelectedIndex = -1;
+                ProductDept.SelectedIndex = -1;
+                ProductCat.SelectedIndex = -1;
+                ProductCost.Text = "";
+                ProductSale.Text = "";
+                ProductDiscount.Text = "";
+                rackNumber.Text = "";
+                shelfNumber.Text = "";
+                binNumber.Text = "";
+                
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(''" + errorMessage + "'')", true);
             }
         }
 

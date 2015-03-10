@@ -75,3 +75,10 @@ D:\code\IMS (3-6-2015)\IMS (3-6-2015)\IMS_newCode\IMSBusinessLogic\bin\Debug\IMS
 D:\code\IMS (3-6-2015)\IMS (3-6-2015)\IMS_newCode\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.csprojResolveAssemblyReference.cache
 D:\code\IMS (3-6-2015)\IMS (3-6-2015)\IMS_newCode\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.dll
 D:\code\IMS (3-6-2015)\IMS (3-6-2015)\IMS_newCode\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.pdb
+D:\Digital Processing System\E-Inventory\IMSBusinessLogic\bin\Debug\IMSBusinessLogic.dll
+D:\Digital Processing System\E-Inventory\IMSBusinessLogic\bin\Debug\IMSBusinessLogic.pdb
+D:\Digital Processing System\E-Inventory\IMSBusinessLogic\bin\Debug\IMSCommon.dll
+D:\Digital Processing System\E-Inventory\IMSBusinessLogic\bin\Debug\IMSCommon.pdb
+D:\Digital Processing System\E-Inventory\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.csprojResolveAssemblyReference.cache
+D:\Digital Processing System\E-Inventory\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.dll
+D:\Digital Processing System\E-Inventory\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.pdb

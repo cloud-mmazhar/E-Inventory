@@ -85,6 +85,8 @@ namespace IMS
 
         protected void btnAddEmployee_Click(object sender, EventArgs e)
         {
+            int x = 0;
+            String Errormessage = "";
             try
             {
                 connection.Open();
@@ -101,15 +103,34 @@ namespace IMS
                 command.Parameters.AddWithValue("@p_DisplayName", "");
                 command.Parameters.AddWithValue("@p_email", "");
 
-                command.ExecuteNonQuery();
+                x = command.ExecuteNonQuery();
+
+
+
             }
             catch (Exception ex)
             {
-
+                Errormessage = ex.Message;
             }
             finally
             {
                 connection.Close();
+            }
+
+
+            if (x == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record Inserted Successfully')", true);
+                EmpID.Text = "";
+                uPwd.Text = "";
+                ddlURole.SelectedIndex = -1;
+                ddlSysID.SelectedIndex = -1;
+                fName.Text = "";
+                lstName.Text = "";
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(''"+Errormessage+"'')", true);
             }
         }
     }

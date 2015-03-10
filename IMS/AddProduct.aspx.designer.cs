@@ -121,6 +121,33 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.TextBox ProductDiscount;
         
         /// <summary>
+        /// shelfNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox shelfNumber;
+        
+        /// <summary>
+        /// rackNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox rackNumber;
+        
+        /// <summary>
+        /// binNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox binNumber;
+        
+        /// <summary>
         /// btnCreateProduct control.
         /// </summary>
         /// <remarks>

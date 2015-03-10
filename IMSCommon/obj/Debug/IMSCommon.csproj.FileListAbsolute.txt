@@ -43,3 +43,7 @@ D:\code\IMS (3-6-2015)\IMS (3-6-2015)\IMS_newCode\IMSCommon\bin\Debug\IMSCommon.
 D:\code\IMS (3-6-2015)\IMS (3-6-2015)\IMS_newCode\IMSCommon\obj\Debug\IMSCommon.csprojResolveAssemblyReference.cache
 D:\code\IMS (3-6-2015)\IMS (3-6-2015)\IMS_newCode\IMSCommon\obj\Debug\IMSCommon.dll
 D:\code\IMS (3-6-2015)\IMS (3-6-2015)\IMS_newCode\IMSCommon\obj\Debug\IMSCommon.pdb
+D:\Digital Processing System\E-Inventory\IMSCommon\bin\Debug\IMSCommon.dll
+D:\Digital Processing System\E-Inventory\IMSCommon\bin\Debug\IMSCommon.pdb
+D:\Digital Processing System\E-Inventory\IMSCommon\obj\Debug\IMSCommon.dll
+D:\Digital Processing System\E-Inventory\IMSCommon\obj\Debug\IMSCommon.pdb
