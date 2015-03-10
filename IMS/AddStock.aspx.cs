@@ -9,6 +9,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Configuration;
+using System.Globalization;
 
 namespace IMS
 {
@@ -83,17 +84,24 @@ namespace IMS
         protected void btnCreateProduct_Click(object sender, EventArgs e)
         {
             #region BarCode Generation
-            String[] str = DateTextBox.Text.Split('/');
-            string p1 = BarCodeSerial.Text + str[2];
-            
-            long BarCode;
+
+            DateTime dateValue = (Convert.ToDateTime(DateTextBox.Text.ToString()));
+           
+            string p1;
+            long BarCode=0;
+            String mm = dateValue.Month.ToString();
+            String yy = dateValue.ToString("yy", DateTimeFormatInfo.InvariantInfo);
+            p1 = BarCodeSerial.Text + mm+yy;
+                
             if (long.TryParse(p1, out BarCode))
             {
             }
-            else 
+            else
             {
-                //post error message 
+               //post error message 
             }
+            
+         
             #endregion
 
             #region Adding Stock
