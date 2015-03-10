@@ -105,6 +105,8 @@ namespace IMS
             #endregion
 
             #region Adding Stock
+            int x = 0;
+            String errorMessage = "";
             try
             {
                 connection.Open();
@@ -118,15 +120,31 @@ namespace IMS
                 command.Parameters.AddWithValue("@p_Expiry", DateTextBox.Text); // Calender Date or DateTime Picker Date
                 command.Parameters.AddWithValue("@p_Cost", Decimal.Parse(ProductCost.Text.ToString()));
                 command.Parameters.AddWithValue("@p_Sales", Decimal.Parse(ProductSale.Text.ToString()));
-                command.ExecuteNonQuery();
+                x = command.ExecuteNonQuery();
             }
             catch(Exception ex)
             {
-
+                errorMessage = ex.Message;
             }
             finally
             {
                 connection.Close();
+            }
+
+            if (x == 1)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record Inserted Successfully')", true);
+                SelectProduct.SelectedIndex = -1;
+                Quantity.Text = "";
+                ProductName.Text = "";
+                DateTextBox.Text = "";
+                BarCodeSerial.Text = "";
+                ProductCost.Text = "";
+                ProductSale.Text = "";
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(''" + errorMessage + "'')", true);
             }
             #endregion
         }
@@ -181,6 +199,14 @@ namespace IMS
         protected void btnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("ManageStocks.aspx", false);
+        }
+
+        protected void StockAt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(StockAt.SelectedIndex!=-1)
+            {
+                StockAt.Enabled = false;
+            }
         }
     }
 }
