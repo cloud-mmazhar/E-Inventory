@@ -96,6 +96,7 @@ namespace IMS
                         int recQuan = int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("RecQuanVal")).Text);
                         int expQuan= int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("ExpQuanVal")).Text);
                         int defQuan= int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("defQuanVal")).Text);
+                        int retQuan = int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("retQuanVal")).Text);
                         int orderedQuantity = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblQuantity")).Text);
                         if (recQuan < 0 || expQuan < 0 || defQuan < 0) 
                         {
@@ -104,7 +105,7 @@ namespace IMS
                             LoadData();
                             return;
                         }
-                        if (orderedQuantity >= (recQuan + expQuan + defQuan))
+                        if (orderedQuantity >= (recQuan + expQuan + defQuan+ retQuan))
                         {
                             int requesteeID=int.Parse(Session["RequestDesID"].ToString());
                             connection.Open();
@@ -115,6 +116,7 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_ExpiredQuantity", expQuan);
 
                             command.Parameters.AddWithValue("@p_DefectedQuantity", defQuan);
+                            command.Parameters.AddWithValue("@p_ReturnedQuantity", retQuan);
                             command.Parameters.AddWithValue("@p_SystemType", Session["RequestDesRole"].ToString());
                             command.Parameters.AddWithValue("@p_StoreID", Session["UserSys"]);
 
@@ -125,6 +127,7 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_Cost", float.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblCP")).Text));
                             command.Parameters.AddWithValue("@p_Sales", float.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblSP")).Text));
                             command.Parameters.AddWithValue("@p_orderMasterID", int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdMs_id")).Text));
+                            command.Parameters.AddWithValue("@p_isInternal", "TRUE");
                             command.ExecuteNonQuery();
                         }
                         else 

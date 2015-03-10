@@ -49,66 +49,90 @@
                          <ItemStyle  Width="280px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
-                     <asp:TemplateField HeaderText="Ordered Quantity" HeaderStyle-Width ="150px">
+                    <asp:TemplateField HeaderText="Requested Quantity" HeaderStyle-Width ="150px">
                         <ItemTemplate>
-                            <asp:Label ID="lblQuantity"  runat="server" Text='<%# Eval("Qauntity") %>' ></asp:Label>
+                            <asp:Label ID="lblQuantity"  runat="server" Text='<%# Eval("OrderedQuantity") %>' ></asp:Label>
                         </ItemTemplate>
                           <ItemStyle  Width="150px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                     
-                     <asp:TemplateField HeaderText="Received Quantity" HeaderStyle-Width ="110px">
+                      <asp:TemplateField HeaderText="Delivery Date" HeaderStyle-Width ="150px">
                         <ItemTemplate>
-                            <asp:Label ID="lblRecQuan" runat="server" Text=' <%#Eval("resQuan")==DBNull.Value?0:int.Parse( Eval("resQuan").ToString())  %>'></asp:Label>
+                            <asp:Label ID="lblDDate"  runat="server" Text='<%# Eval("SendDate") %>' ></asp:Label>
+                        </ItemTemplate>
+                          <ItemStyle  Width="150px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+
+                      <asp:TemplateField HeaderText="Received Quantity" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblSenQuan" runat="server" Text=' <%#Eval("SendQuantity")==DBNull.Value?0:int.Parse( Eval("SendQuantity").ToString())  %>'></asp:Label>
+                        </ItemTemplate>
+                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+
+                     <asp:TemplateField HeaderText="Accepted Quantity" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblRecQuan" runat="server" Text=' <%#Eval("SendQuantity")==DBNull.Value?0:int.Parse( Eval("SendQuantity").ToString())  %>'></asp:Label>
                         </ItemTemplate>
                         <EditItemTemplate>
-                             <asp:TextBox ID="RecQuanVal"  runat="server" Text=' <%#Eval("resQuan")==DBNull.Value?0:int.Parse( Eval("resQuan").ToString())  %>'></asp:TextBox>
+                             <asp:TextBox ID="RecQuanVal"  runat="server" Text=' <%#Eval("SendQuantity")==DBNull.Value?0:int.Parse( Eval("SendQuantity").ToString())  %>'></asp:TextBox>
                          </EditItemTemplate>
                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
                      <asp:TemplateField HeaderText="Expired Quantity" HeaderStyle-Width ="110px">
                         <ItemTemplate>
-                            <asp:Label ID="lblExpQuan" runat="server" Text=' <%#Eval("resQuan")==DBNull.Value?0:int.Parse( Eval("expQuan").ToString())  %>'></asp:Label>
+                            <asp:Label ID="lblExpQuan" runat="server" Text=' <%#Eval("ExpiredQuantity")==DBNull.Value?0:int.Parse( Eval("ExpiredQuantity").ToString())  %>'></asp:Label>
                         </ItemTemplate>
                         <EditItemTemplate>
-                             <asp:TextBox ID="ExpQuanVal"  runat="server" Text=' <%#Eval("resQuan")==DBNull.Value?0:int.Parse( Eval("expQuan").ToString())  %>'></asp:TextBox>
+                             <asp:TextBox ID="ExpQuanVal"  runat="server" Text=' <%#Eval("ExpiredQuantity")==DBNull.Value?0:int.Parse( Eval("ExpiredQuantity").ToString())  %>'></asp:TextBox>
                          </EditItemTemplate>
                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                      
                       <asp:TemplateField HeaderText="Defected Quantity" HeaderStyle-Width ="110px">
                         <ItemTemplate>
-                            <asp:Label ID="lblDefQuan" runat="server" Text=' <%#Eval("resQuan")==DBNull.Value?0:float.Parse( Eval("defQuan").ToString())  %>'></asp:Label>
+                            <asp:Label ID="lblDefQuan" runat="server" Text=' <%#Eval("DefectedQuantity")==DBNull.Value?0:int.Parse( Eval("DefectedQuantity").ToString())  %>'></asp:Label>
                         </ItemTemplate>
                         <EditItemTemplate>
-                             <asp:TextBox ID="defQuanVal"  runat="server" Text=' <%#Eval("resQuan")==DBNull.Value?0:float.Parse( Eval("defQuan").ToString())  %>'></asp:TextBox>
+                             <asp:TextBox ID="defQuanVal"  runat="server" Text=' <%#Eval("DefectedQuantity")==DBNull.Value?0:int.Parse( Eval("DefectedQuantity").ToString())  %>'></asp:TextBox>
+                         </EditItemTemplate>
+                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+
+                     <asp:TemplateField HeaderText="Returned Quantity" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblRetQuan" runat="server" Text=' <%#Eval("ReturnedQuantity")==DBNull.Value?0:int.Parse( Eval("ReturnedQuantity").ToString())  %>'></asp:Label>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                             <asp:TextBox ID="retQuanVal"  runat="server" Text=' <%#Eval("ReturnedQuantity")==DBNull.Value?0:int.Parse( Eval("ReturnedQuantity").ToString())  %>'></asp:TextBox>
                          </EditItemTemplate>
                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                      <asp:TemplateField HeaderText="Cost Price" HeaderStyle-Width ="110px">
                         <ItemTemplate>
-                            <asp:Label ID="lblCP"  runat="server" Text='<%# Eval("CP") %>'></asp:Label>
+                            <asp:Label ID="lblCP"  runat="server" Text='<%# Eval("UnitCost") %>'></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                     
                      <asp:TemplateField HeaderText="Sale Price" HeaderStyle-Width ="110px">
                         <ItemTemplate>
-                            <asp:Label ID="lblSP"  runat="server" Text='<%# Eval("SP") %>'></asp:Label>
+                            <asp:Label ID="lblSP"  runat="server" Text='<%# Eval("UnitSale") %>'></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
                      <asp:TemplateField HeaderText="Expiry Date" HeaderStyle-Width ="110px">
                         <ItemTemplate>
-                            <asp:Label ID="lblExpDate" runat="server" Text='<%# Eval("expDate") %>'></asp:Label>
+                            <asp:Label ID="lblExpDate" runat="server" Text='<%# Eval("Expiry") %>'></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
                      <asp:TemplateField HeaderText="BarCode" HeaderStyle-Width ="110px">
                         <ItemTemplate>
-                            <asp:Label ID="lblbarCode" runat="server" Text='<%# Eval("_barCode") %>'></asp:Label>
+                            <asp:Label ID="lblbarCode" runat="server" Text='<%# Eval("BarCode") %>'></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
@@ -134,12 +158,12 @@
                       
                      <asp:TemplateField HeaderText="Product ID" Visible="false">
                             <ItemTemplate>
-                                <asp:Label ID="lblProd_id" runat="server" Text='<%# Eval("ProdID") %>'></asp:Label>
+                                <asp:Label ID="lblProd_id" runat="server" Text='<%# Eval("ProductID") %>'></asp:Label>
                             </ItemTemplate>
                       </asp:TemplateField>
                      <asp:TemplateField HeaderText="Order Master ID" Visible="false">
                             <ItemTemplate>
-                                <asp:Label ID="lblOrdMs_id" runat="server" Text='<%# Eval("masterID") %>'></asp:Label>
+                                <asp:Label ID="lblOrdMs_id" runat="server" Text='<%# Eval("OrderNO") %>'></asp:Label>
                             </ItemTemplate>
                       </asp:TemplateField>
                  </Columns>
