@@ -7,11 +7,36 @@ using System.Web.UI.WebControls;
 
 namespace IMS
 {
-    public partial class HeadOfficeMain : System.Web.UI.Page
-    {
-        protected void Page_Load(object sender, EventArgs e)
+	public partial class HeadOfficeMain : System.Web.UI.Page
+	{
+		protected void Page_Load(object sender, EventArgs e)
+		{
+
+		}
+
+        protected void btnMngStore_Click(object sender, EventArgs e)
         {
 
         }
-    }
+
+        protected void btnMngWareHouse_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManageWarehouse.aspx", false);
+        }
+
+        protected void btnCmpnyInfo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnViewReport_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void BtnRegisterUser_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("RegisterUsers.aspx", false);
+        }
+	}
 }

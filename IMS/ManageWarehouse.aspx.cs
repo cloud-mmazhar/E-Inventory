@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace IMS
+{
+    public partial class ManageWarehouse : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAddWH_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AddWareHouse.aspx", false);
+        }
+
+        protected void btnViewWareHouse_Click(object sender, EventArgs e)
+        {
+            SelWH.Visible = true;
+        }
+
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("HeadOfficeMain.aspx", false);
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("WarehouseMain.aspx", false);
+        }
+    }
+}

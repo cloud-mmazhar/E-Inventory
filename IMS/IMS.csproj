@@ -153,6 +153,7 @@
     <Content Include="AcceptOrder.aspx" />
     <Content Include="AddProduct.aspx" />
     <Content Include="AddStock.aspx" />
+    <Content Include="AddSystem.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -160,6 +161,7 @@
     <Content Include="Edit_DeleteStock.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="generateBarCode.aspx" />
+    <Content Include="HeadOfficeMain.aspx" />
     <Content Include="IMSLogin.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ManageCategory.aspx" />
@@ -168,7 +170,9 @@
     <Content Include="ManageOrders.aspx" />
     <Content Include="ManageProducts.aspx" />
     <Content Include="ManageStocks.aspx" />
+    <Content Include="ManageStore.aspx" />
     <Content Include="ManageSubCategory.aspx" />
+    <Content Include="ManageWarehouse.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -179,9 +183,11 @@
     <Content Include="RegisterUsers.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -217,6 +223,7 @@
     <Content Include="StoreTransfers_StoreRequests.aspx" />
     <Content Include="StoreTransfers_StoreRequestsDetails.aspx" />
     <Content Include="StoreTransfers_StoreRequestsResponse.aspx" />
+    <Content Include="Style\chosen.css" />
     <Content Include="Style\jquery-ui.css" />
     <Content Include="Style\jquery-ui.min.css" />
     <Content Include="ViewInventory.aspx" />
@@ -260,6 +267,13 @@
     <Compile Include="AddStock.aspx.designer.cs">
       <DependentUpon>AddStock.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AddSystem.aspx.cs">
+      <DependentUpon>AddSystem.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddSystem.aspx.designer.cs">
+      <DependentUpon>AddSystem.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -286,6 +300,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HeadOfficeMain.aspx.cs">
+      <DependentUpon>HeadOfficeMain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HeadOfficeMain.aspx.designer.cs">
+      <DependentUpon>HeadOfficeMain.aspx</DependentUpon>
     </Compile>
     <Compile Include="IMSLogin.aspx.cs">
       <DependentUpon>IMSLogin.aspx</DependentUpon>
@@ -350,12 +371,26 @@
     <Compile Include="ManageStocks.aspx.designer.cs">
       <DependentUpon>ManageStocks.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ManageStore.aspx.cs">
+      <DependentUpon>ManageStore.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageStore.aspx.designer.cs">
+      <DependentUpon>ManageStore.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ManageSubCategory.aspx.cs">
       <DependentUpon>ManageSubCategory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ManageSubCategory.aspx.designer.cs">
       <DependentUpon>ManageSubCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageWarehouse.aspx.cs">
+      <DependentUpon>ManageWarehouse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageWarehouse.aspx.designer.cs">
+      <DependentUpon>ManageWarehouse.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="PlaceOrder.aspx.cs">

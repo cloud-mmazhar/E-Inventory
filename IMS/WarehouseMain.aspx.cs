@@ -26,7 +26,7 @@ namespace IMS
 
         protected void btnRegisterUser_Click(object sender, EventArgs e)
         {
-            Response.Redirect("RegisterUsers.aspx", false);
+           
         }
 
         protected void tbnStoreRequests_Click(object sender, EventArgs e)

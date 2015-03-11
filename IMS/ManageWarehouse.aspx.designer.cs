@@ -10,51 +10,60 @@
 namespace IMS {
     
     
-    public partial class HeadOfficeMain {
+    public partial class ManageWarehouse {
         
         /// <summary>
-        /// btnMngStore control.
+        /// btnAddWH control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMngStore;
+        protected global::System.Web.UI.WebControls.Button btnAddWH;
         
         /// <summary>
-        /// btnMngWareHouse control.
+        /// btnViewWareHouse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMngWareHouse;
+        protected global::System.Web.UI.WebControls.Button btnViewWareHouse;
         
         /// <summary>
-        /// btnCmpnyInfo control.
+        /// btnBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCmpnyInfo;
+        protected global::System.Web.UI.WebControls.Button btnBack;
         
         /// <summary>
-        /// btnViewReport control.
+        /// SelWH control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnViewReport;
+        protected global::System.Web.UI.HtmlControls.HtmlTable SelWH;
         
         /// <summary>
-        /// BtnRegisterUser control.
+        /// WHList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnRegisterUser;
+        protected global::System.Web.UI.WebControls.DropDownList WHList;
+        
+        /// <summary>
+        /// btnSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
     }
 }
