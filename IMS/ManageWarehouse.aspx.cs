@@ -24,7 +24,10 @@ namespace IMS
 
         protected void btnViewWareHouse_Click(object sender, EventArgs e)
         {
-            SelWH.Visible = true;
+            Session["Action"] = "Select";
+            Session["SysToAdd"] = RoleNames.warehouse;
+            ucSel.SetValue = true;
+            mpeEditProduct.Show();
         }
 
         protected void btnBack_Click(object sender, EventArgs e)

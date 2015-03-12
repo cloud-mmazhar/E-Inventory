@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageWarehouse.aspx.cs" Inherits="IMS.ManageWarehouse" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register TagPrefix="uc" TagName="sel_uc" Src="~/UserControl/uc_Select_System.ascx" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="HeadContent" runat="server">
     <link rel="stylesheet" href="Style/chosen.css" />
 </asp:Content>
@@ -11,41 +13,17 @@
          <asp:Button ID="btnViewWareHouse" runat="server" CssClass="btn btn-primary btn-large" Text="View Warehouse" OnClick="btnViewWareHouse_Click"/>
          <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
          <br/>
-          <table id="SelWH" runat="server" visible="False">
-               <tr>
-                    <td>Select WareHouse</td>
-                     <td>
-                        <div id="container">
+        <asp:Button ID="_editPopupButton" runat="server" Style="display: none" />
+        <cc1:ModalPopupExtender ID="mpeEditProduct" runat="server" RepositionMode="RepositionOnWindowResizeAndScroll" DropShadow="true" 
+            PopupDragHandleControlID="_prodEditPanel" TargetControlID="_editPopupButton" PopupControlID="_prodEditPanel" BehaviorID="EditModalPopupMessage">
+        </cc1:ModalPopupExtender>
 
-
-                            <div class="side-by-side clearfix">
-
-                                <div>
-
-                                    <asp:DropDownList data-placeholder="select a warehouse..." ID="WHList" runat="server" class="chzn-select" >
-                                        <asp:ListItem Text="" Value=""></asp:ListItem>
-                                        <asp:ListItem Value=''> ------------------- Select ------------------ </asp:ListItem>
-
-                                    </asp:DropDownList>
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <script src="Scripts/jquery.min.js" type="text/javascript"></script>
-                        <script src="Scripts/chosen.jquery.js" type="text/javascript"></script>
-                        <script type="text/javascript"> $(".chzn-select").chosen(); $(".chzn-select-deselect").chosen({ allow_single_deselect: true }); </script>
-
-
-                    </td>
-                    
-                </tr>
-
-                <tr><td colspan="2">
-
-                    <asp:Button ID="btnSubmit" runat="server" Text="Search" OnClick="btnSubmit_Click"/>
-                    </td></tr>
-               
-            </table>
+        <asp:Panel ID="_prodEditPanel" runat="server" Width="100%" Style="display: none">
+            <asp:UpdatePanel ID="_prodEdit" runat="server">
+                <ContentTemplate>
+                    <uc:sel_uc ID="ucSel" runat="server" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </asp:Panel>
         
 </asp:Content>

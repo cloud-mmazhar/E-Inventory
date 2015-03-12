@@ -24,17 +24,16 @@ namespace IMS
 
         protected void btnViewWareHouse_Click(object sender, EventArgs e)
         {
-            SelWH.Visible = true;
+            Session["Action"] = "Select";
+            Session["SysToAdd"] = RoleNames.store;
+            ucSel.SetValue = true;
+            mpeEditProduct.Show();
+            //SelWH.Visible = true;
         }
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("HeadOfficeMain.aspx", false);
-        }
-
-        protected void btnSubmit_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("StoreMain.aspx", false);
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)

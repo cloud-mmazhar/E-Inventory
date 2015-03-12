@@ -185,6 +185,7 @@
     <Content Include="ReceiveStock.aspx" />
     <Content Include="RecieveOrder.aspx" />
     <Content Include="RegisterUsers.aspx" />
+    <Content Include="ReportFormat_simple.aspx" />
     <Content Include="Reports.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -433,6 +434,13 @@
     <Compile Include="RegisterUsers.aspx.designer.cs">
       <DependentUpon>RegisterUsers.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ReportFormat_simple.aspx.cs">
+      <DependentUpon>ReportFormat_simple.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportFormat_simple.aspx.designer.cs">
+      <DependentUpon>ReportFormat_simple.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reports.aspx.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -506,6 +514,7 @@
     </Compile>
     <Compile Include="UserControl\uc_Select_System.ascx.cs">
       <DependentUpon>uc_Select_System.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControl\uc_Select_System.ascx.designer.cs">
       <DependentUpon>uc_Select_System.ascx</DependentUpon>

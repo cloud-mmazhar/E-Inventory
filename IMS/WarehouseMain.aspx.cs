@@ -11,7 +11,14 @@ namespace IMS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                
+                if (Session["isHeadOffice"].ToString().ToLower().Equals("true"))
+                {
+                    ButtonBack.Visible = true;
+                }
+            }
         }
 
         protected void btnManageInventory_Click(object sender, EventArgs e)
@@ -32,6 +39,15 @@ namespace IMS
         protected void tbnStoreRequests_Click(object sender, EventArgs e)
         {
             Response.Redirect("Warehouse_StoreRequests.aspx", false);
+        }
+
+        protected void ButtonBack_Click(object sender, EventArgs e)
+        {
+            if (Session["isHeadOffice"].ToString().ToLower().Equals("true"))
+            {
+                Response.Redirect("HeadOfficeMain.aspx", false);
+            }
+            
         }
     }
 }

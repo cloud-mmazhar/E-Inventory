@@ -10,51 +10,51 @@
 namespace IMS {
     
     
-    public partial class StoreMain {
+    public partial class ReportFormat_simple {
         
         /// <summary>
-        /// btnViewInventory control.
+        /// ProductDept control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnViewInventory;
+        protected global::System.Web.UI.WebControls.DropDownList ProductDept;
         
         /// <summary>
-        /// btnStoreTransfers control.
+        /// ProductCat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStoreTransfers;
+        protected global::System.Web.UI.WebControls.DropDownList ProductCat;
         
         /// <summary>
-        /// btnStoreRecievings control.
+        /// DateTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStoreRecievings;
+        protected global::System.Web.UI.WebControls.TextBox DateTextBox;
         
         /// <summary>
-        /// btnStoreRequests control.
+        /// btnView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStoreRequests;
+        protected global::System.Web.UI.WebControls.Button btnView;
         
         /// <summary>
-        /// ButtonBack control.
+        /// btnBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonBack;
+        protected global::System.Web.UI.WebControls.Button btnBack;
     }
 }

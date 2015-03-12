@@ -49,30 +49,48 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.Button btnBack;
         
         /// <summary>
-        /// SelWH control.
+        /// _editPopupButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable SelWH;
+        protected global::System.Web.UI.WebControls.Button _editPopupButton;
         
         /// <summary>
-        /// WHList control.
+        /// mpeEditProduct control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList WHList;
+        protected global::AjaxControlToolkit.ModalPopupExtender mpeEditProduct;
         
         /// <summary>
-        /// btnSubmit control.
+        /// _prodEditPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSubmit;
+        protected global::System.Web.UI.WebControls.Panel _prodEditPanel;
+        
+        /// <summary>
+        /// _prodEdit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel _prodEdit;
+        
+        /// <summary>
+        /// ucSel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::IMS.UserControl.uc_Select_System ucSel;
     }
 }

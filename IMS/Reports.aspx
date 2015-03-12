@@ -50,6 +50,9 @@
 		</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+     <h4>View Reports</h4>
+     <hr />
  <ul id="demo1" class="nav">
 	<li><a href="ReportFormat_simple.aspx">All Reports</a></li>
 	<li><a href="ReportFormat_simple.aspx">Sale Reports</a>

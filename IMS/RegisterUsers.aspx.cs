@@ -80,7 +80,7 @@ namespace IMS
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("WarehouseMain.aspx", false);
+            Response.Redirect("HeadOfficeMain.aspx", false);
         }
 
         protected void btnAddEmployee_Click(object sender, EventArgs e)
