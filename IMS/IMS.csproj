@@ -181,6 +181,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="PackingListGeneration.aspx" />
     <Content Include="PlaceOrder.aspx" />
     <Content Include="ReceiveStock.aspx" />
     <Content Include="RecieveOrder.aspx" />
@@ -405,6 +406,13 @@
       <DependentUpon>ManageWarehouse.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="PackingListGeneration.aspx.cs">
+      <DependentUpon>PackingListGeneration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PackingListGeneration.aspx.designer.cs">
+      <DependentUpon>PackingListGeneration.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PlaceOrder.aspx.cs">
       <DependentUpon>PlaceOrder.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

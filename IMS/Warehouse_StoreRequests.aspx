@@ -6,6 +6,11 @@
 
     <div class="form-horizontal">
     <div class="form-group">
+        <asp:Label runat="server" AssociatedControlID="StockAt" CssClass="col-md-2 control-label">Select Store </asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList runat="server" ID="StockAt" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="StockAt_SelectedIndexChanged"/>
+                <br/>
+            </div>
     </div>
     </div>
 
@@ -59,4 +64,13 @@
             </div>
         </div>
     </div>
+
+    <div class="form-horizontal">
+    <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <asp:Button ID="btnPackingList" runat="server" OnClick="btnPackingList_Click" Enabled="false" Text="Generate Packing List" CssClass="btn btn-default" Visible="false"/>
+                <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
+            </div>
+     </div>
+     </div>
 </asp:Content>
