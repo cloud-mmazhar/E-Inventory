@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IMSCommon.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,9 @@ namespace IMS
 
         protected void btnAddWH_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AddWareHouse.aspx", false);
+            Session["Action"] = "Add";
+            Session["SysToAdd"] = RoleNames.warehouse;
+            Response.Redirect("AddSystem.aspx", false);
         }
 
         protected void btnViewWareHouse_Click(object sender, EventArgs e)
@@ -32,6 +35,13 @@ namespace IMS
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             Response.Redirect("WarehouseMain.aspx", false);
+        }
+
+        protected void btnEdit_Click(object sender, EventArgs e)
+        {
+            Session["Action"] = "Edit";
+            Session["SysToAdd"] = RoleNames.warehouse;
+            Response.Redirect("AddSystem.aspx", false);
         }
     }
 }

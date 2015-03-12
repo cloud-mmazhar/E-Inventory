@@ -6,17 +6,14 @@
     <h2>Manage WareHouse</h2>
          <br />
          <br />
-         <asp:Button ID="btnAddWH" runat="server" CssClass="btn btn-primary btn-large" Text="Add/Edit WareHouse" OnClick="btnAddWH_Click"/>
+         <asp:Button ID="btnAddWH" runat="server" CssClass="btn btn-primary btn-large" Text="Add WareHouse" OnClick="btnAddWH_Click"/>
+         <asp:Button ID="btnEdit" runat="server" CssClass="btn btn-primary btn-large" Text="Edit WareHouse" OnClick="btnEdit_Click"/>
          <asp:Button ID="btnViewWareHouse" runat="server" CssClass="btn btn-primary btn-large" Text="View Warehouse" OnClick="btnViewWareHouse_Click"/>
          <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
          <br/>
           <table id="SelWH" runat="server" visible="False">
-                <tr>
-                    <th colspan="2">Search</th>
-                </tr>
-
-                <tr>
-                    <td>Search by Category</td>
+               <tr>
+                    <td>Select WareHouse</td>
                      <td>
                         <div id="container">
 

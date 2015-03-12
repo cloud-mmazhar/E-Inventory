@@ -13,6 +13,33 @@ namespace IMS {
     public partial class AddSystem {
         
         /// <summary>
+        /// regTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl regTitle;
+        
+        /// <summary>
+        /// EditTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditTitle;
+        
+        /// <summary>
+        /// selSys control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label selSys;
+        
+        /// <summary>
         /// SysDDL control.
         /// </summary>
         /// <remarks>
@@ -40,49 +67,76 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.TextBox sysDesc;
         
         /// <summary>
-        /// ddlURole control.
+        /// sysAddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlURole;
+        protected global::System.Web.UI.WebControls.TextBox sysAddress;
         
         /// <summary>
-        /// ddlSysID control.
+        /// sysPhone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSysID;
+        protected global::System.Web.UI.WebControls.TextBox sysPhone;
         
         /// <summary>
-        /// fName control.
+        /// sysFax control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox fName;
+        protected global::System.Web.UI.WebControls.TextBox sysFax;
         
         /// <summary>
-        /// lstName control.
+        /// sysID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox lstName;
+        protected global::System.Web.UI.WebControls.TextBox sysID;
         
         /// <summary>
-        /// btnAddEmployee control.
+        /// btnAddSystem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddEmployee;
+        protected global::System.Web.UI.WebControls.Button btnAddSystem;
+        
+        /// <summary>
+        /// btnEditSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditSystem;
+        
+        /// <summary>
+        /// btnDeleteSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDeleteSystem;
+        
+        /// <summary>
+        /// btnCancelSystem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelSystem;
         
         /// <summary>
         /// btnBack control.
