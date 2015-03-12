@@ -57,7 +57,7 @@ namespace IMS
                                 Response.Redirect("StoreMain.aspx",false);
                                 break;
                             case "HeadOffice":
-                                Session["UserSys"] = dt.Rows[0]["SystemID"].ToString();
+                                Session["isHeadOffice"] = true;
                                 Response.Redirect("HeadOfficeMain.aspx", false);
                                 break;
                                

@@ -185,13 +185,17 @@
     <Content Include="ReceiveStock.aspx" />
     <Content Include="RecieveOrder.aspx" />
     <Content Include="RegisterUsers.aspx" />
+    <Content Include="Reports.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\holder.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.navgoco.js" />
+    <Content Include="Scripts\jquery.navgoco.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -228,8 +232,11 @@
     <Content Include="StoreTransfers_StoreRequestsDetails.aspx" />
     <Content Include="StoreTransfers_StoreRequestsResponse.aspx" />
     <Content Include="Style\chosen.css" />
+    <Content Include="Style\demo.css" />
     <Content Include="Style\jquery-ui.css" />
     <Content Include="Style\jquery-ui.min.css" />
+    <Content Include="Style\jquery.navgoco.css" />
+    <Content Include="UserControl\uc_Select_System.ascx" />
     <Content Include="ViewInventory.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="WarehouseMain.aspx" />
@@ -426,6 +433,13 @@
     <Compile Include="RegisterUsers.aspx.designer.cs">
       <DependentUpon>RegisterUsers.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SelectionStock.aspx.cs">
       <DependentUpon>SelectionStock.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -489,6 +503,12 @@
     </Compile>
     <Compile Include="StoreTransfers_StoreRequestsResponse.aspx.designer.cs">
       <DependentUpon>StoreTransfers_StoreRequestsResponse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\uc_Select_System.ascx.cs">
+      <DependentUpon>uc_Select_System.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\uc_Select_System.ascx.designer.cs">
+      <DependentUpon>uc_Select_System.ascx</DependentUpon>
     </Compile>
     <Compile Include="ViewInventory.aspx.cs">
       <DependentUpon>ViewInventory.aspx</DependentUpon>

@@ -16,7 +16,7 @@ namespace IMS
 
         protected void btnMngStore_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("ManageStore.aspx", false);
         }
 
         protected void btnMngWareHouse_Click(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace IMS
 
         protected void btnViewReport_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("Reports.aspx", false);
         }
 
         protected void BtnRegisterUser_Click(object sender, EventArgs e)
