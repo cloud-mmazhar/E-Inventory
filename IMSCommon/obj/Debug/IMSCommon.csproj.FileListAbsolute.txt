@@ -47,4 +47,3 @@ D:\Digital Processing System\E-Inventory\IMSCommon\bin\Debug\IMSCommon.dll
 D:\Digital Processing System\E-Inventory\IMSCommon\bin\Debug\IMSCommon.pdb
 D:\Digital Processing System\E-Inventory\IMSCommon\obj\Debug\IMSCommon.dll
 D:\Digital Processing System\E-Inventory\IMSCommon\obj\Debug\IMSCommon.pdb
-D:\Digital Processing System\E-Inventory\IMSCommon\obj\Debug\IMSCommon.csprojResolveAssemblyReference.cache

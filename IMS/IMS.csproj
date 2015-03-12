@@ -41,6 +41,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=15.1.1.100, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Abdul\AppData\Local\Microsoft\VisualStudio\12.0\Extensions\hqlubiq2.z10\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="BarcodeLib">
       <HintPath>..\..\..\..\..\work\ims\reference\bar-code\barcode_src\BarcodeLib\bin\Debug\BarcodeLib.dll</HintPath>
     </Reference>

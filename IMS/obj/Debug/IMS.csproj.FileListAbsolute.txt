@@ -768,3 +768,4 @@ D:\Digital Processing System\E-Inventory\IMS\bin\Microsoft.Owin.Security.OAuth.x
 D:\Digital Processing System\E-Inventory\IMS\obj\Debug\IMS.csprojResolveAssemblyReference.cache
 D:\Digital Processing System\E-Inventory\IMS\obj\Debug\IMS.dll
 D:\Digital Processing System\E-Inventory\IMS\obj\Debug\IMS.pdb
+D:\Digital Processing System\E-Inventory\IMS\bin\AjaxControlToolkit.dll

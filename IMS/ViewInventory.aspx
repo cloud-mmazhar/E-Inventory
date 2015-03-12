@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Inventory" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewInventory.aspx.cs" Inherits="IMS.ViewInventory" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <br />
     <br />
@@ -7,6 +8,56 @@
             <h1>CURRENT STOCK</h1>
         </div>
     </div>
+
+     <div class="form-horizontal">
+
+         <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ProductDept" CssClass="col-md-2 control-label">Product Department</asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList runat="server" ID="ProductDept" CssClass="form-control" Width="29%" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ProductDept_SelectedIndexChanged"/>
+                <br />
+            </div>
+        </div>  
+
+         <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ProductCat" CssClass="col-md-2 control-label">Product Category</asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList runat="server" ID="ProductCat" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="ProductCat_SelectedIndexChanged" />
+                <br />
+            </div>
+        </div>
+
+         <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ProductSubCat" CssClass="col-md-2 control-label"> Product SubCategory </asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList runat="server" ID="ProductSubCat" CssClass="form-control" Width="29%" OnSelectedIndexChanged="ProductSubCat_SelectedIndexChanged"/>
+                <br />
+            </div>
+        </div>
+
+         <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ProductType" CssClass="col-md-2 control-label">Product Type</asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList runat="server" ID="ProductType" OnSelectedIndexChanged="ProductType_SelectedIndexChanged" CssClass="form-control" Width="29%"/>
+                <br />
+            </div>
+        </div>
+
+         <div class="form-group">
+             <asp:Label runat="server" AssociatedControlID="Productname" CssClass="col-md-2 control-label"> Product Name </asp:Label>
+             <div class="col-md-10">
+                <asp:TextBox runat="server" ID="Productname" CssClass="form-control" Enabled="True" />
+                 <cc1:AutoCompleteExtender runat="server" ID="ProductAutoExtender" TargetControlID="Productname" ></cc1:AutoCompleteExtender>
+             </div>
+         </div>
+
+         <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Enabled="false" Text="SEARCH" CssClass="btn btn-default"/>
+                <asp:Button ID="btnRefresh" runat="server" OnClick="btnRefresh_Click" Enabled="false" Text="REFRESH" CssClass="btn btn-default"/>
+            </div>
+        </div>
+     </div>
 
     <div class="form-horizontal">
     <div class="form-group">
