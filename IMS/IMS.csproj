@@ -158,6 +158,7 @@
     <Content Include="AddProduct.aspx" />
     <Content Include="AddStock.aspx" />
     <Content Include="AddSystem.aspx" />
+    <Content Include="CompanySettings.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -290,6 +291,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="CompanySettings.aspx.cs">
+      <DependentUpon>CompanySettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompanySettings.aspx.designer.cs">
+      <DependentUpon>CompanySettings.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Edit_DeleteProduct.aspx.cs">
       <DependentUpon>Edit_DeleteProduct.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

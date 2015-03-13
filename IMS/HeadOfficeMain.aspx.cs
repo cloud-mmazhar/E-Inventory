@@ -26,7 +26,7 @@ namespace IMS
 
         protected void btnCmpnyInfo_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("CompanySettings.aspx", false);
         }
 
         protected void btnViewReport_Click(object sender, EventArgs e)
