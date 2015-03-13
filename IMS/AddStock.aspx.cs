@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Configuration;
 using System.Globalization;
+using IMSCommon.Util;
 
 namespace IMS
 {
@@ -133,7 +134,7 @@ namespace IMS
 
             if (x == 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record Inserted Successfully')", true);
+                WebMessageBoxUtil.Show("Record Inserted Successfully");
                 SelectProduct.SelectedIndex = -1;
                 Quantity.Text = "";
                 ProductName.Text = "";
@@ -144,7 +145,7 @@ namespace IMS
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(''" + errorMessage + "'')", true);
+                WebMessageBoxUtil.Show(errorMessage);
             }
             #endregion
         }

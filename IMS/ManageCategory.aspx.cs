@@ -66,6 +66,7 @@ namespace IMS
                         categoryToAdd.DepartmentID = res;
 
                         categoryManager.Add(categoryToAdd,connection);
+                        
                     }
                     else
                     {

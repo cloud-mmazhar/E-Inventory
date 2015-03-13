@@ -1,4 +1,5 @@
 ﻿using IMSCommon;
+using IMSCommon.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -129,6 +130,7 @@ namespace IMSBusinessLogic
 
 
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("Category Successfully Updated ");
             }
             catch (Exception ex)
             {
@@ -150,6 +152,7 @@ namespace IMSBusinessLogic
                 command.Parameters.AddWithValue("@p_Id", category.CategoryID);
 
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("Category Successfully Deleted ");
             }
             catch (Exception ex)
             {
@@ -173,6 +176,7 @@ namespace IMSBusinessLogic
                
 
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("Category Successfully Added ");
             }
             catch (Exception ex)
             {

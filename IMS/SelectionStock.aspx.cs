@@ -9,6 +9,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Configuration;
+using IMSCommon.Util;
 
 namespace IMS
 {
@@ -137,6 +138,7 @@ namespace IMS
                         SqlCommand command = new SqlCommand(Query, connection);
                         command.ExecuteNonQuery();
                     }
+                    WebMessageBoxUtil.Show("Stock Successfully Updated ");
                 }
             }
             catch (Exception exp)
@@ -168,6 +170,7 @@ namespace IMS
                 connection.Open();
                 SqlCommand command = new SqlCommand(Query, connection);
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("Stock Successfully Deleted ");
             }
             catch (Exception exp) 
             { 

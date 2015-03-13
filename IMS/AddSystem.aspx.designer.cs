@@ -13,22 +13,40 @@ namespace IMS {
     public partial class AddSystem {
         
         /// <summary>
-        /// regTitle control.
+        /// regTitleWH control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl regTitle;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl regTitleWH;
         
         /// <summary>
-        /// EditTitle control.
+        /// EditTitleWH control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditTitle;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditTitleWH;
+        
+        /// <summary>
+        /// regTitleSt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl regTitleSt;
+        
+        /// <summary>
+        /// EditTitleSt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EditTitleSt;
         
         /// <summary>
         /// selSys control.

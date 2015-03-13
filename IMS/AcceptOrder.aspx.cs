@@ -129,6 +129,7 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_orderMasterID", int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdMs_id")).Text));
                             command.Parameters.AddWithValue("@p_isInternal", "TRUE");
                             command.ExecuteNonQuery();
+                            WebMessageBoxUtil.Show("Stock Successfully Added");
                         }
                         else 
                         {

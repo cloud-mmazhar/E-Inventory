@@ -27,14 +27,39 @@ namespace IMS
                     btnDeleteSystem.Visible = true;
                     selSys.Visible = true;
                     SysDDL.Visible = true;
-                    regTitle.Visible = false;
-                    EditTitle.Visible = true;
-                  
+
+                    if (Session["SysToAdd"].Equals(RoleNames.store))
+                    {
+                        regTitleSt.Visible = false;
+                        regTitleWH.Visible = false;
+                        EditTitleWH.Visible = false;
+                        EditTitleSt.Visible = true;
+                    }
+                    else
+                    {
+                        regTitleSt.Visible = false;
+                        regTitleWH.Visible = false;
+                        EditTitleWH.Visible = true;
+                        EditTitleSt.Visible = false;
+                    }
+
+                }
+                else 
+                {
+                    if (Session["SysToAdd"].Equals(RoleNames.store))
+                    {
+                        regTitleSt.Visible = true;
+                        regTitleWH.Visible = false;
+                        EditTitleWH.Visible = false;
+                        EditTitleSt.Visible = false;
+                    }
+                    
                 }
                 if(Session["SysToAdd"].Equals(RoleNames.store))
                 {
                     lblPhar.Visible = true;
                     pharmacyID.Visible = true;
+                    
                 }
             }
         }
@@ -137,6 +162,7 @@ namespace IMS
             sysName.Text = String.Empty;
             sysPhone.Text = String.Empty;
             sysAddress.Text = string.Empty;
+            pharmacyID.Text = string.Empty;
             btnDeleteSystem.Enabled = false;
             btnEditSystem.Enabled = false;
             

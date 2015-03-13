@@ -4,8 +4,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="form-horizontal">
-        <h4 id="regTitle" runat="server">Register System</h4>
-        <h4 id="EditTitle" visible="false" runat="server">Edit System</h4>
+        <h4 id="regTitleWH" runat="server">Register Warehouse</h4>
+        <h4 id="EditTitleWH" visible="false" runat="server">Edit Warehouse</h4>
+        <h4 id="regTitleSt" runat="server" visible="false">Register Store</h4>
+        <h4 id="EditTitleSt" visible="false" runat="server">Edit Store</h4>
         <hr />
         <br />
      

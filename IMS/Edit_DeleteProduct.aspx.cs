@@ -336,6 +336,7 @@ namespace IMS
                     
 
                     command.ExecuteNonQuery();
+                    WebMessageBoxUtil.Show("SuccessFully Updated");
                 }
                 catch(Exception ex)
                 {
@@ -377,6 +378,7 @@ namespace IMS
                 connection.Open();
                 SqlCommand command = new SqlCommand("Update tbl_ProductMaster set Status = 0 where ProductID = '" + Int32.Parse(Session["ProductID"].ToString()) + "'", connection);
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("SuccessFully Deleted");
             }
             catch(Exception ex)
             {

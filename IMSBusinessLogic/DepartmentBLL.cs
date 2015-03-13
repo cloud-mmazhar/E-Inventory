@@ -1,4 +1,5 @@
 ﻿using IMSCommon;
+using IMSCommon.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -77,6 +78,7 @@ namespace IMSBusinessLogic
 
 
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("Department Successfully Updated ");
             }
             catch (Exception ex)
             {
@@ -99,6 +101,7 @@ namespace IMSBusinessLogic
                 command.Parameters.AddWithValue("@p_Id", dep.DepartmentID);
                 
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("Department Successfully Deleted ");
             }
             catch (Exception ex)
             {
@@ -122,6 +125,7 @@ namespace IMSBusinessLogic
 
 
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("Department Successfully Added ");
             }
             catch (Exception ex)
             {

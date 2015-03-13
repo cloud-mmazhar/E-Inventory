@@ -9,6 +9,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Configuration;
+using IMSCommon.Util;
 
 namespace IMS
 {
@@ -203,7 +204,7 @@ namespace IMS
 
             if(x==1)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record Inserted Successfully')", true);
+                WebMessageBoxUtil.Show("Record Inserted Successfully");
                 BarCodeSerial.Text ="";
                 GreenRainCode.Text = "";
                 ProductName.Text = "";
@@ -223,7 +224,7 @@ namespace IMS
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert(''" + errorMessage + "'')", true);
+                WebMessageBoxUtil.Show(errorMessage);
             }
         }
 

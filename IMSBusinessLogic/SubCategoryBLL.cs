@@ -1,4 +1,5 @@
 ﻿using IMSCommon;
+using IMSCommon.Util;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -82,6 +83,7 @@ namespace IMSBusinessLogic
                 command.Parameters.AddWithValue("@p_DepartmentName", subCategory.DepartmentName);
 
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("SubCategory Successfully Updated ");
             }
             catch (Exception ex)
             {
@@ -103,6 +105,7 @@ namespace IMSBusinessLogic
                 command.Parameters.AddWithValue("@p_Id", subCategory.SubCategoryID);
 
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("SubCategory Successfully Deleted ");
             }
             catch (Exception ex)
             {
@@ -126,6 +129,7 @@ namespace IMSBusinessLogic
                 command.Parameters.AddWithValue("@p_DepartmentName", subCategory.DepartmentName);
                
                 command.ExecuteNonQuery();
+                WebMessageBoxUtil.Show("SubCategory Successfully Added ");
             }
             catch (Exception ex)
             {
