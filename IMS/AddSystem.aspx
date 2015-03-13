@@ -55,6 +55,12 @@
             </div>
         </div>  
 
+        <div class="form-group">
+            <asp:Label runat="server" id="lblPhar" AssociatedControlID="pharmacyID" CssClass="col-md-2 control-label" Visible="false">Pharmacy ID</asp:Label>
+           <div class="col-md-10">
+                <asp:TextBox runat="server" ID="pharmacyID" CssClass="form-control" Visible="false"/>
+            </div>
+        </div>  
           <div class="form-group">
             <asp:Label runat="server" Visible="false" AssociatedControlID="sysID" CssClass="col-md-2 control-label">SystemID</asp:Label>
            <div class="col-md-10">
