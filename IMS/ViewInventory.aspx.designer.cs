@@ -49,24 +49,6 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.DropDownList ProductType;
         
         /// <summary>
-        /// Productname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Productname;
-        
-        /// <summary>
-        /// ProductAutoExtender control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.AutoCompleteExtender ProductAutoExtender;
-        
-        /// <summary>
         /// btnSearch control.
         /// </summary>
         /// <remarks>

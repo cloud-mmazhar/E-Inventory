@@ -85,6 +85,7 @@ namespace IMS
                 }*/
                 #endregion
 
+                BindGrid();
             }
         }
         private void BindGrid()

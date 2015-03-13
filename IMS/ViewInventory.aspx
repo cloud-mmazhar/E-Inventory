@@ -44,17 +44,15 @@
         </div>
 
          <div class="form-group">
-             <asp:Label runat="server" AssociatedControlID="Productname" CssClass="col-md-2 control-label"> Product Name </asp:Label>
+             
              <div class="col-md-10">
-                <asp:TextBox runat="server" ID="Productname" CssClass="form-control" Enabled="True" />
-                 <cc1:AutoCompleteExtender runat="server" ID="ProductAutoExtender" TargetControlID="Productname" ></cc1:AutoCompleteExtender>
              </div>
          </div>
 
          <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Enabled="false" Text="SEARCH" CssClass="btn btn-default"/>
-                <asp:Button ID="btnRefresh" runat="server" OnClick="btnRefresh_Click" Enabled="false" Text="REFRESH" CssClass="btn btn-default"/>
+                <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Enabled="true" Text="SEARCH" CssClass="btn btn-default"/>
+                <asp:Button ID="btnRefresh" runat="server" OnClick="btnRefresh_Click" Enabled="true" Text="REFRESH" CssClass="btn btn-default"/>
             </div>
         </div>
      </div>
