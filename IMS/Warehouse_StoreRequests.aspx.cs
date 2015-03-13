@@ -179,6 +179,8 @@ namespace IMS
             else
             {
                 LoadData(StockAt.SelectedValue);
+                Session["SelectedSys"] = StockAt.SelectedValue;
+                Session["SelectedSysName"] = StockAt.SelectedItem;
             }
 
             if(StockDisplayGrid.DataSource !=null)

@@ -199,10 +199,20 @@ namespace IMS
 
         protected void StockDisplayGrid_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            /*if(e.Row.Cells[2].Text.Equals("") || e.Row.Cells[2].Text.Equals("0") || e.Row.Cells[2].Text.Equals(null))
+            if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                e.Row.Enabled = false;
-            }*/
+                Label Stock = (Label)e.Row.FindControl("Stock");
+                Button Action = (Button)e.Row.FindControl("btnEdit");
+
+                if (Stock.Text.Equals("") || Stock.Text.Equals("0") || Stock.Text.Equals(null))
+                {
+                    Action.Visible = false;
+                }
+                else
+                {
+                    Action.Visible = true;
+                }
+            }
         }
 
         protected void StockDisplayGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -280,23 +290,26 @@ namespace IMS
                             command.CommandType = CommandType.StoredProcedure;
                             command.Parameters.AddWithValue("@p_OrderDetailID", OrderDetailID);
                             command.ExecuteNonQuery();
+                            //SqlDataAdapter dA = new SqlDataAdapter(command);
+                            //DataTable dtValues = new DataTable();
+                            //dA.Fill(dtValues);
 
-                            #region Updating Stocks
-                            SqlCommand command2 = new SqlCommand("sp_UpdateStock_ProductID", connection);
-                            command2.CommandType = CommandType.StoredProcedure;
-                            command2.Parameters.AddWithValue("@p_OrderDetailID", OrderDetailID);
-                            int RequestNumber = 0;
-                            if (int.TryParse(Session["RequestedNO"].ToString(), out RequestNumber))
+                           /* for (int x = 0; x < dtValues.Rows.Count; x++)
                             {
-                                command2.Parameters.AddWithValue("@p_OrderID", RequestNumber);
-                            }
-                            int SysID = 0;
-                            if (int.TryParse(Session["UserSys"].ToString(), out SysID))
-                            {
-                                command.Parameters.AddWithValue("@p_SysID", SysID);
-                            }
-                            command2.ExecuteNonQuery();
-                            #endregion
+                                #region Updating Stocks
+
+                                SqlCommand command2 = new SqlCommand("sp_UpdateStock_ProductID", connection);
+                                command2.CommandType = CommandType.StoredProcedure;
+                                
+                                command2.Parameters.AddWithValue("@p_Barcode", Convert.ToInt32(dtValues.Rows[x]["BarCode"].ToString()));
+                                
+                                command2.Parameters.AddWithValue("@p_Quantity", Convert.ToInt32(dtValues.Rows[x]["SendQuantity"].ToString()));
+                                
+                                command.Parameters.AddWithValue("@p_SysID", Convert.ToInt32(Session["UserSys"].ToString()));
+                                
+                                command2.ExecuteNonQuery();
+                                #endregion
+                            }*/
 
                             connection.Close();
                         }
@@ -312,9 +325,6 @@ namespace IMS
                 connection.Close();
             }
             #endregion
-
-            Response.Redirect("Warehouse_StoreRequests.aspx");
-          
         }
     }
 }
