@@ -103,6 +103,7 @@ namespace IMS
             btnDecline.Visible = true;
             if (FirstOrder.Equals(false))
             {
+                #region Creating Order
                 //Session["UserSys"] = 2;
                 int pRequestFrom = 0;
                 int pRequestTo = 0;
@@ -121,7 +122,7 @@ namespace IMS
                 String Invoice = InvNO.Text.ToString();
                 String Vendor = "";
 
-                #region Creating Order
+                
                 try
                 {
                     connection.Open();
@@ -241,7 +242,7 @@ namespace IMS
         protected void btnCancelOrder_Click(object sender, EventArgs e)
         {
             //should Delete all the rows, if final accept is not pressed.
-            Response.Redirect("StoreMain.aspx");
+            Response.Redirect("StoreRequestsMain.aspx");
         }
 
         protected void StockDisplayGrid_RowCommand(object sender, GridViewCommandEventArgs e)

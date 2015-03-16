@@ -37,7 +37,7 @@ namespace IMS
 
         protected void btnStoreRequests_Click(object sender, EventArgs e)
         {
-            Response.Redirect("StoreRequests.aspx");
+            Response.Redirect("StoreRequestsMain.aspx");
         }
 
         protected void ButtonBack_Click(object sender, EventArgs e)

@@ -71,7 +71,7 @@
              </asp:GridView>
         <br />
          <asp:Button ID="btnPrint" runat="server" OnClick="btnPrint_Click" Text="PRINT LIST" CssClass="btn btn-large"/>
-         <asp:Button ID="btnBack" runat="server" OnClick="btnBack_Click" Text="CANCEL LIST" CssClass="btn btn-large" />
+         <asp:Button ID="btnBack" runat="server" OnClick="btnBack_Click" Text="GO BACK" CssClass="btn btn-large" />
     </div>
     <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

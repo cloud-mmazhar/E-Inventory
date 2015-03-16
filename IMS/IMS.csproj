@@ -231,6 +231,7 @@
     <Content Include="Site.Master" />
     <Content Include="StoreMain.aspx" />
     <Content Include="StoreRequests.aspx" />
+    <Content Include="StoreRequestsMain.aspx" />
     <Content Include="StoreRequestsView.aspx" />
     <Content Include="StoreTransfers_StoreRequests.aspx" />
     <Content Include="StoreTransfers_StoreRequestsDetails.aspx" />
@@ -507,6 +508,13 @@
     </Compile>
     <Compile Include="StoreRequests.aspx.designer.cs">
       <DependentUpon>StoreRequests.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreRequestsMain.aspx.cs">
+      <DependentUpon>StoreRequestsMain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreRequestsMain.aspx.designer.cs">
+      <DependentUpon>StoreRequestsMain.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreRequestsView.aspx.cs">
       <DependentUpon>StoreRequestsView.aspx</DependentUpon>

@@ -14,52 +14,55 @@
           </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+     <div class="row">
+         <h3>Generate Request From Sales</h3>
+         <br />
+     </div>
      <div class="form-horizontol">
-     <div class="form-group">
+        <div class="form-group">
+            <asp:Label runat="server" ID="Header"  CssClass="col-md-2 control-label">Select Sale Dates to generate auto request </asp:Label>
+            <br />
+            <br />
+        </div>
+        <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="DateTextBox"  CssClass="col-md-2 control-label">SALE FROM : </asp:Label>
             <div class="col-md-10">
-                 <asp:TextBox runat="server" ID="DateTextBox" CssClass="form-control" />
+                 <asp:TextBox runat="server" ID="DateTextBox" CssClass="form-control" OnTextChanged="DateTextBox_TextChanged" />
                  <asp:RequiredFieldValidator runat="server" ControlToValidate="DateTextBox" CssClass="text-danger" ErrorMessage="The from Sale field is required." ValidationGroup="ExSave"/>
-                <br />
+                 <br />
             </div>
             
         </div>
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="DateTextBox2"  CssClass="col-md-2 control-label">SALE TO : </asp:Label>
             <div class="col-md-10">
-                 <asp:TextBox runat="server" ID="DateTextBox2" CssClass="form-control" />
+                 <asp:TextBox runat="server" ID="DateTextBox2" CssClass="form-control" OnTextChanged="DateTextBox2_TextChanged" />
                  <asp:RequiredFieldValidator runat="server" ControlToValidate="DateTextBox2" CssClass="text-danger" ErrorMessage="The to Sale field is required." ValidationGroup="ExSave"/>
-                <br />
+                 <br />
             </div>
             
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <asp:Button ID="btnCreateRequest" runat="server" OnClick="btnCreateRequest_Click"  Text="GENERATE" CssClass="btn btn-default" ValidationGroup="ExSave"/>
-                <asp:Button ID="btnCancelRequest" runat="server" OnClick="btnCancelRequest_Click" Text="CANCEL" CssClass="btn btn-default" />
+                <asp:Button ID="btnCreateRequest" runat="server" OnClick="btnCreateRequest_Click"  Text="SHOW " CssClass="btn btn-default" ValidationGroup="ExSave"/>
+                <asp:Button ID="btnCancelRequest" runat="server" OnClick="btnCancelRequest_Click" Text="REFRESH" CssClass="btn btn-default" />
                 <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
             </div>
         </div>
+         <br />
     </div>
-
-    <br />
 
       <div class="form-horizontal">
     <div class="form-group">
+        <br />
+    <br />
         <asp:GridView ID="StockDisplayGrid" CssClass="table table-striped table-bordered table-condensed"  Visible="true" runat="server" AllowPaging="True" PageSize="10" 
                 AutoGenerateColumns="false" OnPageIndexChanging="StockDisplayGrid_PageIndexChanging"   onrowcancelingedit="StockDisplayGrid_RowCancelingEdit" 
                 onrowcommand="StockDisplayGrid_RowCommand" OnRowDataBound="StockDisplayGrid_RowDataBound" onrowdeleting="StockDisplayGrid_RowDeleting" onrowediting="StockDisplayGrid_RowEditing" >
                  <Columns>
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:Label ID="OrderDetailNo" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("OrderDetailID") %>' Visible="false"></asp:Label>
-                        </ItemTemplate>
-                        <ItemStyle  Width="1px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="From" HeaderStyle-Width ="110px">
                         <ItemTemplate>
-                            <asp:Label ID="RequestedFrom" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("FromPlace") %>' Width="100px" ></asp:Label>
+                            <asp:Label ID="RequestedFrom" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("FROMPLACE") %>' Width="100px" ></asp:Label>
                         </ItemTemplate>
                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
 
@@ -67,36 +70,30 @@
                      
                      <asp:TemplateField HeaderText="To" HeaderStyle-Width ="150px">
                         <ItemTemplate>
-                            <asp:Label ID="RequestedTo" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("ToPlace") %>'  Width="140px"></asp:Label>
+                            <asp:Label ID="RequestedTo" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("TOPLACE") %>'  Width="140px"></asp:Label>
                         </ItemTemplate>
                         <ItemStyle  Width="150px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
                      <asp:TemplateField HeaderText="Name" HeaderStyle-Width ="250px">
                         <ItemTemplate>
-                            <asp:Label ID="ProductName" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("ProductName") %>'  Width="250px" ></asp:Label>
+                            <asp:Label ID="ProductName" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Product_Name") %>'  Width="250px" ></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="250px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
                      <asp:TemplateField HeaderText="Quantity" HeaderStyle-Width ="110px">
                         <ItemTemplate>
-                            <asp:Label ID="lblQuantity" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Qauntity") %>' ></asp:Label>
+                            <asp:Label ID="lblQuantity" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("SaleQuantity") %>' ></asp:Label>
                         </ItemTemplate>
                         
                         <EditItemTemplate>
-                            <asp:TextBox ID="txtQuantity" CssClass="form-control" runat="server" Text='<%#Eval("Qauntity") %>' ></asp:TextBox>
+                            <asp:TextBox ID="txtQuantity" CssClass="form-control" runat="server" Text='<%#Eval("SaleQuantity") %>' ></asp:TextBox>
                              <asp:RequiredFieldValidator runat="server" ControlToValidate="txtQuantity" CssClass="text-danger" ErrorMessage="The product quantity field is required." />
                         </EditItemTemplate>
                           <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                     
-                     <asp:TemplateField HeaderText="Request Status" HeaderStyle-Width ="110px">
-                        <ItemTemplate>
-                            <asp:Label ID="lblStatus" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Status") %>'  Width="100px"></asp:Label>
-                        </ItemTemplate>
-                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
 
                      <asp:TemplateField HeaderText="Action" HeaderStyle-Width ="200px">
                         <ItemTemplate>
@@ -114,8 +111,8 @@
                  </Columns>
              </asp:GridView>
         <br />
-         <asp:Button ID="btnAccept" runat="server" OnClick="btnAccept_Click" Text="ACCEPT LIST" CssClass="btn btn-large" Visible="false"/>
-         <asp:Button ID="btnDecline" runat="server" OnClick="btnDecline_Click" Text="CANCEL LIST" CssClass="btn btn-large" Visible="false" />
+         <asp:Button ID="btnAccept" runat="server" OnClick="btnAccept_Click" Text="GENERATE REQUEST" CssClass="btn btn-large" Visible="false"/>
+         <asp:Button ID="btnDecline" runat="server" OnClick="btnDecline_Click" Text="CANCEL REQUEST" CssClass="btn btn-large" Visible="false" />
     </div>
     <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
