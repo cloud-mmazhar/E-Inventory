@@ -27,7 +27,7 @@ namespace IMS
         }
         public void LoadData()
         {
-            InvNO.Text = Session["S_RequestInvoice"].ToString();
+            //InvNO.Text = Session["S_RequestInvoice"].ToString();
             RequestDate.Text = System.DateTime.Now.ToShortDateString();
             #region Display Products
             try

@@ -5,14 +5,7 @@
     <br />
     <div class="row">
      
-    <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="InvNO" CssClass="col-md-2 control-label">Invoice No.</asp:Label>
-            <div class="col-md-10">
-                <asp:TextBox runat="server" ID="InvNO" CssClass="form-control" Width="29%"/>
-                <br />
-            </div>
-    </div>
-
+    
     <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="RequestTo" CssClass="col-md-2 control-label">Request To</asp:Label>
             <div class="col-md-10">

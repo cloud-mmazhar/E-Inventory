@@ -98,7 +98,7 @@ namespace IMS
 
         protected void btnCreateOrder_Click(object sender, EventArgs e)
         {
-            InvNO.Enabled = false;
+            //InvNO.Enabled = false;
             btnAccept.Visible = true;
             btnDecline.Visible = true;
             if (FirstOrder.Equals(false))
@@ -119,7 +119,7 @@ namespace IMS
                     OrderMode = "Warehouse";
                 }
 
-                String Invoice = InvNO.Text.ToString();
+                String Invoice = "";
                 String Vendor = "";
 
                 
@@ -278,7 +278,7 @@ namespace IMS
         protected void btnRefresh_Click(object sender, EventArgs e)
         {
             //should clean everything if final accept is not pressed
-            InvNO.Text = "";
+            //InvNO.Text = "";
             RequestTo.Enabled = true;
             StockDisplayGrid.DataSource = null;
             StockDisplayGrid.DataBind();
@@ -321,7 +321,7 @@ namespace IMS
             {
                 connection.Close();
             }
-            Session["S_RequestInvoice"] = InvNO.Text;
+            Session["S_RequestInvoice"] = "";
             Session["S_RequestTo"] = RequestTo.SelectedItem.ToString();
 
             Response.Redirect("StoreRequestsView.aspx");
@@ -331,7 +331,7 @@ namespace IMS
         protected void btnDecline_Click(object sender, EventArgs e)
         {
             //should clean everything if final accept is not pressed
-            InvNO.Text = "";
+          //  InvNO.Text = "";
             RequestTo.Enabled = true;
             StockDisplayGrid.DataSource = null;
             StockDisplayGrid.DataBind();

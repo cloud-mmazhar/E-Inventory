@@ -6,12 +6,6 @@
     <div class="row">
      
     
-    <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="InvNO" CssClass="col-md-2 control-label">Invoice No.</asp:Label>
-            <div class="col-md-10">
-                <asp:Label runat="server" ID="InvNO" CssClass="col-md-2 control-label"/>
-            </div>
-    </div>
     
     <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="RequestDate" CssClass="col-md-2 control-label">Request Date</asp:Label>
