@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Configuration;
 using IMSCommon.Util;
+using System.Globalization;
 
 namespace IMS
 {
@@ -113,7 +114,7 @@ namespace IMS
                     TextBox Quantity = (TextBox)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("txtQuantity");
                     TextBox UnitCostPrice = (TextBox)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("txtUnitCostPrice");
                     TextBox UnitSalePrice = (TextBox)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("txtUnitSalePrice");
-
+                    Label expiry = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("lblExpiry");
                     DataView dv = ProductSet.Tables[0].DefaultView;
                     dv.RowFilter = "BarCode = '" + long.Parse(Barcode.Text.ToString()) + "'";
                     DataTable dt = dv.ToTable();
@@ -122,8 +123,24 @@ namespace IMS
                     if (Barcode.Text.Equals(""))
                     {
                         #region Barcode Generation
+          
+                        string BarCodeSerial = dt.Rows[0]["BarCode"].ToString();
 
+                        DateTime dateValue = (Convert.ToDateTime(expiry.Text.ToString()));
+
+                       
                         long BarCodeNumber = 0;
+                        String mm = dateValue.Month.ToString();
+                        String yy = dateValue.ToString("yy", DateTimeFormatInfo.InvariantInfo);
+                        string p1 = BarCodeSerial + mm + yy;
+
+                        if (long.TryParse(p1, out BarCodeNumber))
+                        {
+                        }
+                        else
+                        {
+                            //post error message 
+                        }
                         #endregion
 
                         String Query = "Update tblStock_Detail Set BarCode= '" + BarCodeNumber + "', Quantity = '" + Decimal.Parse(Quantity.Text.ToString()) + "', UCostPrice = '" + Decimal.Parse(UnitCostPrice.Text.ToString()) + "', USalePrice = '" + Decimal.Parse(UnitSalePrice.Text.ToString()) + "' Where ProductID = '" + ProductID + "'";
