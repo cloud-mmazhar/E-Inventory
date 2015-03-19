@@ -49,6 +49,7 @@
       <HintPath>..\..\..\..\..\work\ims\reference\bar-code\barcode_src\BarcodeLib\bin\Debug\BarcodeLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -241,6 +242,7 @@
     <Content Include="Style\jquery-ui.css" />
     <Content Include="Style\jquery-ui.min.css" />
     <Content Include="Style\jquery.navgoco.css" />
+    <Content Include="UserControl\uc_printBarcode.ascx" />
     <Content Include="UserControl\uc_Select_System.ascx" />
     <Content Include="ViewInventory.aspx" />
     <Content Include="ViewSwitcher.ascx" />
@@ -251,6 +253,17 @@
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
     <Content Include="LoginMaster.Master" />
+    <Content Include="App_Code\Barcode.xsc">
+      <DependentUpon>Barcode.xsd</DependentUpon>
+    </Content>
+    <None Include="App_Code\Barcode.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Barcode.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="App_Code\Barcode.xss">
+      <DependentUpon>Barcode.xsd</DependentUpon>
+    </Content>
     <None Include="Project_Readme.html" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Properties\PublishProfiles\DPS.pubxml" />
@@ -299,6 +312,11 @@
     </Compile>
     <Compile Include="AutoRequest_Store.aspx.designer.cs">
       <DependentUpon>AutoRequest_Store.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\Barcode.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Barcode.xsd</DependentUpon>
     </Compile>
     <Compile Include="CompanySettings.aspx.cs">
       <DependentUpon>CompanySettings.aspx</DependentUpon>
@@ -544,6 +562,13 @@
     <Compile Include="StoreTransfers_StoreRequestsResponse.aspx.designer.cs">
       <DependentUpon>StoreTransfers_StoreRequestsResponse.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\uc_printBarcode.ascx.cs">
+      <DependentUpon>uc_printBarcode.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\uc_printBarcode.ascx.designer.cs">
+      <DependentUpon>uc_printBarcode.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\uc_Select_System.ascx.cs">
       <DependentUpon>uc_Select_System.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -606,6 +631,9 @@
       <Project>{5e1c6171-feaf-44ce-8bb5-5e7c741c2924}</Project>
       <Name>IMSCommon</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Report\barcode_Print.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

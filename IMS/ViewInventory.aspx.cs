@@ -98,57 +98,60 @@ namespace IMS
                 int id;
                 if (int.TryParse(Session["UserSys"].ToString(), out id))
                 {
-                    //String Query = "Select tblStock_Detail.ProductID AS ProductID ,tbl_ProductMaster.Product_Name AS ProductName, tblStock_Detail.BarCode AS BarCode, tblStock_Detail.Quantity AS Qauntity, tblStock_Detail.ExpiryDate As Expiry, tblStock_Detail.UCostPrice AS CostPrice, tblStock_Detail.USalePrice AS SalePrice, tbl_System.SystemName AS Location From  tblStock_Detail INNER JOIN tbl_ProductMaster ON tblStock_Detail.ProductID = tbl_ProductMaster.ProductID INNER JOIN tbl_System ON tblStock_Detail.StoredAt = tbl_System.SystemID AND tblStock_Detail.StoredAt = '" + id.ToString() + "'";
+                    String Query = "Select tblStock_Detail.ProductID AS ProductID ,tbl_ProductMaster.Product_Name AS ProductName, tblStock_Detail.BarCode AS BarCode, tblStock_Detail.Quantity AS Qauntity, tblStock_Detail.ExpiryDate As Expiry, tblStock_Detail.UCostPrice AS CostPrice, tblStock_Detail.USalePrice AS SalePrice, tbl_System.SystemName AS Location From  tblStock_Detail INNER JOIN tbl_ProductMaster ON tblStock_Detail.ProductID = tbl_ProductMaster.ProductID INNER JOIN tbl_System ON tblStock_Detail.StoredAt = tbl_System.SystemID AND tblStock_Detail.StoredAt = '" + id.ToString() + "'";
 
                     connection.Open();
-                    SqlCommand command = new SqlCommand("sp_ViewInventory_byFilters", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@p_SysID", id);
+                    //org SP: "sp_ViewInventory_byFilters"
+                    SqlCommand command = new SqlCommand(Query, connection);
+                    #region with parameter approach
+                    //command.CommandType = CommandType.StoredProcedure;
+                    //command.Parameters.AddWithValue("@p_SysID", id);
 
-                    if (ProductDept.SelectedIndex == -1)
-                    {
-                        command.Parameters.AddWithValue("@p_DeptID", null);
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("@p_DeptID", Convert.ToInt32(ProductDept.SelectedValue.ToString()));
-                    }
+                    //if (ProductDept.SelectedIndex == -1)
+                    //{
+                    //    command.Parameters.AddWithValue("@p_DeptID", null);
+                    //}
+                    //else
+                    //{
+                    //    command.Parameters.AddWithValue("@p_DeptID", Convert.ToInt32(ProductDept.SelectedValue.ToString()));
+                    //}
 
-                    if (ProductCat.SelectedIndex == -1)
-                    {
-                        command.Parameters.AddWithValue("@p_CatID", null);
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("@p_CatID", Convert.ToInt32(ProductCat.SelectedValue.ToString()));
-                    }
+                    //if (ProductCat.SelectedIndex == -1)
+                    //{
+                    //    command.Parameters.AddWithValue("@p_CatID", null);
+                    //}
+                    //else
+                    //{
+                    //    command.Parameters.AddWithValue("@p_CatID", Convert.ToInt32(ProductCat.SelectedValue.ToString()));
+                    //}
 
-                    if (ProductSubCat.SelectedIndex == -1)
-                    {
-                        command.Parameters.AddWithValue("@p_SubCatID", null);
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("@p_SubCatID", Convert.ToInt32(ProductSubCat.SelectedValue.ToString()));
-                    }
+                    //if (ProductSubCat.SelectedIndex == -1)
+                    //{
+                    //    command.Parameters.AddWithValue("@p_SubCatID", null);
+                    //}
+                    //else
+                    //{
+                    //    command.Parameters.AddWithValue("@p_SubCatID", Convert.ToInt32(ProductSubCat.SelectedValue.ToString()));
+                    //}
 
-                    if (ProductType.SelectedIndex == -1)
-                    {
-                        command.Parameters.AddWithValue("@p_ProdType", null);
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("@p_ProdType", ProductType.SelectedItem.ToString());
-                    }
+                    //if (ProductType.SelectedIndex == -1)
+                    //{
+                    //    command.Parameters.AddWithValue("@p_ProdType", null);
+                    //}
+                    //else
+                    //{
+                    //    command.Parameters.AddWithValue("@p_ProdType", ProductType.SelectedItem.ToString());
+                    //}
 
-                    /*if (ProductName.SelectedIndex == -1)
-                    {
-                        command.Parameters.AddWithValue("@p_ProdID", null);
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("@p_ProdID", Convert.ToInt32(ProductName.SelectedValue.ToString()));
-                    }*/
+                    ///*if (ProductName.SelectedIndex == -1)
+                    //{
+                    //    command.Parameters.AddWithValue("@p_ProdID", null);
+                    //}
+                    //else
+                    //{
+                    //    command.Parameters.AddWithValue("@p_ProdID", Convert.ToInt32(ProductName.SelectedValue.ToString()));
+                    //}*/ 
+                    #endregion
 
                     SqlDataAdapter SA = new SqlDataAdapter(command);
                     SA.Fill(ds);
@@ -181,24 +184,33 @@ namespace IMS
                 {
                     Image BarcodeImage=new Image();
                     //int 
-                    //Label Barcode = (Label)StockDisplayGrid.Rows[StockDisplayGrid.].FindControl("BarCode");
-                  //  Label Quantity = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("lblQuantity");
-
+                   
+                    Label Barcode = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("BarCode");
+                    Label Quantity = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("lblQuantity");
+                    Label ProductName = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("ProductName");
                     long ProductBarCode = long.Parse(e.CommandArgument.ToString());
                    // int PrintQuantity = Int32.Parse(Quantity.Text.ToString());
 
                     #region barcode creation
-                    System.Drawing.Image barcodeImage = null;
-                    BarcodeLib.Barcode b = new BarcodeLib.Barcode();
-                    b.IncludeLabel = true;
-                    barcodeImage = b.Encode(BarcodeLib.TYPE.EAN13, ProductBarCode.ToString(), System.Drawing.ColorTranslator.FromHtml("#" + "000000"), System.Drawing.ColorTranslator.FromHtml("#" + "FFFFFF"), 300, 150);
-                    //string strImageURL = "generateBarCode.aspx?d=" + ProductBarCode + "&h=" + 300 + "&w=" + 150;
-                    //BarcodeImage.ImageUrl = strImageURL;
-                    //BarcodeImage.Width = 300;
-                    //BarcodeImage.Height = 150;
+                    #region previous approach
+                    //System.Drawing.Image barcodeImage = null;
+                    //BarcodeLib.Barcode b = new BarcodeLib.Barcode();
+                    //b.IncludeLabel = true;
+                    //barcodeImage = b.Encode(BarcodeLib.TYPE.EAN13, ProductBarCode.ToString(), System.Drawing.ColorTranslator.FromHtml("#" + "000000"), System.Drawing.ColorTranslator.FromHtml("#" + "FFFFFF"), 300, 150);
+                    ////string strImageURL = "generateBarCode.aspx?d=" + ProductBarCode + "&h=" + 300 + "&w=" + 150;
+                    ////BarcodeImage.ImageUrl = strImageURL;
+                    ////BarcodeImage.Width = 300;
+                    ////BarcodeImage.Height = 150;
 
-                    BarcodeUtility bUtil = new BarcodeUtility();
-                    bUtil.Print(barcodeImage);
+                    //BarcodeUtility bUtil = new BarcodeUtility();
+                    //bUtil.Print(barcodeImage); 
+                    #endregion
+                    ucPrint.ProductName = ProductName.Text;
+                    ucPrint.CompanyName = "Pharmacy";
+                    ucPrint.PrintCount = int.Parse(Quantity.Text);
+                    ucPrint.BarcodeValue = Barcode.Text;
+                    
+                    mpeEditProduct.Show();
                     #endregion
                     
                 }
