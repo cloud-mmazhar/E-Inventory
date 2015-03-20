@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="IMS.SiteMaster" %>
-
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -17,11 +17,11 @@
 </head>
 <body>
     <form runat="server">
-        <asp:ScriptManager runat="server">
+       <%-- <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
                 <%--Framework Scripts--%>
-                <asp:ScriptReference Name="MsAjaxBundle" />
+                <%--<asp:ScriptReference Name="MsAjaxBundle" />
                 <asp:ScriptReference Name="jquery" />
                 <asp:ScriptReference Name="bootstrap" />
                 <asp:ScriptReference Name="respond" />
@@ -35,8 +35,13 @@
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
                 <%--Site Scripts--%>
-            </Scripts>
-        </asp:ScriptManager>
+            <%--</Scripts>
+        </asp:ScriptManager> --%>
+        
+        
+      
+        
+
 
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">

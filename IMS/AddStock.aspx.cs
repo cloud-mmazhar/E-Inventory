@@ -11,6 +11,8 @@ using System.Data.SqlTypes;
 using System.Configuration;
 using System.Globalization;
 using IMSCommon.Util;
+using System.Configuration;
+using System.Collections.Generic;
 
 namespace IMS
 {
@@ -18,29 +20,26 @@ namespace IMS
     {
         public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["IMSConnectionString"].ToString());
         public static DataSet ProductSet;
+        public static DataTable ProductTable;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 ProductSet = new DataSet();
+                ProductTable = new DataTable();
+
                 #region Populating Product List
                 try
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("Select TOP 200 * From tbl_ProductMaster Where tbl_ProductMaster.Product_Id_Org LIKE '444%' AND Status = 1", connection);
+                    /*SqlCommand command = new SqlCommand("Select ProductID, Product_Name From tbl_ProductMaster Where tbl_ProductMaster.Product_Id_Org LIKE '444%' AND Status = 1", connection);
                     DataSet ds = new DataSet();
                     SqlDataAdapter sA = new SqlDataAdapter(command);
                     sA.Fill(ds);
                     ProductSet = ds;
-                    SelectProduct.DataSource = ds.Tables[0];
-                    SelectProduct.DataTextField = "Product_Name";
-                    SelectProduct.DataValueField = "ProductID";
-                    SelectProduct.DataBind();
                     if (SelectProduct != null)
                     {
-                        SelectProduct.Items.Insert(0, "Select Product");
-                        SelectProduct.SelectedIndex = 0;
-                    }
+                    }*/
                 }
                 catch (Exception ex)
                 {
@@ -113,7 +112,7 @@ namespace IMS
                 connection.Open();
                 SqlCommand command = new SqlCommand("sp_AddStock", connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@p_ProductID", Int32.Parse(SelectProduct.SelectedValue.ToString()));
+                command.Parameters.AddWithValue("@p_ProductID", Int32.Parse(SelectProduct.Text.ToString()));
                 command.Parameters.AddWithValue("@p_Quantity", Decimal.Parse(Quantity.Text.ToString()));
                 command.Parameters.AddWithValue("@p_Status", "1");
                 command.Parameters.AddWithValue("@p_UserRoleID", Int32.Parse(StockAt.SelectedValue.ToString()));
@@ -135,7 +134,7 @@ namespace IMS
             if (x == 1)
             {
                 WebMessageBoxUtil.Show("Record Inserted Successfully");
-                SelectProduct.SelectedIndex = -1;
+                SelectProduct.Text = "";
                 Quantity.Text = "";
                 ProductName.Text = "";
                 DateTextBox.Text = "";
@@ -157,12 +156,13 @@ namespace IMS
 
         protected void btnCancelProduct_Click(object sender, EventArgs e)
         {
-            SelectProduct.SelectedIndex = 0;
+            SelectProduct.Text = "";
             BarCodeSerial.Text = string.Empty;
             ProductName.Text = string.Empty;
             Quantity.Text = string.Empty;
             DateTextBox.Text = string.Empty;
-            StockAt.Items.Clear();
+            //StockAt.Items.Clear();
+            StockAt.Enabled = true;
             ProductCost.Text = string.Empty;
             ProductSale.Text = string.Empty;
             btnCreateProduct.Enabled = false;
@@ -178,7 +178,7 @@ namespace IMS
             {
                 DataView dv = new DataView();
                 dv = ProductSet.Tables[0].DefaultView;
-                dv.RowFilter = "ProductID = '" + SelectProduct.SelectedValue.ToString() + "'";
+                dv.RowFilter = "ProductID = '" + SelectProduct.Text.ToString() + "'";
                 dt = dv.ToTable();
 
                 BarCodeSerial.Text = dt.Rows[0]["Product_Id_Org"].ToString();
@@ -209,5 +209,61 @@ namespace IMS
                 StockAt.Enabled = false;
             }
         }
+
+       /* [System.Web.Script.Services.ScriptMethod()]
+        [System.Web.Services.WebMethod]
+        public static List<string> FetchQualifications(string prefixText)
+        {
+            connection.Open();
+            SqlCommand cmd = new SqlCommand("select ProductID, Product_Name from tbl_ProductMaster where Product_Name like @QualName+'%'", connection);
+            cmd.Parameters.AddWithValue("@QualName", prefixText);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            ProductTable = null;
+            ProductTable = dt;
+
+            List<string> QualNames = new List<string>();
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                QualNames.Add(dt.Rows[i][1].ToString());
+            }
+            return QualNames;
+        }
+
+        protected void SelectProduct_TextChanged(object sender, EventArgs e)
+        {
+           // FetchQualifications(SelectProduct.Text);
+        }
+        */
+
+        [System.Web.Script.Services.ScriptMethod()]
+        [System.Web.Services.WebMethod]
+        public static List<string> SearchCustomers(string prefixText, int count)
+        {
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = ConfigurationManager
+                        .ConnectionStrings["IMSConnectionString"].ConnectionString;
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "select ProductID, Product_Name from tbl_ProductMaster where Product_Name like @SearchText+'%'";
+                    cmd.Parameters.AddWithValue("@SearchText", prefixText);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    List<string> customers = new List<string>();
+                    using (SqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            customers.Add(sdr["Product_Name"].ToString());
+                        }
+                    }
+                    conn.Close();
+                    return customers;
+                }
+            }
+        }
+
     }
 }

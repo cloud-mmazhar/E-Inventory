@@ -98,6 +98,7 @@ namespace IMS
 
         protected void btnCreateOrder_Click(object sender, EventArgs e)
         {
+          
             //InvNO.Enabled = false;
             btnAccept.Visible = true;
             btnDecline.Visible = true;
@@ -160,54 +161,151 @@ namespace IMS
                 }
                 #endregion
 
+                #region Linking to Order Detail table
+
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("sp_InserOrderDetail_ByStore", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    int OrderNumber, ProductNumber, Quantity = 0;
+
+                    if (int.TryParse(Session["OrderNumber"].ToString(), out OrderNumber))
+                    {
+                        command.Parameters.AddWithValue("@p_OrderID", OrderNumber);
+                    }
+                    if (int.TryParse(SelectProduct.SelectedValue.ToString(), out ProductNumber))
+                    {
+                        command.Parameters.AddWithValue("@p_ProductID", ProductNumber);
+                    }
+                    if (int.TryParse(SelectQuantity.Text.ToString(), out Quantity))
+                    {
+                        command.Parameters.AddWithValue("@p_OrderQuantity", Quantity);
+                    }
+
+                    if (RequestTo.SelectedItem.ToString().Contains("store")) // neeed to check it, because name doesn't always contains Store
+                    {
+                        command.Parameters.AddWithValue("@p_status", "Initiated");
+                        command.Parameters.AddWithValue("@p_comments", "Generated to Store");
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@p_status", "Initiated");
+                        command.Parameters.AddWithValue("@p_comments", "Generated to Warehouse");
+                    }
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                #endregion
                 FirstOrder = true;
             }
-
-            #region Linking to Order Detail table
-
-            try
+            else
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand("sp_InserOrderDetail_ByStore", connection);
-                command.CommandType = CommandType.StoredProcedure;
+                #region Product Existing in the Current Order
+                DataSet ds = new DataSet();
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("sp_GetStoreRequest_byOrderID", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    int OrderNumber = 0;
 
-                int OrderNumber,ProductNumber,Quantity =0;
+
+                    if (int.TryParse(Session["OrderNumber"].ToString(), out OrderNumber))
+                    {
+                        command.Parameters.AddWithValue("@p_OrderID", OrderNumber);
+                    }
+                    SqlDataAdapter sA = new SqlDataAdapter(command);
+                    sA.Fill(ds);
+                }
+                catch (Exception ex)
+                {
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
                 
-                if (int.TryParse(Session["OrderNumber"].ToString(), out OrderNumber))
+                int ProductNO = 0;
+                bool ProductPresent =false;
+                if (int.TryParse(SelectProduct.SelectedValue.ToString(), out ProductNO))
                 {
-                    command.Parameters.AddWithValue("@p_OrderID", OrderNumber);
                 }
-                if (int.TryParse(SelectProduct.SelectedValue.ToString(), out ProductNumber))
+                
+                for(int i=0;i<ds.Tables[0].Rows.Count;i++)
                 {
-                    command.Parameters.AddWithValue("@p_ProductID", ProductNumber);
+                    if (Convert.ToInt32(ds.Tables[0].Rows[i]["ProductID"]).Equals(ProductNO))
+                    {
+                        ProductPresent = true;
+                        break;
+                    }
                 }
-                if (int.TryParse(SelectQuantity.Text.ToString(), out Quantity))
-                {
-                    command.Parameters.AddWithValue("@p_OrderQuantity", Quantity);
-                }
+                #endregion
 
-                if (RequestTo.SelectedItem.ToString().Contains("store")) // neeed to check it, because name doesn't always contains Store
+                if(ProductPresent.Equals(false))
                 {
-                    command.Parameters.AddWithValue("@p_status", "Initiated");
-                    command.Parameters.AddWithValue("@p_comments", "Generated to Store");
+                    #region Linking to Order Detail table
+
+                    try
+                    {
+                        connection.Open();
+                        SqlCommand command = new SqlCommand("sp_InserOrderDetail_ByStore", connection);
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        int OrderNumber, ProductNumber, Quantity = 0;
+
+                        if (int.TryParse(Session["OrderNumber"].ToString(), out OrderNumber))
+                        {
+                            command.Parameters.AddWithValue("@p_OrderID", OrderNumber);
+                        }
+                        if (int.TryParse(SelectProduct.SelectedValue.ToString(), out ProductNumber))
+                        {
+                            command.Parameters.AddWithValue("@p_ProductID", ProductNumber);
+                        }
+                        if (int.TryParse(SelectQuantity.Text.ToString(), out Quantity))
+                        {
+                            command.Parameters.AddWithValue("@p_OrderQuantity", Quantity);
+                        }
+
+                        if (RequestTo.SelectedItem.ToString().Contains("store")) // neeed to check it, because name doesn't always contains Store
+                        {
+                            command.Parameters.AddWithValue("@p_status", "Initiated");
+                            command.Parameters.AddWithValue("@p_comments", "Generated to Store");
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@p_status", "Initiated");
+                            command.Parameters.AddWithValue("@p_comments", "Generated to Warehouse");
+                        }
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                    #endregion
+
+                    //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record Inserted Successfully')", true);
                 }
                 else
                 {
-                    command.Parameters.AddWithValue("@p_status", "Initiated");
-                    command.Parameters.AddWithValue("@p_comments", "Generated to Warehouse");
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record can be inserted, because it is already present')", true);
                 }
-                command.ExecuteNonQuery();
             }
-            catch(Exception ex)
-            {
-
-            }
-            finally
-            {
-                connection.Close();
-            }
-            #endregion
-
+            
             #region Display Products
             try
             {

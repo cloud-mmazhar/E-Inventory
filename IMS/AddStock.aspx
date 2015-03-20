@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddStock.aspx.cs" Inherits="IMS.AddStock" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
      <script src="Scripts/jquery.js"  type="text/javascript"></script>
           <script src="Scripts/jquery-ui.js" type="text/javascript"></script>
@@ -18,10 +20,19 @@
             </div>
     </div>    
     <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="SelectProduct" CssClass="col-md-2 control-label">Select Product</asp:Label>
+           
+            <asp:Label runat="server" ID="SelectProductLabel" CssClass="col-md-2 control-label">Select Product</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="SelectProduct" CssClass="form-control" Width="29%" AutoPostBack="true" OnSelectedIndexChanged="SelectProduct_SelectedIndexChanged"/>
-                <br />
+                <asp:ScriptManager ID="ScriptManager1" runat="server" 
+                         EnablePageMethods = "true"></asp:ScriptManager>
+                <asp:TextBox runat="server" ID="SelectProduct"/>
+                <cc1:AutoCompleteExtender ServiceMethod="SearchCustomers" 
+                                          MinimumPrefixLength="2"
+                                          CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" 
+                                          TargetControlID="SelectProduct"
+                                          ID="AutoCompleteExtender1" runat="server" FirstRowSelected = "false">
+                </cc1:AutoCompleteExtender>
+                
             </div>
         </div>
     </div>
@@ -48,6 +59,7 @@
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Quantity" CssClass="col-md-2 control-label">Stock Quantity</asp:Label>
             <div class="col-md-10">
+
                 <asp:TextBox runat="server" ID="Quantity" CssClass="form-control" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Quantity" CssClass="text-danger" ErrorMessage="The product quantity field is required." ValidationGroup="ExSave"/>
                 <br />

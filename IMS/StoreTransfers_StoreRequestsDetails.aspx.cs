@@ -60,7 +60,7 @@ namespace IMS
         }
         protected void btnResponse_Click(object sender, EventArgs e)
         {
-            Response.Redirect("StoreTransfers_StoreRequests.aspx");
+            Response.Redirect("StoreTransfers_StoreRequestsResponse.aspx");
         }
 
         protected void btnBack_Click(object sender, EventArgs e)

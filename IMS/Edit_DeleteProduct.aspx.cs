@@ -254,7 +254,7 @@ namespace IMS
             {
                 #region Editing Product(s)
                 btnCreateProduct.Text = "UPDATE";
-                BarCodeSerial.Enabled = true;
+                BarCodeSerial.Enabled = false;
                 GreenRainCode.Enabled = true;
                 ProductName.Enabled = true;
                 ProdcutDesc.Enabled = true;

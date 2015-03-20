@@ -270,11 +270,12 @@ namespace IMS
 
         protected void btnAccept_Click1(object sender, EventArgs e)
         {
+            bool Status = false;
             #region Accepting Order
             try
             {
                 DataTable temptbl = LoadData_Populate();
-
+                
                 for (int i = 0; i < temptbl.Rows.Count; i++)
                 {
                     if (temptbl.Rows[i]["SndQauntity"].ToString().Equals("0") || temptbl.Rows[i]["SndQauntity"].ToString().Equals(null) || temptbl.Rows[i]["SndQauntity"].ToString().Equals(""))
@@ -315,14 +316,16 @@ namespace IMS
                         }
                     }
                 }
+                Status = true;
             }
             catch (Exception ex)
             {
-
+                Status = false;
             }
             finally
             {
                 connection.Close();
+                Response.Redirect("Warehouse_StoreRequests.aspx");
             }
             #endregion
         }

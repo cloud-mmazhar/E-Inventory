@@ -34,7 +34,7 @@
             <div class="col-md-offset-2 col-md-10">
                 <asp:Button ID="btnCreateOrder" runat="server" OnClick="btnCreateOrder_Click" Text="ADD" CssClass="btn btn-default" />
                 <asp:Button ID="btnRefresh" runat="server" OnClick="btnRefresh_Click" Text="REFRESH" CssClass="btn btn-default" />
-                <asp:Button ID="btnCancelOrder" runat="server" OnClick="btnCancelOrder_Click" Text="CANCEL" CssClass="btn btn-default" />
+                <asp:Button ID="btnCancelOrder" runat="server" OnClick="btnCancelOrder_Click" Text="GO BACK" CssClass="btn btn-primary btn-large" />
             </div>
         </div>
     </div>

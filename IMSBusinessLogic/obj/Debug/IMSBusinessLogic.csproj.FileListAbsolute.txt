@@ -82,3 +82,10 @@ D:\Digital Processing System\E-Inventory\IMSBusinessLogic\bin\Debug\IMSCommon.pd
 D:\Digital Processing System\E-Inventory\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.csprojResolveAssemblyReference.cache
 D:\Digital Processing System\E-Inventory\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.dll
 D:\Digital Processing System\E-Inventory\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.pdb
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\bin\Debug\IMSBusinessLogic.dll
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\bin\Debug\IMSBusinessLogic.pdb
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\bin\Debug\IMSCommon.dll
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\bin\Debug\IMSCommon.pdb
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.csprojResolveAssemblyReference.cache
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.dll
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\obj\Debug\IMSBusinessLogic.pdb
