@@ -26,3 +26,10 @@ D:\Digital Processing System\E-Inventory\IMSBusinessLogic\bin\Release\IMSCommon.
 D:\Digital Processing System\E-Inventory\IMSBusinessLogic\obj\Release\IMSBusinessLogic.csprojResolveAssemblyReference.cache
 D:\Digital Processing System\E-Inventory\IMSBusinessLogic\obj\Release\IMSBusinessLogic.dll
 D:\Digital Processing System\E-Inventory\IMSBusinessLogic\obj\Release\IMSBusinessLogic.pdb
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\bin\Release\IMSBusinessLogic.dll
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\bin\Release\IMSBusinessLogic.pdb
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\bin\Release\IMSCommon.dll
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\bin\Release\IMSCommon.pdb
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\obj\Release\IMSBusinessLogic.csprojResolveAssemblyReference.cache
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\obj\Release\IMSBusinessLogic.dll
+G:\Digital Processing Systems\E-Inventory\IMSBusinessLogic\obj\Release\IMSBusinessLogic.pdb

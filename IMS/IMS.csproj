@@ -169,6 +169,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="generateBarCode.aspx" />
     <Content Include="HeadOfficeMain.aspx" />
+    <Content Include="Images\Gakuseisean-Ivista-2-Start-Menu-Search %281%29.ico" />
+    <Content Include="Images\Gakuseisean-Ivista-2-Start-Menu-Search.ico" />
+    <Content Include="Images\search-icon-512.png" />
     <Content Include="IMSLogin.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ManageCategory.aspx" />
@@ -242,6 +245,7 @@
     <Content Include="Style\jquery-ui.css" />
     <Content Include="Style\jquery-ui.min.css" />
     <Content Include="Style\jquery.navgoco.css" />
+    <Content Include="UserControl\ProductSearch.ascx" />
     <Content Include="UserControl\uc_printBarcode.ascx" />
     <Content Include="UserControl\uc_Select_System.ascx" />
     <Content Include="ViewInventory.aspx" />
@@ -561,6 +565,13 @@
     </Compile>
     <Compile Include="StoreTransfers_StoreRequestsResponse.aspx.designer.cs">
       <DependentUpon>StoreTransfers_StoreRequestsResponse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\ProductSearch.ascx.cs">
+      <DependentUpon>ProductSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\ProductSearch.ascx.designer.cs">
+      <DependentUpon>ProductSearch.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\uc_printBarcode.ascx.cs">
       <DependentUpon>uc_printBarcode.ascx</DependentUpon>

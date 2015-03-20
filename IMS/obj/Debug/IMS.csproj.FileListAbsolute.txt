@@ -840,5 +840,7 @@ G:\Digital Processing Systems\E-Inventory\IMS\bin\tr-TR\AjaxControlToolkit.resou
 G:\Digital Processing Systems\E-Inventory\IMS\bin\zh-CHS\AjaxControlToolkit.resources.dll
 G:\Digital Processing Systems\E-Inventory\IMS\bin\zh-CHT\AjaxControlToolkit.resources.dll
 G:\Digital Processing Systems\E-Inventory\IMS\obj\Debug\IMS.csprojResolveAssemblyReference.cache
+G:\Digital Processing Systems\E-Inventory\IMS\obj\Debug\RdlCompile.cache
+G:\Digital Processing Systems\E-Inventory\IMS\obj\Debug\RdlCompile.compiled
 G:\Digital Processing Systems\E-Inventory\IMS\obj\Debug\IMS.dll
 G:\Digital Processing Systems\E-Inventory\IMS\obj\Debug\IMS.pdb

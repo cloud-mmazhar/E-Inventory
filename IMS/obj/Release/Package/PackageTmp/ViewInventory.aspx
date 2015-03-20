@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="Inventory" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewInventory.aspx.cs" Inherits="IMS.ViewInventory" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
+<%@ Register TagPrefix="uc" TagName="print_uc" Src="~/UserControl/uc_printBarcode.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <br />
     <br />
@@ -8,46 +9,53 @@
             <h1>CURRENT STOCK</h1>
         </div>
     </div>
-
+    
+    
      <div class="form-horizontal">
-
          <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="ProductDept" CssClass="col-md-2 control-label">Product Department</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="ProductDept" CssClass="col-md-2 control-label" Visible="true">Product Department</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="ProductDept" CssClass="form-control" Width="29%" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ProductDept_SelectedIndexChanged"/>
+                <asp:DropDownList runat="server" ID="ProductDept" CssClass="form-control" Width="29%" Visible="true" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ProductDept_SelectedIndexChanged"/>
                 <br />
             </div>
         </div>  
 
          <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="ProductCat" CssClass="col-md-2 control-label">Product Category</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="ProductCat" CssClass="col-md-2 control-label" Visible="true">Product Category</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="ProductCat" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="ProductCat_SelectedIndexChanged" />
+                <asp:DropDownList runat="server" ID="ProductCat" CssClass="form-control" Width="29%" AutoPostBack="True" Visible="true" OnSelectedIndexChanged="ProductCat_SelectedIndexChanged" />
                 <br />
             </div>
         </div>
 
          <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="ProductSubCat" CssClass="col-md-2 control-label"> Product SubCategory </asp:Label>
+            <asp:Label runat="server" AssociatedControlID="ProductSubCat" CssClass="col-md-2 control-label" Visible="true"> Product SubCategory </asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="ProductSubCat" CssClass="form-control" Width="29%" OnSelectedIndexChanged="ProductSubCat_SelectedIndexChanged"/>
+                <asp:DropDownList runat="server" ID="ProductSubCat" CssClass="form-control" Width="29%" Visible="true" OnSelectedIndexChanged="ProductSubCat_SelectedIndexChanged"/>
                 <br />
             </div>
         </div>
 
-         <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="ProductType" CssClass="col-md-2 control-label">Product Type</asp:Label>
+            <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="SelectProduct" CssClass="col-md-2 control-label">Select Product</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="ProductType" OnSelectedIndexChanged="ProductType_SelectedIndexChanged" CssClass="form-control" Width="29%"/>
+                <asp:TextBox runat="server" ID="SelectProduct" CssClass="form-control product"/>
+                <asp:ImageButton ID="btnSearchProduct" runat="server" OnClick="btnSearchProduct_Click" Text="SearchProduct" Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
+                <br />
+                <asp:DropDownList runat="server" ID="ProductList" Visible="false" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="ProductList_SelectedIndexChanged"/>
+                <br/>
+            </div>
+            </div>
+
+         <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ProductType" Visible="true" CssClass="col-md-2 control-label">Product Type</asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList runat="server" ID="ProductType" Visible="true" OnSelectedIndexChanged="ProductType_SelectedIndexChanged" CssClass="form-control" Width="29%"/>
                 <br />
             </div>
         </div>
 
-         <div class="form-group">
-             
-             <div class="col-md-10">
-             </div>
-         </div>
+         
 
          <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -106,10 +114,10 @@
                         <ItemStyle  Width="60px" HorizontalAlign="Left"/>
                        
                     </asp:TemplateField>
-
-                     <asp:TemplateField HeaderText="Edit">
+                     <%-- org command argument CommandArgument='<%# Eval("BarCode") %>'--%>
+                     <asp:TemplateField HeaderText="Action">
                         <ItemTemplate>
-                            <asp:LinkButton CssClass="btn btn-default" ID="btnEdit" Text="Print BarCode" runat="server" CommandName="Print" CommandArgument='<%# Eval("BarCode") %>' />
+                            <asp:LinkButton CssClass="btn btn-default" ID="btnEdit" Text="Print BarCode" runat="server" CommandName="Print" CommandArgument='<%# Container.DisplayIndex  %>' />
                             <br />
                         </ItemTemplate>
                          <ItemStyle  Width="70px" HorizontalAlign="Left"/>
@@ -119,4 +127,17 @@
         <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
     </div>
     </div>
+
+     <asp:Button ID="_editPopupButton" runat="server" Style="display: none" />
+        <cc1:ModalPopupExtender ID="mpeEditProduct" runat="server" RepositionMode="RepositionOnWindowResizeAndScroll" DropShadow="true" 
+            PopupDragHandleControlID="_prodEditPanel" TargetControlID="_editPopupButton" PopupControlID="_prodEditPanel" BehaviorID="EditModalPopupMessage">
+        </cc1:ModalPopupExtender>
+
+        <asp:Panel ID="_prodEditPanel" runat="server" Width="100%" Style="display: none">
+            <asp:UpdatePanel ID="_prodEdit" runat="server">
+                <ContentTemplate>
+                    <uc:print_uc ID="ucPrint" runat="server" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </asp:Panel>
 </asp:Content>

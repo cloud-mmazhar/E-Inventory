@@ -32,36 +32,7 @@ namespace IMS
                     btnCreateProduct.Enabled = false;
                 }
                 ProductSet = new DataSet();
-                #region Populating Product List
-                try
-                {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand("Select TOP 200 * From tbl_ProductMaster Where tbl_ProductMaster.Product_Id_Org LIKE '444%' AND Status = 1", connection);
-                    DataSet ds = new DataSet();
-                    SqlDataAdapter sA = new SqlDataAdapter(command);
-                    sA.Fill(ds);
-                    ProductSet = ds;
-                    SelectProduct.DataSource = ds.Tables[0];
-                    SelectProduct.DataTextField = "Product_Name";
-                    SelectProduct.DataValueField = "ProductID";
-                    
-                    SelectProduct.DataBind();
-                    if (SelectProduct != null)
-                    {
-                        SelectProduct.Items.Insert(0, "Select Product");
-                        SelectProduct.SelectedIndex = 0;
-                    }
-                   
-                }
-                catch (Exception ex)
-                {
-
-                }
-                finally
-                {
-                    connection.Close();
-                }
-                #endregion
+                
             }
         }
 
@@ -71,12 +42,12 @@ namespace IMS
             DataSet ds = new DataSet();
 
             #region Populating Product Type DropDown
-            ProductType.Items.Add("Medicine");
-            ProductType.Items.Add("Product");
+            ProductType.Items.Add("Select Type");
+            ProductType.Items.Add("Medicine (HAAD)");
+            ProductType.Items.Add("Medicine (NON HAAD)");
+            ProductType.Items.Add("Non Medicine");
+            
             #endregion
-
-          
-
 
             #region Getting Product Details
             try
@@ -337,6 +308,19 @@ namespace IMS
 
                     command.ExecuteNonQuery();
                     WebMessageBoxUtil.Show("SuccessFully Updated");
+                    SelectProduct.SelectedIndex = 0;
+                    BarCodeSerial.Text = "";
+                    GreenRainCode.Text = "";
+                    ProductName.Text = "";
+                    ProductDept.SelectedIndex = -1;
+                    ProductCat.SelectedIndex = -1;
+                    ProductSubCat.SelectedIndex = -1;
+                    ProductType.SelectedIndex = 0;
+                    ProdcutBrand.Text = "";
+                    ProdcutDesc.Text = "";
+                    ProductSale.Text = "";
+                    ProductCost.Text = "";
+                    ProductDiscount.Text = "";
                 }
                 catch(Exception ex)
                 {
@@ -371,6 +355,7 @@ namespace IMS
 
         protected void btnDeleteProduct_Click(object sender, EventArgs e)
         {
+            
             //Print Message First
             #region Delete Product
             try
@@ -379,6 +364,19 @@ namespace IMS
                 SqlCommand command = new SqlCommand("Update tbl_ProductMaster set Status = 0 where ProductID = '" + Int32.Parse(Session["ProductID"].ToString()) + "'", connection);
                 command.ExecuteNonQuery();
                 WebMessageBoxUtil.Show("SuccessFully Deleted");
+                SelectProduct.SelectedIndex = 0;
+                BarCodeSerial.Text = "";
+                GreenRainCode.Text = "";
+                ProductName.Text = "";
+                ProductDept.SelectedIndex = 0;
+                ProductCat.SelectedIndex = 0;
+                ProductSubCat.SelectedIndex = 0;
+                ProductType.SelectedIndex = 0;
+                ProdcutBrand.Text = "";
+                ProdcutDesc.Text = "";
+                ProductSale.Text = "";
+                ProductCost.Text = "";
+                ProductDiscount.Text = "";
             }
             catch(Exception ex)
             {
@@ -399,6 +397,56 @@ namespace IMS
         protected void btnBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("ManageProducts.aspx", false);
+        }
+
+        protected void btnSearchProduct_Click(object sender, ImageClickEventArgs e)
+        {
+            if (txtProduct.Text.Length >= 3)
+            {
+                PopulateDropDown(txtProduct.Text);
+                SelectProduct.Visible = true;
+            }
+        }
+
+        public void PopulateDropDown(String Text)
+        {
+            #region Populating Product Name Dropdown
+
+            try
+            {
+                connection.Open();
+
+                Text = Text + "%";
+                SqlCommand command = new SqlCommand("SELECT * From tbl_ProductMaster Where tbl_ProductMaster.Product_Name LIKE '" + Text + "' AND tbl_ProductMaster.Product_Id_Org LIKE '444%' AND Status = 1", connection);
+                DataSet ds = new DataSet();
+                SqlDataAdapter sA = new SqlDataAdapter(command);
+                sA.Fill(ds);
+                if (SelectProduct.DataSource != null)
+                {
+                    SelectProduct.DataSource = null;
+                }
+
+                ProductSet = null;
+                ProductSet = ds;
+                SelectProduct.DataSource = ds.Tables[0];
+                SelectProduct.DataTextField = "Product_Name";
+                SelectProduct.DataValueField = "ProductID";
+                SelectProduct.DataBind();
+                if (SelectProduct != null)
+                {
+                    SelectProduct.Items.Insert(0, "Select Product");
+                    SelectProduct.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            #endregion
         }
     }
 }

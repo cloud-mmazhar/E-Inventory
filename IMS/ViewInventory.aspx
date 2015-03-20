@@ -9,51 +9,58 @@
             <h1>CURRENT STOCK</h1>
         </div>
     </div>
-
+    
+    
      <div class="form-horizontal">
-
          <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="ProductDept" CssClass="col-md-2 control-label" Visible="false">Product Department</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="ProductDept" CssClass="col-md-2 control-label" Visible="true">Product Department</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="ProductDept" CssClass="form-control" Width="29%" Visible="false" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ProductDept_SelectedIndexChanged"/>
+                <asp:DropDownList runat="server" ID="ProductDept" CssClass="form-control" Width="29%" Visible="true" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ProductDept_SelectedIndexChanged"/>
                 <br />
             </div>
         </div>  
 
          <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="ProductCat" CssClass="col-md-2 control-label" Visible="false">Product Category</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="ProductCat" CssClass="col-md-2 control-label" Visible="true">Product Category</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="ProductCat" CssClass="form-control" Width="29%" AutoPostBack="True" Visible="false" OnSelectedIndexChanged="ProductCat_SelectedIndexChanged" />
+                <asp:DropDownList runat="server" ID="ProductCat" CssClass="form-control" Width="29%" AutoPostBack="True" Visible="true" OnSelectedIndexChanged="ProductCat_SelectedIndexChanged" />
                 <br />
             </div>
         </div>
 
          <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="ProductSubCat" CssClass="col-md-2 control-label" Visible="false"> Product SubCategory </asp:Label>
+            <asp:Label runat="server" AssociatedControlID="ProductSubCat" CssClass="col-md-2 control-label" Visible="true"> Product SubCategory </asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="ProductSubCat" CssClass="form-control" Width="29%" Visible="false" OnSelectedIndexChanged="ProductSubCat_SelectedIndexChanged"/>
+                <asp:DropDownList runat="server" ID="ProductSubCat" CssClass="form-control" Width="29%" Visible="true" OnSelectedIndexChanged="ProductSubCat_SelectedIndexChanged"/>
                 <br />
             </div>
         </div>
 
-         <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="ProductType" Visible="false" CssClass="col-md-2 control-label">Product Type</asp:Label>
+            <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="SelectProduct" CssClass="col-md-2 control-label">Select Product</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="ProductType" Visible="false" OnSelectedIndexChanged="ProductType_SelectedIndexChanged" CssClass="form-control" Width="29%"/>
+                <asp:TextBox runat="server" ID="SelectProduct" CssClass="form-control product"/>
+                <asp:ImageButton ID="btnSearchProduct" runat="server" OnClick="btnSearchProduct_Click" Text="SearchProduct" Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
+                <br />
+                <asp:DropDownList runat="server" ID="ProductList" Visible="false" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="ProductList_SelectedIndexChanged"/>
+                <br/>
+            </div>
+            </div>
+
+         <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ProductType" Visible="true" CssClass="col-md-2 control-label">Product Type</asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList runat="server" ID="ProductType" Visible="true" OnSelectedIndexChanged="ProductType_SelectedIndexChanged" CssClass="form-control" Width="29%"/>
                 <br />
             </div>
         </div>
 
-         <div class="form-group">
-             
-             <div class="col-md-10">
-             </div>
-         </div>
+         
 
          <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <asp:Button ID="btnSearch" runat="server" Visible="false" OnClick="btnSearch_Click" Enabled="true" Text="SEARCH" CssClass="btn btn-default"/>
-                <asp:Button ID="btnRefresh" runat="server" Visible="false" OnClick="btnRefresh_Click" Enabled="true" Text="REFRESH" CssClass="btn btn-default"/>
+                <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" Enabled="true" Text="SEARCH" CssClass="btn btn-default"/>
+                <asp:Button ID="btnRefresh" runat="server" OnClick="btnRefresh_Click" Enabled="true" Text="REFRESH" CssClass="btn btn-default"/>
             </div>
         </div>
      </div>

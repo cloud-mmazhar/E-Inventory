@@ -66,7 +66,7 @@ namespace IMS
             try
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("Select TOP 300 * From tbl_ProductMaster Where tbl_ProductMaster.Product_Id_Org LIKE '444%' AND Status = 1", connection);
+                SqlCommand command = new SqlCommand("Select Product_Name,ProductID From tbl_ProductMaster Where tbl_ProductMaster.Product_Id_Org LIKE '444%' AND Status = 1", connection);
                 DataSet ds = new DataSet();
                 SqlDataAdapter sA = new SqlDataAdapter(command);
                 sA.Fill(ds);

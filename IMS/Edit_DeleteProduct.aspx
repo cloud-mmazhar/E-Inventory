@@ -4,12 +4,15 @@
     <br />
     <div class="row">
     <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="SelectProduct" CssClass="col-md-2 control-label">Select Product</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="txtProduct" CssClass="col-md-2 control-label">Select Product</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="SelectProduct" CssClass="form-control" Width="29%" AutoPostBack="true" OnSelectedIndexChanged="SelectProduct_SelectedIndexChanged"/>
+                <asp:TextBox runat="server" ID="txtProduct" CssClass="form-control product"/>
+                <asp:ImageButton ID="btnSearchProduct" runat="server" OnClick="btnSearchProduct_Click" Text="SearchProduct" Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
                 <br />
+                <asp:DropDownList runat="server" ID="SelectProduct" Visible="false" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="SelectProduct_SelectedIndexChanged"/>
+                <br/>
             </div>
-        </div>
+    </div>
     </div>
     
     <div class="form-horizontal">

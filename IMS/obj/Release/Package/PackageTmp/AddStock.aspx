@@ -1,4 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddStock.aspx.cs" Inherits="IMS.AddStock" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
+<%@ Register TagPrefix="uc" TagName="sel_uc" Src="~/UserControl/ProductSearch.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
      <script src="Scripts/jquery.js"  type="text/javascript"></script>
           <script src="Scripts/jquery-ui.js" type="text/javascript"></script>
@@ -20,10 +23,19 @@
     <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="SelectProduct" CssClass="col-md-2 control-label">Select Product</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="SelectProduct" CssClass="form-control" Width="29%" AutoPostBack="true" OnSelectedIndexChanged="SelectProduct_SelectedIndexChanged"/>
+                <asp:TextBox runat="server" ID="SelectProduct" CssClass="form-control product"/>
+                <asp:ImageButton ID="btnSearchProduct" runat="server" OnClick="btnSearchProduct_Click"  Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
                 <br />
+                <asp:DropDownList runat="server" ID="ProductList" Visible="false" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="ProductList_SelectedIndexChanged"/>
+                <br/>
             </div>
-        </div>
+    </div>
+    <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ProductList" Visible="false" CssClass="col-md-2 control-label">Select Product</asp:Label>
+            <div class="col-md-10">
+               
+            </div>
+    </div>   
     </div>
     
     <div class="form-horizontal">
@@ -48,6 +60,7 @@
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Quantity" CssClass="col-md-2 control-label">Stock Quantity</asp:Label>
             <div class="col-md-10">
+
                 <asp:TextBox runat="server" ID="Quantity" CssClass="form-control" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Quantity" CssClass="text-danger" ErrorMessage="The product quantity field is required." ValidationGroup="ExSave"/>
                 <br />

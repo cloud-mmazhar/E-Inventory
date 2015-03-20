@@ -6,3 +6,7 @@ D:\Digital Processing System\E-Inventory\IMSCommon\bin\Release\IMSCommon.dll
 D:\Digital Processing System\E-Inventory\IMSCommon\bin\Release\IMSCommon.pdb
 D:\Digital Processing System\E-Inventory\IMSCommon\obj\Release\IMSCommon.dll
 D:\Digital Processing System\E-Inventory\IMSCommon\obj\Release\IMSCommon.pdb
+G:\Digital Processing Systems\E-Inventory\IMSCommon\bin\Release\IMSCommon.dll
+G:\Digital Processing Systems\E-Inventory\IMSCommon\bin\Release\IMSCommon.pdb
+G:\Digital Processing Systems\E-Inventory\IMSCommon\obj\Release\IMSCommon.dll
+G:\Digital Processing Systems\E-Inventory\IMSCommon\obj\Release\IMSCommon.pdb

@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddStock.aspx.cs" Inherits="IMS.AddStock" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
+<%@ Register TagPrefix="uc" TagName="sel_uc" Src="~/UserControl/ProductSearch.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
      <script src="Scripts/jquery.js"  type="text/javascript"></script>
@@ -20,21 +21,21 @@
             </div>
     </div>    
     <div class="form-group">
-           
-            <asp:Label runat="server" ID="SelectProductLabel" CssClass="col-md-2 control-label">Select Product</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="SelectProduct" CssClass="col-md-2 control-label">Select Product</asp:Label>
             <div class="col-md-10">
-                <asp:ScriptManager ID="ScriptManager1" runat="server" 
-                         EnablePageMethods = "true"></asp:ScriptManager>
-                <asp:TextBox runat="server" ID="SelectProduct"/>
-                <cc1:AutoCompleteExtender ServiceMethod="SearchCustomers" 
-                                          MinimumPrefixLength="2"
-                                          CompletionInterval="100" EnableCaching="false" CompletionSetCount="10" 
-                                          TargetControlID="SelectProduct"
-                                          ID="AutoCompleteExtender1" runat="server" FirstRowSelected = "false">
-                </cc1:AutoCompleteExtender>
-                
+                <asp:TextBox runat="server" ID="SelectProduct" CssClass="form-control product"/>
+                <asp:ImageButton ID="btnSearchProduct" runat="server" OnClick="btnSearchProduct_Click"  Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
+                <br />
+                <asp:DropDownList runat="server" ID="ProductList" Visible="false" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="ProductList_SelectedIndexChanged"/>
+                <br/>
             </div>
-        </div>
+    </div>
+    <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ProductList" Visible="false" CssClass="col-md-2 control-label">Select Product</asp:Label>
+            <div class="col-md-10">
+               
+            </div>
+    </div>   
     </div>
     
     <div class="form-horizontal">
