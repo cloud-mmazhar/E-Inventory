@@ -128,6 +128,21 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_Sales", float.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblSP")).Text));
                             command.Parameters.AddWithValue("@p_orderMasterID", int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdMs_id")).Text));
                             command.Parameters.AddWithValue("@p_isInternal", "TRUE");
+                            if (int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblQuantity")).Text) > recQuan)
+                            {
+                                if (Session["RequestDesRole"].ToString().ToLower().Equals("warehouse"))
+                                {
+                                    command.Parameters.AddWithValue("@p_comments", "Sent to warehouse");
+                                }
+                                else
+                                {
+                                    command.Parameters.AddWithValue("@p_comments", "Sent to store");
+                                }
+                            }
+                            else 
+                            {
+                                command.Parameters.AddWithValue("@p_comments", "Completed");
+                            }
                             command.ExecuteNonQuery();
                             WebMessageBoxUtil.Show("Stock Successfully Added");
                         }
