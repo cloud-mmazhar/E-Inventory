@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AcceptOrder.aspx" />
+    <Content Include="AddEditVendor.aspx" />
     <Content Include="AddProduct.aspx" />
     <Content Include="AddStock.aspx" />
     <Content Include="AddSystem.aspx" />
@@ -183,6 +184,7 @@
     <Content Include="ManageStocks.aspx" />
     <Content Include="ManageStore.aspx" />
     <Content Include="ManageSubCategory.aspx" />
+    <Content Include="ManageVendor.aspx" />
     <Content Include="ManageWarehouse.aspx" />
     <Content Include="MasterProductSearch.aspx" />
     <Content Include="packages.config" />
@@ -289,6 +291,13 @@
     </Compile>
     <Compile Include="AcceptOrder.aspx.designer.cs">
       <DependentUpon>AcceptOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditVendor.aspx.cs">
+      <DependentUpon>AddEditVendor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddEditVendor.aspx.designer.cs">
+      <DependentUpon>AddEditVendor.aspx</DependentUpon>
     </Compile>
     <Compile Include="AddProduct.aspx.cs">
       <DependentUpon>AddProduct.aspx</DependentUpon>
@@ -440,6 +449,13 @@
     </Compile>
     <Compile Include="ManageSubCategory.aspx.designer.cs">
       <DependentUpon>ManageSubCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageVendor.aspx.cs">
+      <DependentUpon>ManageVendor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageVendor.aspx.designer.cs">
+      <DependentUpon>ManageVendor.aspx</DependentUpon>
     </Compile>
     <Compile Include="ManageWarehouse.aspx.cs">
       <DependentUpon>ManageWarehouse.aspx</DependentUpon>

@@ -31,6 +31,15 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.Button btnManageOrders;
         
         /// <summary>
+        /// btnManageVendor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnManageVendor;
+        
+        /// <summary>
         /// btnRegisterUser control.
         /// </summary>
         /// <remarks>

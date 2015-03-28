@@ -49,5 +49,10 @@ namespace IMS
             }
             
         }
+
+        protected void btnManageVendor_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ManageVendor.aspx", false);
+        }
     }
 }
