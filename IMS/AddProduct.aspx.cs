@@ -22,54 +22,88 @@ namespace IMS
         {
             if (!IsPostBack)
             {
-                #region Populating BarCode Serial
-                try
-                {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand("Select Count(*) From tbl_ProductMaster Where tbl_ProductMaster.Product_Id_Org LIKE '444%'", connection);
-                    DataSet ds = new DataSet();
-                    SqlDataAdapter sA = new SqlDataAdapter(command);
-                    sA.Fill(ds);
+                // need to change now for new fcked up logic 
 
-                    if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(5))
-                    {
-                        BarCodeSerial.Text = "444" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                    }
-                    else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(4))
-                    {
-                        BarCodeSerial.Text = "4440" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                    }
-                    else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(3))
-                    {
-                        BarCodeSerial.Text = "44400" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                    }
-                    else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(2))
-                    {
-                        BarCodeSerial.Text = "444000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                    }
-                    else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(1))
-                    {
-                        BarCodeSerial.Text = "4440000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                    }
-                    else if (ds.Tables[0].Rows[0][0].ToString().Length < 1)
-                    {
-                        BarCodeSerial.Text = "4440000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                    }
-                }
-                catch(Exception ex)
+                if(Session["MODE"].Equals("ADD"))
                 {
+                    btnCreateProduct.Text = "ADD";
 
+                    #region Populating BarCode Serial
+                    try
+                    {
+                        connection.Open();
+                        SqlCommand command = new SqlCommand("Select Count(*) From tbl_ProductMaster", connection);
+                        DataSet ds = new DataSet();
+                        SqlDataAdapter sA = new SqlDataAdapter(command);
+                        sA.Fill(ds);
+
+                        if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(7))
+                        {
+                            BarCodeSerial.Text = "1" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                        }
+                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(6))
+                        {
+                            BarCodeSerial.Text = "10" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                        }
+                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(5))
+                        {
+                            BarCodeSerial.Text = "100" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                        }
+                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(4))
+                        {
+                            BarCodeSerial.Text = "1000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                        }
+                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(3))
+                        {
+                            BarCodeSerial.Text = "10000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                        }
+
+                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(2))
+                        {
+                            BarCodeSerial.Text = "100000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                        }
+
+                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(1))
+                        {
+                            BarCodeSerial.Text = "1000000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                        }
+                        else if (ds.Tables[0].Rows[0][0].ToString().Length < 1)
+                        {
+                            BarCodeSerial.Text = "1000000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                    #endregion 
                 }
-                finally
+                else if (Session["MODE"].Equals("EDIT"))
                 {
-                    connection.Close();
+                    btnCreateProduct.Text = "UPDATE";
+                }
+
+                #region Master Search Mechanism
+                if (Session["PageMasterProduct"] != null && Session["PageMasterProduct"].ToString() != null && 
+                    Session["PageMasterProduct"].ToString() != "" && Session["PageMasterProduct"].ToString()!="false")
+                {
+                    FromMaster_Load(Session["MS_ItemNo"].ToString(), Session["MS_ItemName"].ToString(), Session["MS_ItemType"].ToString(), Session["MS_Manufacterer"].ToString(),
+                                    Session["MS_Category"].ToString(), Session["MS_GenericName"].ToString(), Session["MS_Control"].ToString(), Session["MS_BinNumber"].ToString(),
+                                    Session["MS_GreenRainCode"].ToString(), Session["MS_BrandName"].ToString(), Session["MS_MaxiMumDiscount"].ToString(), Session["MS_LineID"].ToString(),
+                                    Session["MS_UnitSale"].ToString(), Session["MS_UnitCost"].ToString(), Session["MS_itemAWT"].ToString(), Session["MS_itemForm"].ToString(),
+                                    Session["MS_itemStrength"].ToString(), Session["MS_itemPackType"].ToString(), Session["MS_itemPackSize"].ToString());
                 }
                 #endregion
 
+
                 #region Populating Product Type DropDown
-                ProductType.Items.Add("Medicine (HAAD)");
-                ProductType.Items.Add("Medicine (Non HAAD)");
-                ProductType.Items.Add("Non Medicine");
+                ProductType.Items.Add("Medicine(HAAD)");
+                ProductType.Items.Add("Medicine(Non HAAD)");
+                ProductType.Items.Add("NonMedicine");
                 #endregion
 
                 #region Populating Product Department DropDown
@@ -102,6 +136,25 @@ namespace IMS
             }
         }
 
+        public void FromMaster_Load(String ItemNo, String ItemName, String ItemType, String Manufacturer, String Category, String GenericName,
+                                    String Control, String BinNumber, String GreenRain, String BrandName, String MaxDiscount, String LineID, 
+                                    String UnitSale, String UnitCost, String ItemAwt, String Form, String Strength, String itemPackType,
+                                    String itemPackSize)
+        {
+            GreenRainCode.Text = GreenRain;
+            ProductName.Text = ItemName;
+            ProdcutBrand.Text = BrandName;
+            ProductType.Text = ItemType;
+            ProductCost.Text = UnitCost;
+            ProductSale.Text = UnitSale;
+            WholeSalePrice.Text = ItemAwt;
+            ProductDiscount.Text = MaxDiscount;
+            ItemForm.Text = Form;
+            ItemStrength.Text = Strength;
+            PackType.Text = itemPackType;
+            PackSize.Text = itemPackSize;
+            binNumber.Text = BinNumber;
+        }
         protected void btnAddProduct_Click(object sender, EventArgs e)
         {
 
@@ -119,6 +172,7 @@ namespace IMS
 
         protected void btnGoBack_Click(object sender, EventArgs e)
         {
+            Session["PageMasterProduct"] = "false";
             Response.Redirect("~/ManageProducts.aspx", false);
         }
 
@@ -134,97 +188,232 @@ namespace IMS
 
         protected void btnCreateProduct_Click(object sender, EventArgs e)
         {
-            int x = 0;
-            string errorMessage = "";
-            try
+            if (GreenRainCode.Text.Equals("") || GreenRainCode.Text.Equals(null))
             {
-                connection.Open();
-                SqlCommand command = new SqlCommand("sp_InsertProduct", connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@p_BarCodeSerial", BarCodeSerial.Text.ToString());
-                command.Parameters.AddWithValue("@p_ProductCode", GreenRainCode.Text.ToString());
-                command.Parameters.AddWithValue("@p_ProductName", ProductName.Text.ToString());
-                command.Parameters.AddWithValue("@p_Description", ProdcutDesc.Text.ToString());
-                command.Parameters.AddWithValue("@p_BrandName", ProdcutBrand.Text.ToString());
-                command.Parameters.AddWithValue("@p_ProductType", ProductType.SelectedItem.ToString());
-
-                int res1,res4;
-                 float res2, res3;
-                if (int.TryParse(ProductSubCat.SelectedValue.ToString(), out res1))
+                if (ProductType.SelectedItem.ToString() != "Medicine(HAAD)")
                 {
-                    command.Parameters.AddWithValue("@p_SubCategoryID", res1);
-                }
-                else 
-                {
-                    command.Parameters.AddWithValue("@p_SubCategoryID", 0);
-                }
+                    if (btnCreateProduct.Text.Equals("ADD"))
+                    {
+                        int x = 0;
 
-                if (float.TryParse(ProductCost.Text.ToString(), out res2))
-                {
-                    command.Parameters.AddWithValue("@p_UnitCost", res2);
-                }
-                else
-                {
-                    command.Parameters.AddWithValue("@p_UnitCost", 0);
-                }
+                        #region Creation Product
+                        string errorMessage = "";
+                        try
+                        {
+                            connection.Open();
+                            SqlCommand command = new SqlCommand("sp_InsertProduct", connection);
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@p_BarCodeSerial", BarCodeSerial.Text.ToString());
+                            command.Parameters.AddWithValue("@p_ProductCode", GreenRainCode.Text.ToString());
+                            command.Parameters.AddWithValue("@p_ProductName", ProductName.Text.ToString());
+                            command.Parameters.AddWithValue("@p_Description", ProdcutDesc.Text.ToString());
+                            command.Parameters.AddWithValue("@p_BrandName", ProdcutBrand.Text.ToString());
+                            command.Parameters.AddWithValue("@p_ProductType", ProductType.SelectedItem.ToString());
 
-                if (float.TryParse(ProductSale.Text.ToString(), out res3))
-                {
-                    command.Parameters.AddWithValue("@p_SP", res3);
+                            int res1, res4;
+                            float res2, res3, res5;
+                            if (int.TryParse(ProductSubCat.SelectedValue.ToString(), out res1))
+                            {
+                                command.Parameters.AddWithValue("@p_SubCategoryID", res1);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_SubCategoryID", 0);
+                            }
+
+                            if (float.TryParse(ProductCost.Text.ToString(), out res2))
+                            {
+                                command.Parameters.AddWithValue("@p_UnitCost", res2);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_UnitCost", 0);
+                            }
+
+                            if (float.TryParse(ProductSale.Text.ToString(), out res3))
+                            {
+                                command.Parameters.AddWithValue("@p_SP", res3);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_SP", 0);
+                            }
+
+                            if (int.TryParse(ProductDiscount.Text.ToString(), out res4))
+                            {
+                                command.Parameters.AddWithValue("@p_MaxiMumDiscount", res4);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_MaxiMumDiscount", 0);
+                            }
+
+                            if (float.TryParse(WholeSalePrice.Text.ToString(), out res5))
+                            {
+                                command.Parameters.AddWithValue("@p_AWT", res5);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_AWT", 0);
+                            }
+
+
+                            command.Parameters.AddWithValue("@p_form", ItemForm.Text.ToString());
+                            command.Parameters.AddWithValue("@p_strength", ItemStrength.Text.ToString());
+                            command.Parameters.AddWithValue("@p_packtype", PackType.Text.ToString());
+                            command.Parameters.AddWithValue("@p_packsize", PackSize.Text.ToString());
+
+                            command.Parameters.AddWithValue("@p_shelf", shelfNumber.Text.ToString());
+                            command.Parameters.AddWithValue("@p_rack", rackNumber.Text.ToString());
+                            command.Parameters.AddWithValue("@p_bin", binNumber.Text.ToString());
+
+                            x = command.ExecuteNonQuery();
+                        }
+                        catch (Exception ex)
+                        {
+                            errorMessage = ex.Message;
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
+
+                        if (x == 1)
+                        {
+                            WebMessageBoxUtil.Show("Record Inserted Successfully");
+                            Session["PageMasterProduct"] = "false";
+                            BarCodeSerial.Text = "";
+                            GreenRainCode.Text = "";
+                            ProductName.Text = "";
+                            ProdcutDesc.Text = "";
+                            ProdcutBrand.Text = "";
+                            ProductType.SelectedIndex = -1;
+                            ProductSubCat.SelectedIndex = -1;
+                            ProductDept.SelectedIndex = -1;
+                            ProductCat.SelectedIndex = -1;
+                            ProductCost.Text = "";
+                            ProductSale.Text = "";
+                            ProductDiscount.Text = "";
+                            rackNumber.Text = "";
+                            shelfNumber.Text = "";
+                            binNumber.Text = "";
+
+                        }
+                        else
+                        {
+                            WebMessageBoxUtil.Show(errorMessage);
+                        }
+                        #endregion
+                    }
+                    else
+                    {
+
+                        #region Updating Product
+                        try
+                        {
+                            connection.Open();
+                            SqlCommand command = new SqlCommand("sp_UpdateProduct", connection);
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@p_BarCodeSerial", BarCodeSerial.Text.ToString());
+                            command.Parameters.AddWithValue("@p_ProductCode", GreenRainCode.Text.ToString());
+                            command.Parameters.AddWithValue("@p_ProductName", ProductName.Text.ToString());
+                            command.Parameters.AddWithValue("@p_Description", ProdcutDesc.Text.ToString());
+                            command.Parameters.AddWithValue("@p_BrandName", ProdcutBrand.Text.ToString());
+                            command.Parameters.AddWithValue("@p_ProductType", ProductType.SelectedItem.ToString());
+
+                            int res1, res4;
+                            float res2, res3, res5;
+                            if (int.TryParse(ProductSubCat.SelectedValue.ToString(), out res1))
+                            {
+                                command.Parameters.AddWithValue("@p_SubCategoryID", res1);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_SubCategoryID", 0);
+                            }
+
+                            if (float.TryParse(ProductCost.Text.ToString(), out res2))
+                            {
+                                command.Parameters.AddWithValue("@p_UnitCost", res2);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_UnitCost", 0);
+                            }
+
+                            if (float.TryParse(ProductSale.Text.ToString(), out res3))
+                            {
+                                command.Parameters.AddWithValue("@p_SP", res3);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_SP", 0);
+                            }
+
+                            if (int.TryParse(ProductDiscount.Text.ToString(), out res4))
+                            {
+                                command.Parameters.AddWithValue("@p_MaxiMumDiscount", res4);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_MaxiMumDiscount", 0);
+                            }
+
+                            if (float.TryParse(WholeSalePrice.Text.ToString(), out res5))
+                            {
+                                command.Parameters.AddWithValue("@p_AWT", res5);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_AWT", 0);
+                            }
+
+
+                            command.Parameters.AddWithValue("@p_form", ItemForm.Text.ToString());
+                            command.Parameters.AddWithValue("@p_strength", ItemStrength.Text.ToString());
+                            command.Parameters.AddWithValue("@p_packtype", PackType.Text.ToString());
+                            command.Parameters.AddWithValue("@p_packsize", PackSize.Text.ToString());
+
+                            command.Parameters.AddWithValue("@p_shelf", shelfNumber.Text.ToString());
+                            command.Parameters.AddWithValue("@p_rack", rackNumber.Text.ToString());
+                            command.Parameters.AddWithValue("@p_bin", binNumber.Text.ToString());
+
+
+                            int x = command.ExecuteNonQuery();
+                            if (x == 1)
+                            {
+                                WebMessageBoxUtil.Show("SuccessFully Updated");
+                                //SelectProduct.SelectedIndex = 0;
+                                BarCodeSerial.Text = "";
+                                GreenRainCode.Text = "";
+                                ProductName.Text = "";
+                                ProductDept.SelectedIndex = -1;
+                                ProductCat.SelectedIndex = -1;
+                                ProductSubCat.SelectedIndex = -1;
+                                ProductType.SelectedIndex = 0;
+                                ProdcutBrand.Text = "";
+                                ProdcutDesc.Text = "";
+                                ProductSale.Text = "";
+                                ProductCost.Text = "";
+                                ProductDiscount.Text = "";
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
+
+                        #endregion
+                    }
                 }
-                else
-                {
-                    command.Parameters.AddWithValue("@p_SP", 0);
-                }
-
-                if (int.TryParse(ProductDiscount.Text.ToString(), out res4))
-                {
-                    command.Parameters.AddWithValue("@p_MaxiMumDiscount", res4);
-                }
-                else
-                {
-                    command.Parameters.AddWithValue("@p_MaxiMumDiscount", 0);
-                }
-
-
-                command.Parameters.AddWithValue("@p_shelf", shelfNumber.Text.ToString());
-                command.Parameters.AddWithValue("@p_rack", rackNumber.Text.ToString());
-                command.Parameters.AddWithValue("@p_bin", binNumber.Text.ToString());
-
-                x = command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                errorMessage = ex.Message;
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            if(x==1)
-            {
-                WebMessageBoxUtil.Show("Record Inserted Successfully");
-                BarCodeSerial.Text ="";
-                GreenRainCode.Text = "";
-                ProductName.Text = "";
-                ProdcutDesc.Text = "";
-                ProdcutBrand.Text = "";
-                ProductType.SelectedIndex = -1;
-                ProductSubCat.SelectedIndex = -1;
-                ProductDept.SelectedIndex = -1;
-                ProductCat.SelectedIndex = -1;
-                ProductCost.Text = "";
-                ProductSale.Text = "";
-                ProductDiscount.Text = "";
-                rackNumber.Text = "";
-                shelfNumber.Text = "";
-                binNumber.Text = "";
-                
             }
             else
             {
-                WebMessageBoxUtil.Show(errorMessage);
+                WebMessageBoxUtil.Show("FOR HADD MEDICINES, PLEASE ENTER THE RESPECTIVE GREENRAIN CODE");
             }
         }
 
@@ -235,7 +424,7 @@ namespace IMS
 
         protected void btnCancelProduct_Click(object sender, EventArgs e)
         {
-                
+                Session["PageMasterProduct"] = "false";
                 GreenRainCode.Text=string.Empty;
                 ProductName.Text=string.Empty;
                 ProdcutDesc.Text = string.Empty;
@@ -311,6 +500,14 @@ namespace IMS
             }
             #endregion
         }
+
+        protected void btnMasterSearch_Click(object sender, EventArgs e)
+        {
+            Session["ProductMasterSearch"] = txtProduct.Text.ToString();
+            Response.Redirect("MasterProductSearch.aspx");
+        }
+
+     
 
         
        
