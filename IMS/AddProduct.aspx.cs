@@ -32,44 +32,44 @@ namespace IMS
                     try
                     {
                         connection.Open();
-                        SqlCommand command = new SqlCommand("Select Count(*) From tbl_ProductMaster", connection);
+                        SqlCommand command = new SqlCommand("Select Count(*) From tbl_ProductMaster Where DrugType != 'MEDICINE(NONHAAD)' AND ItemCode IS NULL", connection);
                         DataSet ds = new DataSet();
                         SqlDataAdapter sA = new SqlDataAdapter(command);
                         sA.Fill(ds);
 
                         if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(7))
                         {
-                            BarCodeSerial.Text = "1" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            BarCodeSerial.Text = "2" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
                         }
                         else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(6))
                         {
-                            BarCodeSerial.Text = "10" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            BarCodeSerial.Text = "20" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
                         }
                         else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(5))
                         {
-                            BarCodeSerial.Text = "100" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            BarCodeSerial.Text = "200" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
                         }
                         else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(4))
                         {
-                            BarCodeSerial.Text = "1000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            BarCodeSerial.Text = "2000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
                         }
                         else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(3))
                         {
-                            BarCodeSerial.Text = "10000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            BarCodeSerial.Text = "20000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
                         }
 
                         else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(2))
                         {
-                            BarCodeSerial.Text = "100000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            BarCodeSerial.Text = "200000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
                         }
 
                         else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(1))
                         {
-                            BarCodeSerial.Text = "1000000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            BarCodeSerial.Text = "2000000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
                         }
                         else if (ds.Tables[0].Rows[0][0].ToString().Length < 1)
                         {
-                            BarCodeSerial.Text = "1000000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            BarCodeSerial.Text = "2000000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
                         }
                     }
                     catch (Exception ex)
@@ -81,10 +81,13 @@ namespace IMS
                         connection.Close();
                     }
                     #endregion 
+
+                    BarCodeSerial.Visible = true;
                 }
                 else if (Session["MODE"].Equals("EDIT"))
                 {
                     btnCreateProduct.Text = "UPDATE";
+                    BarCodeSerial.Visible = false;
                 }
 
                 #region Master Search Mechanism
@@ -188,9 +191,12 @@ namespace IMS
 
         protected void btnCreateProduct_Click(object sender, EventArgs e)
         {
-            if (GreenRainCode.Text.Equals("") || GreenRainCode.Text.Equals(null))
-            {
-                if (ProductType.SelectedItem.ToString() != "Medicine(HAAD)")
+                if (ProductType.SelectedItem.ToString() == "Medicine(HAAD)" && 
+                    (GreenRainCode.Text.Equals("") || GreenRainCode.Text.Equals(null)))
+                {
+                        WebMessageBoxUtil.Show("FOR HADD MEDICINES, PLEASE ENTER THE RESPECTIVE GREENRAIN CODE");
+                }
+                else
                 {
                     if (btnCreateProduct.Text.Equals("ADD"))
                     {
@@ -297,7 +303,11 @@ namespace IMS
                             rackNumber.Text = "";
                             shelfNumber.Text = "";
                             binNumber.Text = "";
-
+                            WholeSalePrice.Text = "";
+                            ItemForm.Text = "";
+                            ItemStrength.Text = "";
+                            PackType.Text = "";
+                            PackSize.Text = "";
                         }
                         else
                         {
@@ -305,9 +315,8 @@ namespace IMS
                         }
                         #endregion
                     }
-                    else
+                    else if (btnCreateProduct.Text.Equals("UPDATE"))
                     {
-
                         #region Updating Product
                         try
                         {
@@ -321,15 +330,17 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_BrandName", ProdcutBrand.Text.ToString());
                             command.Parameters.AddWithValue("@p_ProductType", ProductType.SelectedItem.ToString());
 
-                            int res1, res4;
+                            int res1, res4,res6;
                             float res2, res3, res5;
-                            if (int.TryParse(ProductSubCat.SelectedValue.ToString(), out res1))
+
+                            
+                            if (int.TryParse(Session["MS_ProductID"].ToString(), out res6))
                             {
-                                command.Parameters.AddWithValue("@p_SubCategoryID", res1);
+                                command.Parameters.AddWithValue("@p_ProductID", res6);
                             }
                             else
                             {
-                                command.Parameters.AddWithValue("@p_SubCategoryID", 0);
+                                command.Parameters.AddWithValue("@p_ProductID", 0);
                             }
 
                             if (float.TryParse(ProductCost.Text.ToString(), out res2))
@@ -380,9 +391,10 @@ namespace IMS
 
 
                             int x = command.ExecuteNonQuery();
-                            if (x == 1)
+                            if (x > 0)
                             {
                                 WebMessageBoxUtil.Show("SuccessFully Updated");
+                                Session["PageMasterProduct"] = "false";
                                 //SelectProduct.SelectedIndex = 0;
                                 BarCodeSerial.Text = "";
                                 GreenRainCode.Text = "";
@@ -396,6 +408,13 @@ namespace IMS
                                 ProductSale.Text = "";
                                 ProductCost.Text = "";
                                 ProductDiscount.Text = "";
+                                WholeSalePrice.Text = "";
+                                ItemForm.Text = "";
+                                ItemStrength.Text = "";
+                                PackType.Text = "";
+                                PackSize.Text = "";
+
+                                
                             }
                         }
                         catch (Exception ex)
@@ -406,15 +425,10 @@ namespace IMS
                         {
                             connection.Close();
                         }
-
+                        Response.Redirect("ManageProducts.aspx");
                         #endregion
                     }
                 }
-            }
-            else
-            {
-                WebMessageBoxUtil.Show("FOR HADD MEDICINES, PLEASE ENTER THE RESPECTIVE GREENRAIN CODE");
-            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)

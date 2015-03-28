@@ -21,7 +21,7 @@ namespace IMS
 
         protected void btnManualPurchase_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("OrderPurchaseManual.aspx");
         }
 
         protected void btnEditOrder_Click(object sender, EventArgs e)

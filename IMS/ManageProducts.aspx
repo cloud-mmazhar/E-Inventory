@@ -1,18 +1,38 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageProducts.aspx.cs" Inherits="IMS.ManageProducts" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-   <div class="row">
-        <h3>Product Management</h3>
+    <h3>Product Management</h3>
+    <br />
+    <br />
+    <div class="row">
+    <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="txtProduct" CssClass="col-md-2 control-label">Select Product</asp:Label>
+            <div class="col-md-10">
+                <asp:TextBox runat="server" ID="txtProduct" CssClass="form-control product"/>
+                <asp:ImageButton ID="btnSearchProduct" runat="server" OnClick="btnSearchProduct_Click"  Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
+                <br />
+                <asp:DropDownList runat="server" ID="SelectProduct" Visible="false" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="SelectProduct_SelectedIndexChanged"/>
+                <br/>
+            </div>
+    </div>
+    </div>
+    <br />
+
+    <div class="row">
+        
          <asp:Button ID="btnAddProduct" runat="server" CssClass="btn btn-primary btn-large" Text="Add Product" OnClick="btnAddProduct_Click"/>
         <asp:Button ID="btnGoBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
          <asp:Button ID="btnDeleteProduct" runat="server" CssClass="btn btn-primary btn-large" Text="Delete Product" OnClick="btnDeleteProduct_Click" Visible="False"/>
          <asp:Button ID="btnEditProduct" runat="server" CssClass="btn btn-primary btn-large" Text="Edit Product" OnClick="btnEditProduct_Click" Visible="False"/>
      </div>
+
+    <br />
     <div class="form-horizontal">
     <div class="form-group">
+        <br />
         <asp:GridView ID="StockDisplayGrid" CssClass="table table-striped table-bordered table-condensed" runat="server" AllowPaging="True" PageSize="10" 
                 AutoGenerateColumns="false" OnPageIndexChanging="StockDisplayGrid_PageIndexChanging"   onrowcancelingedit="StockDisplayGrid_RowCancelingEdit" 
             onrowcommand="StockDisplayGrid_RowCommand" OnRowDataBound="StockDisplayGrid_RowDataBound" onrowdeleting="StockDisplayGrid_RowDeleting" 
-            onrowediting="StockDisplayGrid_RowEditing" >
+            onrowediting="StockDisplayGrid_RowEditing" OnSelectedIndexChanged="StockDisplayGrid_SelectedIndexChanged" >
                  <Columns>
                      <asp:TemplateField HeaderText="UPC">
                         <ItemTemplate>

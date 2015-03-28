@@ -187,6 +187,7 @@
     <Content Include="ManageVendor.aspx" />
     <Content Include="ManageWarehouse.aspx" />
     <Content Include="MasterProductSearch.aspx" />
+    <Content Include="OrderPurchaseManual.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -472,6 +473,13 @@
       <DependentUpon>MasterProductSearch.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="OrderPurchaseManual.aspx.cs">
+      <DependentUpon>OrderPurchaseManual.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OrderPurchaseManual.aspx.designer.cs">
+      <DependentUpon>OrderPurchaseManual.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PackingListGeneration.aspx.cs">
       <DependentUpon>PackingListGeneration.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

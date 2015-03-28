@@ -35,7 +35,7 @@ namespace IMS
                 int id;
                 if (int.TryParse(Session["UserSys"].ToString(), out id))
                 {
-                    String Query = "Select * FROM tbl_ProductMaster";
+                    String Query = "Select * FROM tbl_ProductMaster Where Status = 1";
 
                     connection.Open();
                     SqlCommand command = new SqlCommand(Query, connection);
@@ -90,6 +90,7 @@ namespace IMS
             Response.Redirect("ManageStocks.aspx");
         }
 
+        #region GridView Functions & Events
         protected void StockDisplayGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             StockDisplayGrid.PageIndex = e.NewPageIndex;
@@ -98,7 +99,8 @@ namespace IMS
 
         protected void StockDisplayGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-
+            StockDisplayGrid.EditIndex = -1;
+            BindGrid();
         }
 
         protected void StockDisplayGrid_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -108,11 +110,11 @@ namespace IMS
                 if (e.CommandName.Equals("Edit"))
                 {
                     #region Updating Product
-                    Label ItemNo = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("Product_Id_Org");
-                    Label ItemName = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("Product_Name");
-                    Label ItemType = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("DrugType");
-                    Label GreenRainCode = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("ItemCode");
-                    Label UnitSale = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("SP");
+                    Label ItemNo = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("UPC");
+                    Label ItemName = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("ProductName");
+                    Label ItemType = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("Type");
+                    Label GreenRainCode = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("GreenRain");
+                    Label UnitSale = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("lblUnitSalePrice");
                     Label UnitCost = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("UnitCost");
 
 
@@ -126,9 +128,10 @@ namespace IMS
                     Session["MS_ItemType"] = ItemType.Text.ToString();
                     
                     DataView dv = ProductSet.Tables[0].DefaultView;
-                    dv.RowFilter = "Product_Id_Org = " + ItemNo.Text;
+                    dv.RowFilter = "Product_Id_Org = '"+ ItemNo.Text + "'";
                     DataTable dt = dv.ToTable();
-
+                    Session["MS_Manufacterer"] = "";
+                    Session["MS_Category"] = "";
                     Session["MS_GenericName"] = dt.Rows[0]["GName"].ToString();
                     Session["MS_Control"] = dt.Rows[0]["Control"].ToString();
                     Session["MS_BinNumber"] = dt.Rows[0]["binNumber"].ToString();
@@ -143,7 +146,7 @@ namespace IMS
                     Session["MS_itemStrength"] = dt.Rows[0]["itemStrength"].ToString();
                     Session["MS_itemPackType"] = dt.Rows[0]["itemPackType"].ToString();
                     Session["MS_itemPackSize"] = dt.Rows[0]["itemPackSize"].ToString();
-
+                    Session["MS_ProductID"] = dt.Rows[0]["ProductID"].ToString();
                     Response.Redirect("Addproduct.aspx");
                     #endregion
 
@@ -151,14 +154,29 @@ namespace IMS
                 else if (e.CommandName.Equals("Delete"))
                 {
 
-                    #region Getting Product Details
+                    #region Delete product
                     try
                     {
-                            Label ItemNo = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("Product_Id_Org");
+                            Label ItemNo = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("UPC");
                             connection.Open();
                             SqlCommand command = new SqlCommand("sp_DeleteProduct", connection);
                             command.CommandType = CommandType.StoredProcedure;
-                            command.Parameters.AddWithValue("@p_ItemNo", Convert.ToInt32(ItemNo.Text));
+                            
+                            int res6 =0;
+
+                            DataView dv = ProductSet.Tables[0].DefaultView;
+                            dv.RowFilter = "Product_Id_Org = '" + ItemNo.Text + "'";
+                            DataTable dt = dv.ToTable();
+                            Session["MS_ProductID"] = dt.Rows[0]["ProductID"].ToString();
+                        
+                            if (int.TryParse(Session["MS_ProductID"].ToString(), out res6))
+                            {
+                                command.Parameters.AddWithValue("@p_ProductID", res6);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_ProductID", 0);
+                            }
                             command.ExecuteNonQuery();
                     
                     }
@@ -170,6 +188,8 @@ namespace IMS
                         connection.Close();
                     }
                     #endregion
+
+                    BindGrid();
                 }
             }
             catch(Exception ex)
@@ -197,6 +217,100 @@ namespace IMS
         {
             StockDisplayGrid.EditIndex = e.NewEditIndex;
             BindGrid();
+        }
+
+        protected void StockDisplayGrid_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindGrid();
+        }
+
+        #endregion
+
+        protected void SelectProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                connection.Open();
+
+                String Text = SelectProduct.SelectedItem.ToString() + "%";
+                SqlCommand command = new SqlCommand("SELECT * From tbl_ProductMaster Where tbl_ProductMaster.Product_Name LIKE '" + Text + "' AND Status = 1", connection);
+                DataSet ds = new DataSet();
+                SqlDataAdapter sA = new SqlDataAdapter(command);
+                sA.Fill(ds);
+                if (SelectProduct.DataSource != null)
+                {
+                    SelectProduct.DataSource = null;
+                }
+
+                ProductSet = null;
+                ProductSet = ds;
+
+                StockDisplayGrid.DataSource = ds;
+                StockDisplayGrid.DataBind();
+            }
+            catch(Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+
+            }
+        }
+
+        protected void btnSearchProduct_Click(object sender, ImageClickEventArgs e)
+        {
+            if (txtProduct.Text.Length >= 3)
+            {
+                PopulateDropDown(txtProduct.Text);
+                SelectProduct.Visible = true;
+            }
+        }
+
+        public void PopulateDropDown(String Text)
+        {
+            #region Populating Product Name Dropdown
+
+            try
+            {
+                connection.Open();
+
+                Text = Text + "%";
+                SqlCommand command = new SqlCommand("SELECT * From tbl_ProductMaster Where tbl_ProductMaster.Product_Name LIKE '" + Text + "' AND Status = 1", connection);
+                DataSet ds = new DataSet();
+                SqlDataAdapter sA = new SqlDataAdapter(command);
+                sA.Fill(ds);
+                if (SelectProduct.DataSource != null)
+                {
+                    SelectProduct.DataSource = null;
+                }
+
+                ProductSet = null;
+                ProductSet = ds;
+                
+                StockDisplayGrid.DataSource = ds;
+                StockDisplayGrid.DataBind();
+                
+                SelectProduct.DataSource = ds.Tables[0];
+                SelectProduct.DataTextField = "Product_Name";
+                SelectProduct.DataValueField = "ProductID";
+                SelectProduct.DataBind();
+                if (SelectProduct != null)
+                {
+                    SelectProduct.Items.Insert(0, "Select Product");
+                    SelectProduct.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            #endregion
         }
     }
 }
