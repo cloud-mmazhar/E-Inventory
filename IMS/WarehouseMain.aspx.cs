@@ -54,5 +54,10 @@ namespace IMS
         {
             Response.Redirect("ManageVendor.aspx", false);
         }
+
+        protected void btnHaadList_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("HAADPopulation.aspx");
+        }
     }
 }

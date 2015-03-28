@@ -169,6 +169,7 @@
     <Content Include="Edit_DeleteStock.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="generateBarCode.aspx" />
+    <Content Include="HAADPopulation.aspx" />
     <Content Include="HeadOfficeMain.aspx" />
     <Content Include="Images\close-icon.png" />
     <Content Include="Images\Gakuseisean-Ivista-2-Start-Menu-Search %281%29.ico" />
@@ -366,6 +367,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HAADPopulation.aspx.cs">
+      <DependentUpon>HAADPopulation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HAADPopulation.aspx.designer.cs">
+      <DependentUpon>HAADPopulation.aspx</DependentUpon>
     </Compile>
     <Compile Include="HeadOfficeMain.aspx.cs">
       <DependentUpon>HeadOfficeMain.aspx</DependentUpon>
