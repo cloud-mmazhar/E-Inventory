@@ -69,7 +69,7 @@
                         <ItemTemplate>
 
 
-                            <asp:Label ID="Label1" runat="server" Text=''> 
+                            <asp:Label ID="Label1"  CssClass="btn btn-default" runat="server" Text=''> 
 
                                  <a href="AddEditVendor.aspx?Id=<%# Eval("SuppID")%>">
                                      Edit</asp:Label>
