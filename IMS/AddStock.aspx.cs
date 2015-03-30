@@ -93,7 +93,16 @@ namespace IMS
 
                 string p1;
                 long BarCode = 0;
-                String mm = dateValue.Month.ToString();
+                String mm ;//= dateValue.Month.ToString();
+                if (dateValue.Month < 10)
+                {
+                    mm = dateValue.Month.ToString().PadLeft(2, '0');
+
+                }
+                else
+                {
+                    mm = dateValue.Month.ToString();
+                }
                 String yy = dateValue.ToString("yy", DateTimeFormatInfo.InvariantInfo);
                 p1 = BarCodeSerial.Text + mm + yy;
 

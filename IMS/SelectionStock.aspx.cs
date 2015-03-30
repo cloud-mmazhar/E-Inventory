@@ -66,7 +66,7 @@ namespace IMS
                 dv = ProductSet.Tables[0].DefaultView;
                 dv.RowFilter = "ProductID = '" + SelectProduct.SelectedValue.ToString() + "'";
                 dt = dv.ToTable();
-                String Query = "Select tblStock_Detail.ProductID AS ProductID ,tbl_ProductMaster.Product_Name AS ProductName, tblStock_Detail.BarCode AS BarCode, tblStock_Detail.Quantity AS Qauntity, tblStock_Detail.ExpiryDate As Expiry, tblStock_Detail.UCostPrice AS CostPrice, tblStock_Detail.USalePrice AS SalePrice, tblStock_Detail.StoredAt AS Location From  tblStock_Detail INNER JOIN tbl_ProductMaster ON tblStock_Detail.ProductID = tbl_ProductMaster.ProductID Where tblStock_Detail.ProductID = '" + Int32.Parse(dt.Rows[0]["ProductID"].ToString()) + "'";
+                String Query = "Select tblStock_Detail.ProductID AS ProductID ,tbl_ProductMaster.Product_Name AS ProductName, tblStock_Detail.BarCode AS BarCode,tblStock_Detail.StockID AS StockID, tblStock_Detail.Quantity AS Qauntity, tblStock_Detail.ExpiryDate As Expiry, tblStock_Detail.UCostPrice AS CostPrice, tblStock_Detail.USalePrice AS SalePrice, tblStock_Detail.StoredAt AS Location From  tblStock_Detail INNER JOIN tbl_ProductMaster ON tblStock_Detail.ProductID = tbl_ProductMaster.ProductID Where tblStock_Detail.ProductID = '" + Int32.Parse(dt.Rows[0]["ProductID"].ToString()) + "'";
 
                 connection.Open();
                 SqlCommand command = new SqlCommand(Query, connection);
@@ -108,6 +108,35 @@ namespace IMS
         {
             try
             {
+                if (e.CommandName.Equals("Delete")) 
+                {
+                    try
+                    {
+                        //Label Barcode = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("BarCode");
+                        //DataView dv = ProductSet.Tables[0].DefaultView;
+                        //dv.RowFilter = "BarCode = '" + long.Parse(Barcode.Text.ToString()) + "'";
+                        //DataTable dt = dv.ToTable();
+                        //int ProductID = Int32.Parse(dt.Rows[0]["ProductID"].ToString());
+
+                       // Label _StockID = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("lblStockID");
+                        //int stockID = int.Parse(_StockID.Text);
+                        int stockID = int.Parse(e.CommandArgument.ToString());
+                        String Query = "Delete From tblStock_Detail Where StockID = '" + stockID + "'";
+                        connection.Open();
+                        SqlCommand command = new SqlCommand(Query, connection);
+                        command.ExecuteNonQuery();
+                        WebMessageBoxUtil.Show("Stock Successfully Deleted ");
+                    }
+                    catch (Exception exp)
+                    {
+                    }
+                    finally
+                    {
+
+                        BindGrid();
+                       // StockDisplayGrid.EditIndex = -1;
+                    }
+                }
                 if (e.CommandName.Equals("UpdateStock"))
                 {
                     Label Barcode = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("BarCode");
@@ -115,11 +144,13 @@ namespace IMS
                     TextBox UnitCostPrice = (TextBox)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("txtUnitCostPrice");
                     TextBox UnitSalePrice = (TextBox)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("txtUnitSalePrice");
                     Label expiry = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("lblExpiry");
+                    Label _StockID = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("lblStockID");
+                    int stockID = int.Parse(_StockID.Text);
                     DataView dv = ProductSet.Tables[0].DefaultView;
-                    dv.RowFilter = "BarCode = '" + long.Parse(Barcode.Text.ToString()) + "'";
+                    dv.RowFilter = "Product_Id_Org = '" + long.Parse(Barcode.Text.ToString()) + "'";
                     DataTable dt = dv.ToTable();
-                    int ProductID = Int32.Parse(dt.Rows[0]["ProductID"].ToString());
-
+                   // int ProductID = Int32.Parse(dt.Rows[0]["ProductID"].ToString());
+                    
                     if (Barcode.Text.Equals(""))
                     {
                         #region Barcode Generation
@@ -143,14 +174,14 @@ namespace IMS
                         }
                         #endregion
 
-                        String Query = "Update tblStock_Detail Set BarCode= '" + BarCodeNumber + "', Quantity = '" + Decimal.Parse(Quantity.Text.ToString()) + "', UCostPrice = '" + Decimal.Parse(UnitCostPrice.Text.ToString()) + "', USalePrice = '" + Decimal.Parse(UnitSalePrice.Text.ToString()) + "' Where ProductID = '" + ProductID + "'";
+                        String Query = "Update tblStock_Detail Set BarCode= '" + BarCodeNumber + "', Quantity = '" + Decimal.Parse(Quantity.Text.ToString()) + "', UCostPrice = '" + Decimal.Parse(UnitCostPrice.Text.ToString()) + "', USalePrice = '" + Decimal.Parse(UnitSalePrice.Text.ToString()) + "' Where StockID = '" +stockID + "'";
                         connection.Open();
                         SqlCommand command = new SqlCommand(Query, connection);
                         command.ExecuteNonQuery();
                     }
                     else
                     {
-                        String Query = "Update tblStock_Detail Set Quantity = '" + Decimal.Parse(Quantity.Text.ToString()) + "', UCostPrice = '" + Decimal.Parse(UnitCostPrice.Text.ToString()) + "', USalePrice = '" + Decimal.Parse(UnitSalePrice.Text.ToString()) + "' Where ProductID = '" + ProductID + "'";
+                        String Query = "Update tblStock_Detail Set Quantity = '" + Decimal.Parse(Quantity.Text.ToString()) + "', UCostPrice = '" + Decimal.Parse(UnitCostPrice.Text.ToString()) + "', USalePrice = '" + Decimal.Parse(UnitSalePrice.Text.ToString()) + "' Where StockID = '" + stockID + "'";
                         connection.Open();
                         SqlCommand command = new SqlCommand(Query, connection);
                         command.ExecuteNonQuery();
@@ -163,8 +194,9 @@ namespace IMS
             }
             finally
             {
-                StockDisplayGrid.EditIndex = -1;
+                
                 BindGrid();
+                StockDisplayGrid.EditIndex = -1;
             }
         }
 
@@ -177,25 +209,28 @@ namespace IMS
         {
             try
             {
-                Label Barcode = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("BarCode");
-                DataView dv = ProductSet.Tables[0].DefaultView;
-                dv.RowFilter = "BarCode = '" + long.Parse(Barcode.Text.ToString()) + "'";
-                DataTable dt = dv.ToTable();
-                int ProductID = Int32.Parse(dt.Rows[0]["ProductID"].ToString());
+                //Label Barcode = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("BarCode");
+                //DataView dv = ProductSet.Tables[0].DefaultView;
+                //dv.RowFilter = "BarCode = '" + long.Parse(Barcode.Text.ToString()) + "'";
+                //DataTable dt = dv.ToTable();
+                ////int ProductID = Int32.Parse(dt.Rows[0]["ProductID"].ToString());
 
-                String Query = "Delete From tblStock_Detail Where ProductID = '" + ProductID + "'";
-                connection.Open();
-                SqlCommand command = new SqlCommand(Query, connection);
-                command.ExecuteNonQuery();
-                WebMessageBoxUtil.Show("Stock Successfully Deleted ");
+                //Label _StockID = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("lblStockID");
+                //int stockID = int.Parse(_StockID.Text);
+                //String Query = "Delete From tblStock_Detail Where StockID = '" + stockID + "'";
+                //connection.Open();
+                //SqlCommand command = new SqlCommand(Query, connection);
+                //command.ExecuteNonQuery();
+                //WebMessageBoxUtil.Show("Stock Successfully Deleted ");
             }
-            catch (Exception exp) 
-            { 
+            catch (Exception exp)
+            {
             }
             finally
             {
-                StockDisplayGrid.EditIndex = -1;
+
                 BindGrid();
+               // StockDisplayGrid.EditIndex = -1;
             }
         }
 
