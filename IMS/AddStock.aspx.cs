@@ -85,7 +85,7 @@ namespace IMS
 
         protected void btnCreateProduct_Click(object sender, EventArgs e)
         {
-            if (StockAt.SelectedIndex != 0 && ProductList.SelectedIndex != 0)
+            if (StockAt.SelectedIndex > 0 && ProductList.SelectedIndex > 0)
             {
                 #region BarCode Generation
 
@@ -240,7 +240,44 @@ namespace IMS
             SelectProduct.Text = "";
             SelectProduct.Text = Session["SelectProduct"].ToString();
         }
-        protected void btnSearchProduct_Click(object sender, EventArgs e)
+        
+        protected void btnDirectSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ProductList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+
+           
+                #region Getting Product Details
+                try
+                {
+                    DataView dv = new DataView();
+                    dv = ProductSet.Tables[0].DefaultView;
+                    dv.RowFilter = "ProductID = '" + ProductList.SelectedValue.ToString() + "'";
+                    dt = dv.ToTable();
+
+                    BarCodeSerial.Text = dt.Rows[0]["Product_Id_Org"].ToString();
+                    ProductName.Text = dt.Rows[0]["Product_Name"].ToString();
+                    ProductCost.Text = dt.Rows[0]["UnitCost"].ToString();
+                    ProductSale.Text = dt.Rows[0]["SP"].ToString();
+                    btnCreateProduct.Enabled = true;
+                }
+                catch (Exception ex)
+                {
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                #endregion
+           
+        }
+
+        protected void btnSearchProduct_Click(object sender, ImageClickEventArgs e)
         {
             if (SelectProduct.Text.Length >= 3)
             {
@@ -258,7 +295,7 @@ namespace IMS
                 connection.Open();
 
                 Text = Text + "%";
-                SqlCommand command = new SqlCommand("SELECT * From tbl_ProductMaster Where tbl_ProductMaster.Product_Name LIKE '" + Text + "' AND tbl_ProductMaster.Product_Id_Org LIKE '444%' AND Status = 1", connection);
+                SqlCommand command = new SqlCommand("SELECT * From tbl_ProductMaster Where tbl_ProductMaster.Product_Name LIKE '" + Text + "' AND Status = 1", connection);
                 DataSet ds = new DataSet();
                 SqlDataAdapter sA = new SqlDataAdapter(command);
                 sA.Fill(ds);
@@ -282,39 +319,6 @@ namespace IMS
             catch (Exception ex)
             {
 
-            }
-            finally
-            {
-                connection.Close();
-            }
-            #endregion
-        }
-        protected void btnDirectSearch_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ProductList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-
-            #region Getting Product Details
-            try
-            {
-                DataView dv = new DataView();
-                dv = ProductSet.Tables[0].DefaultView;
-                dv.RowFilter = "ProductID = '" + ProductList.SelectedValue.ToString() + "'";
-                dt = dv.ToTable();
-
-                BarCodeSerial.Text = dt.Rows[0]["Product_Id_Org"].ToString();
-                ProductName.Text = dt.Rows[0]["Product_Name"].ToString();
-                ProductCost.Text = dt.Rows[0]["UnitCost"].ToString();
-                ProductSale.Text = dt.Rows[0]["SP"].ToString();
-                btnCreateProduct.Enabled = true;
-            }
-            catch (Exception ex)
-            {
             }
             finally
             {

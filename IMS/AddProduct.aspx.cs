@@ -32,7 +32,7 @@ namespace IMS
                     try
                     {
                         connection.Open();
-                        SqlCommand command = new SqlCommand("Select Count(*) From tbl_ProductMaster Where DrugType != 'MEDICINE(NONHAAD)' AND ItemCode IS NULL", connection);
+                        SqlCommand command = new SqlCommand("Select Count(*) From tbl_ProductMaster Where Product_Id_Org LIKE '2%';", connection);
                         DataSet ds = new DataSet();
                         SqlDataAdapter sA = new SqlDataAdapter(command);
                         sA.Fill(ds);

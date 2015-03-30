@@ -57,7 +57,7 @@ namespace IMS
 
         protected void btnHaadList_Click(object sender, EventArgs e)
         {
-            Response.Redirect("HAADPopulation.aspx");
+            Response.Redirect("HAADPopulation.aspx", false);
         }
     }
 }
