@@ -28,7 +28,7 @@ namespace IMS
                 try
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand("Select DISTINCT tbl_ProductMaster.* From tbl_ProductMaster INNER JOIN tblStock_Detail ON tbl_ProductMaster.ProductID = tblStock_Detail.ProductID Where tbl_ProductMaster.Product_Id_Org LIKE '444%' AND tbl_ProductMaster.Status = 1", connection);
+                    SqlCommand command = new SqlCommand("Select DISTINCT tbl_ProductMaster.* From tbl_ProductMaster INNER JOIN tblStock_Detail ON tbl_ProductMaster.ProductID = tblStock_Detail.ProductID Where  tbl_ProductMaster.Status = 1", connection);
                     DataSet ds = new DataSet();
                     SqlDataAdapter sA = new SqlDataAdapter(command);
                     sA.Fill(ds);
