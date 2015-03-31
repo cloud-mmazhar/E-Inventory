@@ -105,7 +105,7 @@ namespace IMS
                         String OrderMode = "Warehouse";
                         int OrderType = 2;
                         String Invoice = "";
-                        String Vendor = "";
+                        String Vendor = "False";
 
 
                         try
@@ -127,6 +127,7 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_Invoice", Invoice);
                             command.Parameters.AddWithValue("@p_OrderMode", OrderMode);
                             command.Parameters.AddWithValue("@p_Vendor", Vendor);
+                            command.Parameters.AddWithValue("@p_orderStatus", "Initiated");
 
                             DataTable dt = new DataTable();
                             SqlDataAdapter dA = new SqlDataAdapter(command);

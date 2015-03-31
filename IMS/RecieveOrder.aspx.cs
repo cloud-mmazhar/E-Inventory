@@ -16,7 +16,7 @@ namespace IMS
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ManageOrders.aspx");
+            Response.Redirect("ManageOrders.aspx",false);
         }
 
         protected void btnAutoRecieving_Click(object sender, EventArgs e)
@@ -26,7 +26,7 @@ namespace IMS
 
         protected void btnManualRecieving_Click(object sender, EventArgs e)
         {
-            
+            Response.Redirect("ViewPurchaseOrders.aspx", false);
         }
     }
 }

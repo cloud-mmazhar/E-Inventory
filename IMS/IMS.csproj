@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AcceptOrder.aspx" />
+    <Content Include="AcceptPurchaseOrder.aspx" />
     <Content Include="AddEditVendor.aspx" />
     <Content Include="AddProduct.aspx" />
     <Content Include="AddStock.aspx" />
@@ -257,6 +258,7 @@
     <Content Include="UserControl\uc_printBarcode.ascx" />
     <Content Include="UserControl\uc_Select_System.ascx" />
     <Content Include="ViewInventory.aspx" />
+    <Content Include="ViewPurchaseOrders.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="WarehouseMain.aspx" />
     <Content Include="Warehouse_StoreRequestDetails.aspx" />
@@ -293,6 +295,13 @@
     </Compile>
     <Compile Include="AcceptOrder.aspx.designer.cs">
       <DependentUpon>AcceptOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AcceptPurchaseOrder.aspx.cs">
+      <DependentUpon>AcceptPurchaseOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AcceptPurchaseOrder.aspx.designer.cs">
+      <DependentUpon>AcceptPurchaseOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="AddEditVendor.aspx.cs">
       <DependentUpon>AddEditVendor.aspx</DependentUpon>
@@ -643,6 +652,13 @@
     </Compile>
     <Compile Include="ViewInventory.aspx.designer.cs">
       <DependentUpon>ViewInventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPurchaseOrders.aspx.cs">
+      <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPurchaseOrders.aspx.designer.cs">
+      <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

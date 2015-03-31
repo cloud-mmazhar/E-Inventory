@@ -142,7 +142,7 @@ namespace IMS
                     command.Parameters.AddWithValue("@p_Invoice", Invoice);
                     command.Parameters.AddWithValue("@p_OrderMode", OrderMode);
                     command.Parameters.AddWithValue("@p_Vendor", Vendor);
-
+                    command.Parameters.AddWithValue("@p_orderStatus", "Initiated");
                     DataTable dt = new DataTable();
                     SqlDataAdapter dA = new SqlDataAdapter(command);
                     dA.Fill(dt);

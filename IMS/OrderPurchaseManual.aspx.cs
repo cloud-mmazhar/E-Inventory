@@ -182,11 +182,11 @@ namespace IMS
             if (FirstOrder.Equals(false))
             {
                 #region Creating Order
-                //Session["UserSys"] = 2;
+                
                 int pRequestFrom = 0;
                 int pRequestTo = 0;
                 String OrderMode = "";
-                int OrderType = 2;
+                int OrderType = 3;//incase of vendor this should be 3
 
                 if (RequestTo.SelectedItem.ToString().Contains("store")) // neeed to check it, because name doesn't always contains Store
                 {
@@ -202,7 +202,7 @@ namespace IMS
                 }
 
                 String Invoice = "";
-                String Vendor = "true";
+                String Vendor = "True";
 
 
                 try
@@ -210,10 +210,12 @@ namespace IMS
                     connection.Open();
                     SqlCommand command = new SqlCommand("sp_CreateOrder", connection);
                     command.CommandType = CommandType.StoredProcedure;
+                    //sets vendor
                     if (int.TryParse(RequestTo.SelectedValue.ToString(), out pRequestTo))
                     {
                         command.Parameters.AddWithValue("@p_RequestTO", pRequestTo);
                     }
+                    //sets warehouse/store
                     if (int.TryParse(Session["UserSys"].ToString(), out pRequestFrom))
                     {
                         command.Parameters.AddWithValue("@p_RequestFrom", pRequestFrom);
@@ -223,7 +225,7 @@ namespace IMS
                     command.Parameters.AddWithValue("@p_Invoice", Invoice);
                     command.Parameters.AddWithValue("@p_OrderMode", OrderMode);
                     command.Parameters.AddWithValue("@p_Vendor", Vendor);
-
+                    command.Parameters.AddWithValue("@p_orderStatus", "Pending");
                     DataTable dt = new DataTable();
                     SqlDataAdapter dA = new SqlDataAdapter(command);
                     dA.Fill(dt);
@@ -265,16 +267,10 @@ namespace IMS
                         command.Parameters.AddWithValue("@p_OrderQuantity", Quantity);
                     }
 
-                    if (RequestTo.SelectedItem.ToString().Contains("store")) // neeed to check it, because name doesn't always contains Store
-                    {
-                        command.Parameters.AddWithValue("@p_status", "Initiated");
-                        command.Parameters.AddWithValue("@p_comments", "Generated to Store");
-                    }
-                    else
-                    {
-                        command.Parameters.AddWithValue("@p_status", "Initiated");
-                        command.Parameters.AddWithValue("@p_comments", "Generated to Warehouse");
-                    }
+                   
+                    command.Parameters.AddWithValue("@p_status", "Pending");
+                    command.Parameters.AddWithValue("@p_comments", "Generated to Vendor");
+                    
                     command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
@@ -357,16 +353,10 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_OrderQuantity", Quantity);
                         }
 
-                        if (RequestTo.SelectedItem.ToString().Contains("store")) // neeed to check it, because name doesn't always contains Store
-                        {
-                            command.Parameters.AddWithValue("@p_status", "Initiated");
-                            command.Parameters.AddWithValue("@p_comments", "Generated to Vendor");
-                        }
-                        else
-                        {
-                            command.Parameters.AddWithValue("@p_status", "Initiated");
-                            command.Parameters.AddWithValue("@p_comments", "Generated to Vendor");
-                        }
+                        
+                        command.Parameters.AddWithValue("@p_status", "Pending");
+                        command.Parameters.AddWithValue("@p_comments", "Generated to Vendor");
+                       
                         command.ExecuteNonQuery();
                     }
                     catch (Exception ex)
