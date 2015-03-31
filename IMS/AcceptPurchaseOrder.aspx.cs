@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -95,10 +96,63 @@ namespace IMS
                     int expQuan = int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("ExpQuanVal")).Text);
                     int defQuan = int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("defQuanVal")).Text);
                     int retQuan = int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("retQuanVal")).Text);
+                    int remQuan = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblRemainQuan")).Text);
                     float txtCP = float.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("retCP")).Text);
                     float txtSP = float.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("retSP")).Text);
                     int orderedQuantity = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblQuantity")).Text);
-                    
+                    string  barcode=((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblbarCode")).Text;
+                    string expDate= ((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtExpDate")).Text;
+                    string status = ((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblStatus")).Text;
+                    long newBarcode = 0;
+                    if(barcode.Equals("0"))
+                    {
+                        if (!string.IsNullOrEmpty(expDate))
+                        {
+                            DateTime dateValue = (Convert.ToDateTime(expDate));
+
+                            string p1;
+                            String mm;//= dateValue.Month.ToString();
+                            if (dateValue.Month < 10)
+                            {
+                                mm = dateValue.Month.ToString().PadLeft(2, '0');
+
+                            }
+                            else
+                            {
+                                mm = dateValue.Month.ToString();
+                            }
+                            String yy = dateValue.ToString("yy", DateTimeFormatInfo.InvariantInfo);
+                            p1 = ((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblBrSerial")).Text + mm + yy;
+
+                            if (long.TryParse(p1, out newBarcode))
+                            {
+                            }
+                            else
+                            {
+                                //post error message 
+                            }
+                        }
+                    }
+
+                    if (status.Equals("Partial"))
+                    {
+                        if (recQuan > remQuan)
+                        {
+                            WebMessageBoxUtil.Show("Your remaining quantity cannot be larger than " + remQuan);
+                            StockDisplayGrid.EditIndex = -1;
+                            LoadData();
+                            return;
+                        }
+                        else
+                        {
+                            remQuan = remQuan - (recQuan + expQuan + expQuan);
+                        }
+                    }
+                    else 
+                    {
+                        remQuan = remQuan - (recQuan + expQuan + expQuan);
+                    }
+
                     if (txtCP < 0 || txtSP < 0) 
                     {
                         WebMessageBoxUtil.Show("Entered value cannot be negative");
@@ -107,7 +161,7 @@ namespace IMS
                         return;
                     }
 
-                    if (recQuan < 0 || expQuan < 0 || defQuan < 0)
+                    if (recQuan < 0 || expQuan < 0 || expQuan < 0)
                     {
                         WebMessageBoxUtil.Show("Entered value cannot be negative");
                         StockDisplayGrid.EditIndex = -1;
@@ -123,16 +177,22 @@ namespace IMS
                         command.Parameters.AddWithValue("@p_OrderDetailID", int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text));
                         command.Parameters.AddWithValue("@p_ReceivedQuantity", recQuan);
                         command.Parameters.AddWithValue("@p_ExpiredQuantity", expQuan);
-
+                        command.Parameters.AddWithValue("@p_RemainingQuantity", remQuan);
                         command.Parameters.AddWithValue("@p_DefectedQuantity", defQuan);
                         command.Parameters.AddWithValue("@p_ReturnedQuantity", retQuan);
                         command.Parameters.AddWithValue("@p_SystemType", Session["RequestDesRole"].ToString());
                         command.Parameters.AddWithValue("@p_StoreID", Session["UserSys"]);
-
+                        
                         command.Parameters.AddWithValue("@p_ProductID", int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblProd_id")).Text));
-                        command.Parameters.AddWithValue("@p_BarCode", ((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblbarCode")).Text);
-                        command.Parameters.AddWithValue("@p_Expiry", DateTime.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblExpDate")).Text));
-
+                        command.Parameters.AddWithValue("@p_BarCode", newBarcode);
+                        if (string.IsNullOrEmpty(expDate))
+                        {
+                            command.Parameters.AddWithValue("@p_Expiry", DBNull.Value);
+                        }
+                        else 
+                        {
+                            command.Parameters.AddWithValue("@p_Expiry", expDate);
+                        }
                         command.Parameters.AddWithValue("@p_Cost", txtCP);
                         command.Parameters.AddWithValue("@p_Sales", txtSP);
                         command.Parameters.AddWithValue("@p_orderMasterID", int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdMs_id")).Text));

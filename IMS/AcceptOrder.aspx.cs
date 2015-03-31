@@ -97,6 +97,8 @@ namespace IMS
                         int expQuan= int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("ExpQuanVal")).Text);
                         int defQuan= int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("defQuanVal")).Text);
                         int retQuan = int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("retQuanVal")).Text);
+                        int remQuan = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblRemainQuan")).Text);
+                        string status = ((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblStatus")).Text;
                         int orderedQuantity = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblQuantity")).Text);
                         if (recQuan < 0 || expQuan < 0 || defQuan < 0) 
                         {
@@ -104,6 +106,24 @@ namespace IMS
                             StockDisplayGrid.EditIndex = -1;
                             LoadData();
                             return;
+                        }
+                        if (status.Equals("Partial"))
+                        {
+                            if (recQuan > remQuan)
+                            {
+                                WebMessageBoxUtil.Show("Your remaining quantity cannot be larger than " + remQuan);
+                                StockDisplayGrid.EditIndex = -1;
+                                LoadData();
+                                return;
+                            }
+                            else
+                            {
+                                remQuan = remQuan - (recQuan + expQuan + expQuan);
+                            }
+                        }
+                        else
+                        {
+                            remQuan = remQuan - (recQuan + expQuan + expQuan);
                         }
                         if (orderedQuantity >= (recQuan + expQuan + defQuan+ retQuan))
                         {
@@ -114,7 +134,7 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_OrderDetailID", int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text));
                             command.Parameters.AddWithValue("@p_ReceivedQuantity", recQuan);
                             command.Parameters.AddWithValue("@p_ExpiredQuantity", expQuan);
-
+                            command.Parameters.AddWithValue("@p_RemainingQuantity", remQuan);
                             command.Parameters.AddWithValue("@p_DefectedQuantity", defQuan);
                             command.Parameters.AddWithValue("@p_ReturnedQuantity", retQuan);
                             command.Parameters.AddWithValue("@p_SystemType", Session["RequestDesRole"].ToString());

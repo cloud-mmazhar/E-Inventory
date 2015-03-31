@@ -9,7 +9,7 @@
                 AutoGenerateColumns="false" OnSelectedIndexChanged="StockDisplayGrid_SelectedIndexChanged" OnPageIndexChanging="StockDisplayGrid_PageIndexChanging"   onrowcancelingedit="StockDisplayGrid_RowCancelingEdit" 
                 onrowcommand="StockDisplayGrid_RowCommand" onrowediting="StockDisplayGrid_RowEditing" >
                  <Columns>
-                    <asp:TemplateField HeaderText="Request No." HeaderStyle-Width ="110px">
+                    <asp:TemplateField HeaderText="Request No."   HeaderStyle-Width ="110px" Visible="false">
                         <ItemTemplate>
                             <asp:Label ID="RequestedNO" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("OrderID") %>' Width="100px" ></asp:Label>
                         </ItemTemplate>
@@ -58,6 +58,7 @@
                         </ItemTemplate>
                          <ItemStyle  Width="200px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
+                     
                  </Columns>
              </asp:GridView>
     </div>

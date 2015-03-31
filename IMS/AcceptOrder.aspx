@@ -136,7 +136,11 @@
                         </ItemTemplate>
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-
+                      <asp:TemplateField HeaderText="Status" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                      <asp:TemplateField HeaderText="Action" HeaderStyle-Width ="200px">
                         <ItemTemplate>
                             <asp:Button CssClass="btn btn-default" ID="btnEdit" Text="Accept" runat="server" CommandName="Edit"/>
@@ -166,6 +170,12 @@
                                 <asp:Label ID="lblOrdMs_id" runat="server" Text='<%# Eval("OrderNO") %>'></asp:Label>
                             </ItemTemplate>
                       </asp:TemplateField>
+                     <asp:TemplateField HeaderText="Remaining Quantity" Visible="false" HeaderStyle-Width ="130px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblRemainQuan" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("RemainingQuantity") %>' ></asp:Label>
+                        </ItemTemplate>
+                          <ItemStyle  Width="130px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
                  </Columns>
              </asp:GridView>
              <br />
