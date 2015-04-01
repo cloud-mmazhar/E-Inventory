@@ -83,6 +83,16 @@ namespace IMS
             LoadData();
         }
 
+        protected Boolean IsStatusNotComplete(String status)
+        {
+            if (status.Equals("Complete") || status.Equals("Initiated"))
+            {
+                return false;
+            }
+            else
+                return true;
+        }
+
         protected void StockDisplayGrid_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName.Equals("UpdateStock"))

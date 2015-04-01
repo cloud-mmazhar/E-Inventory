@@ -9,6 +9,7 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Configuration;
+using IMSCommon.Util;
 
 
 namespace IMS
@@ -151,8 +152,9 @@ namespace IMS
                 {
                     #region Updating SendQuantity in tblOrderDetails
                     Label OderDetailID = (Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("OrderDetailNo");
+                    string status = ((Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("lblStatus")).Text;
                     TextBox Quantity = (TextBox)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("txtQuantity");
-                    
+                    int remQuan = int.Parse(((Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("lblRemainQuan")).Text);
                     int RequestNumber = 0;
                     if (int.TryParse(OderDetailID.Text.ToString(), out RequestNumber))
                     {
@@ -161,11 +163,26 @@ namespace IMS
                             int SndQuantity = 0;
                             if (int.TryParse(Quantity.Text.ToString(), out SndQuantity))
                             {
+                                if (SndQuantity > remQuan) 
+                                {
+                                    WebMessageBoxUtil.Show("Your remaining quantity cannot be larger than " + remQuan);
+                                    StockDisplayGrid.EditIndex = -1;
+                                    LoadData();
+                                    return;
+                                }
                                 connection.Open();
                                 SqlCommand command = new SqlCommand("sp_UpdateSendQuantity", connection);
                                 command.CommandType = CommandType.StoredProcedure;
                                 command.Parameters.AddWithValue("@p_OrderDetailID", RequestNumber);
                                 command.Parameters.AddWithValue("@p_SndQuantity", SndQuantity);
+                                if (status.Equals("Partial"))
+                                {
+                                    command.Parameters.AddWithValue("@p_Status", "Partial");
+                                }
+                                else 
+                                {
+                                    command.Parameters.AddWithValue("@p_Status", "Partial");
+                                }
                                 command.ExecuteNonQuery();
                             }
                         }
@@ -286,10 +303,13 @@ namespace IMS
                         int OrderDetailID = 0;
                         if (int.TryParse(temptbl.Rows[i]["OrderDetailID"].ToString(), out OrderDetailID))
                         {
+                            int quan=int.Parse(temptbl.Rows[i]["SndQauntity"].ToString());
+                            UpdateStock(OrderDetailID,quan);
                             connection.Open();
                             SqlCommand command = new SqlCommand("Sp_Response_Warehouse_Store", connection);
                             command.CommandType = CommandType.StoredProcedure;
                             command.Parameters.AddWithValue("@p_OrderDetailID", OrderDetailID);
+                            //command.Parameters.AddWithValue("@p_StoredAt", int.Parse(Session["UserSys"].ToString()));
                             command.ExecuteNonQuery();
                             //SqlDataAdapter dA = new SqlDataAdapter(command);
                             //DataTable dtValues = new DataTable();
@@ -328,6 +348,61 @@ namespace IMS
                 Response.Redirect("Warehouse_StoreRequests.aspx");
             }
             #endregion
+        }
+
+        private void UpdateStock(int orderDetailID, int quantity) 
+        {
+            try
+            {
+                DataSet stockDet;
+                connection.Open();
+                SqlCommand command = new SqlCommand("Sp_GetStockBy_OrderDetID", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@p_OrderDetailID", orderDetailID);
+                command.Parameters.AddWithValue("@p_StoredAt", int.Parse(Session["UserSys"].ToString()));
+
+                DataSet ds = new DataSet();
+                SqlDataAdapter dA = new SqlDataAdapter(command);
+                dA.Fill(ds);
+                stockDet = ds;
+                Dictionary<int, int> stockSet = new Dictionary<int, int>();
+
+                foreach (DataRow row in  stockDet.Tables[0].Rows)
+                {
+                    int exQuan=int.Parse(row["Quantity"].ToString());
+                    if (quantity > 0)
+                    {
+                        if (exQuan >= quantity)
+                        {
+                            stockSet.Add(int.Parse(row["StockID"].ToString()), quantity);
+                            break;
+                        }
+                        else if (exQuan < quantity)
+                        {
+                            stockSet.Add(int.Parse(row["StockID"].ToString()), exQuan);
+                            quantity = quantity - exQuan;
+                        }
+                    }
+                }
+
+
+                foreach (int id in stockSet.Keys) 
+                {
+                    command = new SqlCommand("Sp_UpdateStockBy_StockID", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_StockID", id);
+                    command.Parameters.AddWithValue("@p_quantity", stockSet[id]);
+                    command.Parameters.AddWithValue("@p_Action", "Minus");
+                    command.ExecuteNonQuery();
+                }
+                
+            }
+            catch (Exception exp) { }
+            finally
+            {
+                connection.Close();
+                //Response.Redirect("Warehouse_StoreRequests.aspx");
+            }
         }
     }
 }

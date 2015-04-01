@@ -93,16 +93,27 @@ namespace IMS
                     int RowIndex = gvr.RowIndex;
                     try
                     {
+                        int sentQuan = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblSenQuan")).Text);
                         int recQuan = int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("RecQuanVal")).Text);
                         int expQuan= int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("ExpQuanVal")).Text);
                         int defQuan= int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("defQuanVal")).Text);
                         int retQuan = int.Parse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("retQuanVal")).Text);
+                        int expQuanOrg = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblExpQuanOrg")).Text);
+                        int defQuanOrg = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblDefQuanOrg")).Text);
+                        int retQuanOrg = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblretQuanOrg")).Text);
                         int remQuan = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblRemainQuan")).Text);
                         string status = ((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblStatus")).Text;
                         int orderedQuantity = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblQuantity")).Text);
                         if (recQuan < 0 || expQuan < 0 || defQuan < 0) 
                         {
                             WebMessageBoxUtil.Show("Entered value cannot be negative");
+                            StockDisplayGrid.EditIndex = -1;
+                            LoadData();
+                            return;
+                        }
+                        if (sentQuan > (recQuan + expQuan + defQuan + retQuan)) 
+                        {
+                            WebMessageBoxUtil.Show("Mismatch in received and accepted quantity. Kindly correctly fill expired,defected or returned quantities");
                             StockDisplayGrid.EditIndex = -1;
                             LoadData();
                             return;
@@ -118,7 +129,20 @@ namespace IMS
                             }
                             else
                             {
-                                remQuan = remQuan - (recQuan + expQuan + expQuan);
+                                int val = 0;
+                                if (retQuan != retQuanOrg ) 
+                                {
+                                    val += retQuan;
+                                }
+                                if (expQuan != expQuanOrg) 
+                                {
+                                    val += expQuan;
+                                }
+                                if (defQuan != defQuanOrg) 
+                                {
+                                    val += defQuan;
+                                }
+                                remQuan = remQuan - (val + recQuan);
                             }
                         }
                         else
@@ -127,7 +151,22 @@ namespace IMS
                         }
                         if (orderedQuantity >= (recQuan + expQuan + defQuan+ retQuan))
                         {
-                            int requesteeID=int.Parse(Session["RequestDesID"].ToString());
+                            
+                            if (retQuan > 0)
+                            {
+                                if (status.Equals("Partial"))
+                                {
+                                    if (retQuan != retQuanOrg)
+                                    {
+                                        UpdateStock(int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text), retQuan);
+                                    }
+                                }
+                                else
+                                {
+                                    //update returned quantity
+                                    UpdateStock(int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text), retQuan);
+                                }
+                            }
                             connection.Open();
                             SqlCommand command = new SqlCommand("Sp_StockReceiving", connection);
                             command.CommandType = CommandType.StoredProcedure;
@@ -190,6 +229,58 @@ namespace IMS
            
         }
 
+        private void UpdateStock(int orderDetailID, int quantity)
+        {
+            try
+            {
+                int requesteeID = int.Parse(Session["RequestDesID"].ToString());
+                DataSet stockDet;
+                connection.Open();
+                SqlCommand command = new SqlCommand("Sp_GetStockBy_OrderDetID", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@p_OrderDetailID", orderDetailID);
+                command.Parameters.AddWithValue("@p_StoredAt", requesteeID);
+
+                DataSet ds = new DataSet();
+                SqlDataAdapter dA = new SqlDataAdapter(command);
+                dA.Fill(ds);
+                stockDet = ds;
+                Dictionary<int, int> stockSet = new Dictionary<int, int>();
+
+                foreach (DataRow row in stockDet.Tables[0].Rows)
+                {
+                    stockSet.Add(int.Parse(row["StockID"].ToString()), quantity);//only set to the first stock
+                    break;
+                }
+
+
+                foreach (int id in stockSet.Keys)
+                {
+                    command = new SqlCommand("Sp_UpdateStockBy_StockID", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_StockID", id);
+                    command.Parameters.AddWithValue("@p_quantity", stockSet[id]);
+                    command.Parameters.AddWithValue("@p_Action", "Add");
+                    command.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception exp) { }
+            finally
+            {
+                connection.Close();
+                //Response.Redirect("Warehouse_StoreRequests.aspx");
+            }
+        }
+        protected Boolean IsStatusNotComplete(String status)
+        {
+            if(status.Equals("Complete") ||status.Equals("Initiated"))
+            {
+                return false;
+            }
+            else
+            return true;
+        }
         protected void StockDisplayGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             StockDisplayGrid.EditIndex = -1;

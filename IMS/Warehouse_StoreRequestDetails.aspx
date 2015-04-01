@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Warehouse_StoreRequestDetails.aspx.cs" Inherits="IMS.Warehouse_StoreRequestDetails" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <h3> Store Reuqest Details</h3> 
+    <h3> Store Request Details</h3> 
     <br />
 
     <div class="form-horizontal">
