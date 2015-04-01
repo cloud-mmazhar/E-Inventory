@@ -39,6 +39,7 @@ namespace IMS
                 DataSet ds = new DataSet();
                 SqlCommand command = new SqlCommand("sp_GetSystemsForStore", connection);
                 command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@p_UserSys", Convert.ToInt32(Session["UserSys"].ToString()));
                 SqlDataAdapter dA = new SqlDataAdapter(command);
                 dA.Fill(ds);
 
@@ -53,35 +54,6 @@ namespace IMS
                 }
             }
             catch(Exception ex)
-            {
-
-            }
-            finally
-            {
-                connection.Close();
-            }
-            #endregion
-
-            #region Populating Product List
-            try
-            {
-                connection.Open();
-                SqlCommand command = new SqlCommand("Select  Top 200 Product_Name,ProductID From tbl_ProductMaster Where tbl_ProductMaster.Product_Id_Org LIKE '444%' AND Status = 1", connection);
-                DataSet ds = new DataSet();
-                SqlDataAdapter sA = new SqlDataAdapter(command);
-                sA.Fill(ds);
-                ProductSet = ds;
-                SelectProduct.DataSource = ds.Tables[0];
-                SelectProduct.DataTextField = "Product_Name";
-                SelectProduct.DataValueField = "ProductID";
-                SelectProduct.DataBind();
-                if (SelectProduct != null)
-                {
-                    SelectProduct.Items.Insert(0, "Select Product");
-                    SelectProduct.SelectedIndex = 0;
-                }
-            }
-            catch (Exception ex)
             {
 
             }
@@ -345,7 +317,45 @@ namespace IMS
 
         protected void StockDisplayGrid_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
+            //need to check this,
+            int ErrorNo = 0;
+            try
+            {
+                connection.Open();
+                if (e.CommandName == "UpdateStock")
+                {
+                    GridViewRow gvr = (GridViewRow)(((Button)e.CommandSource).NamingContainer);
+                    int RowIndex = gvr.RowIndex;
+                    String OrderDetailNo = Convert.ToString((Label)StockDisplayGrid.Rows[RowIndex].FindControl("OrderDetailNo"));
+                    String OrderQuantity = Convert.ToString((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtQuantity"));
+                    SqlCommand command = new SqlCommand("sp_UpdateOrderDetailsQuantity", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_OrderDetailID", Convert.ToInt32(OrderDetailNo));
+                    command.Parameters.AddWithValue("@p_Qauntity", Convert.ToInt32(OrderDetailNo));
+                    ErrorNo = command.ExecuteNonQuery();
+                }
+                else if (e.CommandName == "Delete")
+                {
+                    GridViewRow gvr = (GridViewRow)(((Button)e.CommandSource).NamingContainer);
+                    int RowIndex = gvr.RowIndex;
+                    String OrderDetailNo = Convert.ToString((Label)StockDisplayGrid.Rows[RowIndex].FindControl("OrderDetailNo"));
+                    String OrderQuantity = Convert.ToString((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtQuantity"));
+                    SqlCommand command = new SqlCommand("sp_DeleteOrderDetailsbyID", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_OrderDetailID", Convert.ToInt32(OrderDetailNo));
+                    ErrorNo = command.ExecuteNonQuery();
+                }
+            }
+            catch(Exception ex)
+            {
+               
+            }
+            finally
+            {
+                connection.Close();
+                StockDisplayGrid.EditIndex = -1;
+                LoadData();
+            }
         }
 
         protected void StockDisplayGrid_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -360,17 +370,20 @@ namespace IMS
 
         protected void StockDisplayGrid_RowEditing(object sender, GridViewEditEventArgs e)
         {
-
+            StockDisplayGrid.EditIndex = e.NewEditIndex;
+            LoadData();
         }
 
         protected void StockDisplayGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-
+            StockDisplayGrid.EditIndex = -1;
+            LoadData();
         }
 
         protected void StockDisplayGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-
+            StockDisplayGrid.PageIndex = e.NewPageIndex;
+            LoadData();
         }
 
         protected void btnRefresh_Click(object sender, EventArgs e)
@@ -438,6 +451,56 @@ namespace IMS
             RequestTo.SelectedIndex = -1;
             btnAccept.Visible = false;
             btnDecline.Visible = false;
+        }
+
+        protected void btnSearchProduct_Click(object sender, ImageClickEventArgs e)
+        {
+            if (ProductList.Text.Length >= 3)
+            {
+                PopulateDropDown(ProductList.Text);
+                SelectProduct.Visible = true;
+            }
+        }
+
+        public void PopulateDropDown(String Text)
+        {
+            #region Populating Product Name Dropdown
+
+            try
+            {
+                connection.Open();
+
+                Text = Text + "%";
+                SqlCommand command = new SqlCommand("SELECT * From tbl_ProductMaster Where tbl_ProductMaster.Product_Name LIKE '" + Text + "' AND Status = 1", connection);
+                DataSet ds = new DataSet();
+                SqlDataAdapter sA = new SqlDataAdapter(command);
+                sA.Fill(ds);
+                if (SelectProduct.DataSource != null)
+                {
+                    SelectProduct.DataSource = null;
+                }
+
+                ProductSet = null;
+                ProductSet = ds;
+                SelectProduct.DataSource = ds.Tables[0];
+                SelectProduct.DataTextField = "Product_Name";
+                SelectProduct.DataValueField = "ProductID";
+                SelectProduct.DataBind();
+                if (ProductList != null)
+                {
+                    SelectProduct.Items.Insert(0, "Select Product");
+                    SelectProduct.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            #endregion
         }
     }
 }

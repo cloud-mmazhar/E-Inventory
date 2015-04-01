@@ -3,6 +3,9 @@
 <%@ Register TagPrefix="uc" TagName="print_uc" Src="~/UserControl/uc_printBarcode.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <br />
+    <div class="form-group">
+            <asp:Label runat="server" ID="NoProductMessage" CssClass="col-md-2 control-label" Visible="false" Text="No Stock Available"></asp:Label> 
+    </div>
     <br />
     <div class="row">
     <div class="form-group">
@@ -115,13 +118,7 @@
                        
                     </asp:TemplateField>
                      <%-- org command argument CommandArgument='<%# Eval("BarCode") %>'--%>
-                     <asp:TemplateField HeaderText="Action">
-                        <ItemTemplate>
-                            <asp:LinkButton CssClass="btn btn-default" ID="btnEdit" Text="Print BarCode" runat="server" CommandName="Print" CommandArgument='<%# Container.DisplayIndex  %>' />
-                            <br />
-                        </ItemTemplate>
-                         <ItemStyle  Width="70px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
+                     
                  </Columns>
              </asp:GridView>
         <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
