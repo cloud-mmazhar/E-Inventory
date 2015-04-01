@@ -48,6 +48,15 @@
     <Reference Include="BarcodeLib">
       <HintPath>..\..\..\..\..\work\ims\reference\bar-code\barcode_src\BarcodeLib\bin\Debug\BarcodeLib.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>C:\Users\abdul.haseeb\Downloads\itextsharp-all-5.5.5\itextsharp-dll-core\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.pdfa">
+      <HintPath>C:\Users\abdul.haseeb\Downloads\itextsharp-all-5.5.5\itextsharp-dll-pdfa\itextsharp.pdfa.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xtra">
+      <HintPath>C:\Users\abdul.haseeb\Downloads\itextsharp-all-5.5.5\itextsharp-dll-xtra\itextsharp.xtra.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -196,6 +205,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="PackingListGeneration.aspx" />
     <Content Include="PlaceOrder.aspx" />
+    <Content Include="PO_GENERATE.aspx" />
     <Content Include="ReceiveStock.aspx" />
     <Content Include="RecieveOrder.aspx" />
     <Content Include="RegisterUsers.aspx" />
@@ -510,6 +520,13 @@
     </Compile>
     <Compile Include="PlaceOrder.aspx.designer.cs">
       <DependentUpon>PlaceOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PO_GENERATE.aspx.cs">
+      <DependentUpon>PO_GENERATE.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PO_GENERATE.aspx.designer.cs">
+      <DependentUpon>PO_GENERATE.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceiveStock.aspx.cs">

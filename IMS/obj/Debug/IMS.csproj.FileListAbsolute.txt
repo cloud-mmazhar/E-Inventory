@@ -780,6 +780,9 @@ G:\Digital Processing Systems\E-Inventory\IMS\bin\EntityFramework.dll
 G:\Digital Processing Systems\E-Inventory\IMS\bin\EntityFramework.SqlServer.dll
 G:\Digital Processing Systems\E-Inventory\IMS\bin\IMSBusinessLogic.dll
 G:\Digital Processing Systems\E-Inventory\IMS\bin\IMSCommon.dll
+G:\Digital Processing Systems\E-Inventory\IMS\bin\itextsharp.dll
+G:\Digital Processing Systems\E-Inventory\IMS\bin\itextsharp.pdfa.dll
+G:\Digital Processing Systems\E-Inventory\IMS\bin\itextsharp.xtra.dll
 G:\Digital Processing Systems\E-Inventory\IMS\bin\Microsoft.AspNet.FriendlyUrls.dll
 G:\Digital Processing Systems\E-Inventory\IMS\bin\Microsoft.AspNet.Identity.Core.dll
 G:\Digital Processing Systems\E-Inventory\IMS\bin\Microsoft.AspNet.Identity.EntityFramework.dll
@@ -805,6 +808,7 @@ G:\Digital Processing Systems\E-Inventory\IMS\bin\WebGrease.dll
 G:\Digital Processing Systems\E-Inventory\IMS\bin\IMSBusinessLogic.pdb
 G:\Digital Processing Systems\E-Inventory\IMS\bin\IMSCommon.pdb
 G:\Digital Processing Systems\E-Inventory\IMS\bin\AjaxControlToolkit.pdb
+G:\Digital Processing Systems\E-Inventory\IMS\bin\itextsharp.xml
 G:\Digital Processing Systems\E-Inventory\IMS\bin\System.Web.Optimization.xml
 G:\Digital Processing Systems\E-Inventory\IMS\bin\Antlr3.Runtime.pdb
 G:\Digital Processing Systems\E-Inventory\IMS\bin\Newtonsoft.Json.xml

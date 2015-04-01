@@ -93,43 +93,9 @@ namespace IMS
         }
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            try
-            {
-                connection.Open();
-                int UserSys = 0;
-                SqlCommand command = new SqlCommand();
-                if (int.TryParse(Session["UserSys"].ToString(), out UserSys))
-                {
-                    command = new SqlCommand("Select SystemName from tbl_System Where SystemID = '" + UserSys + "'", connection);
+            
 
-                }
-
-                DataTable dt = new DataTable();
-                SqlDataAdapter sA = new SqlDataAdapter(command);
-                sA.Fill(dt);
-
-                Session["S_RequestFrom"] = dt.Rows[0][0].ToString();
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            {
-                connection.Close();
-            }
-            RequestTo.Enabled = true;
-            StockDisplayGrid.DataSource = null;
-            StockDisplayGrid.DataBind();
-            SelectQuantity.Text = "";
-            SelectProduct.SelectedIndex = -1;
-            RequestTo.SelectedIndex = -1;
-            btnAccept.Visible = false;
-            btnDecline.Visible = false;
-            Session["S_RequestInvoice"] = "";
-            Session["S_RequestTo"] = RequestTo.SelectedItem.ToString();
-
-            //Response.Redirect("StoreRequestsView.aspx");
+            Response.Redirect("PO_GENERATE.aspx");
         }
 
         protected void btnDecline_Click(object sender, EventArgs e)

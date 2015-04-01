@@ -129,8 +129,8 @@
                  </Columns>
              </asp:GridView>
         <br />
-         <asp:Button ID="btnAccept" runat="server" OnClick="btnAccept_Click" Text="ACCEPT LIST" CssClass="btn btn-large" Visible="false"/>
-         <asp:Button ID="btnDecline" runat="server" OnClick="btnDecline_Click" Text="CANCEL LIST" CssClass="btn btn-large" Visible="false" />
+         <asp:Button ID="btnAccept" runat="server" OnClick="btnAccept_Click" Text="GENERATE ORDER" CssClass="btn btn-large" Visible="false"/>
+         <asp:Button ID="btnDecline" runat="server" OnClick="btnDecline_Click" Text="CANCEL ORDER" CssClass="btn btn-large" Visible="false" />
     </div>
     <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
