@@ -25,9 +25,9 @@
                 AutoGenerateColumns="false" OnSelectedIndexChanged="StockDisplayGrid_SelectedIndexChanged" OnPageIndexChanging="StockDisplayGrid_PageIndexChanging"   onrowcancelingedit="StockDisplayGrid_RowCancelingEdit" 
                 onrowcommand="StockDisplayGrid_RowCommand" OnRowDataBound="StockDisplayGrid_RowDataBound" onrowdeleting="StockDisplayGrid_RowDeleting" onrowediting="StockDisplayGrid_RowEditing" >
                  <Columns>
-                    <asp:TemplateField>
+                    <asp:TemplateField Visible="false">
                         <ItemTemplate>
-                            <asp:Label ID="OrderDetailNo" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("OrderDetailID") %>' Visible="false"></asp:Label>
+                            <asp:Label ID="OrderDetailNo" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("OrderDetailID") %>' ></asp:Label>
                         </ItemTemplate>
                         <ItemStyle  Width="1px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
@@ -65,7 +65,12 @@
                         </EditItemTemplate>
                           <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-                    
+                     <asp:TemplateField HeaderText="Remaining Quantity" Visible="false" HeaderStyle-Width ="130px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblRemainQuan" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("RemainingQuantity") %>' ></asp:Label>
+                        </ItemTemplate>
+                          <ItemStyle  Width="130px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
                
                      <asp:TemplateField HeaderText="Action" HeaderStyle-Width ="170px">
                         <ItemTemplate>
@@ -80,6 +85,11 @@
                             <asp:LinkButton CssClass="btn btn-default" ID="btnCancel" Text="Cancel" runat="server" CommandName="Cancel" />
                         </EditItemTemplate>
                          <ItemStyle  Width="170px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+                     <asp:TemplateField HeaderText="Status" Visible="false" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
+                        </ItemTemplate>
                     </asp:TemplateField>
                  </Columns>
              </asp:GridView>

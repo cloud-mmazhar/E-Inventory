@@ -1,15 +1,15 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="OrderPurchaseManual.aspx.cs" Inherits="IMS.OrderPurchaseManual" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="WarehouseSalesOrder.aspx.cs" Inherits="IMS.WarehouseSalesOrder" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-     <h3>Manual Purchase Order(s)</h3>
+    <h3>Sale Order(s) Generation Form</h3>
     <br />
     <br />
     <div class="row">
      
     
     <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="RequestTo" CssClass="col-md-2 control-label">Select Vendor</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="RequestTo" CssClass="col-md-2 control-label">Send Order To</asp:Label>
             <div class="col-md-10">
                 <asp:DropDownList runat="server" ID="RequestTo" CssClass="form-control" Width="29%" AutoPostBack="true" OnSelectedIndexChanged="RequestTo_SelectedIndexChanged"/>
                 <br />
@@ -17,32 +17,24 @@
     </div>
     
     <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="txtProduct" CssClass="col-md-2 control-label">Select Product</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="ProductList" CssClass="col-md-2 control-label">Select Product</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="txtProduct" CssClass="form-control product"/>
-                <asp:ImageButton ID="btnSearchProduct" runat="server" OnClick="btnSearchProduct_Click"  Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
+                <asp:TextBox runat="server" ID="ProductList" CssClass="form-control product"/>
+                <asp:ImageButton ID="btnSearchProduct" runat="server" OnClick="btnSearchProduct_Click" Text="SearchProduct" Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
                 <br />
                 <asp:DropDownList runat="server" ID="SelectProduct" Visible="false" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="SelectProduct_SelectedIndexChanged"/>
                 <br/>
             </div>
-    </div>
+            </div>
 
     <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="SelectQuantity" CssClass="col-md-2 control-label">Enter Quantity</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="SelectQuantity" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="SelectQuantity" CssClass="form-control" Width="29%"/>
                 <br />
             </div>
     </div>
-
-    <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="SelectPrice" CssClass="col-md-2 control-label">Enter Price</asp:Label>
-            <div class="col-md-10">
-                <asp:TextBox runat="server" ID="SelectPrice" CssClass="form-control" />
-                <br />
-            </div>
-    </div>
-
+    
     <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <asp:Button ID="btnCreateOrder" runat="server" OnClick="btnCreateOrder_Click" Text="ADD" CssClass="btn btn-default" />
@@ -61,14 +53,14 @@
                 AutoGenerateColumns="false" OnPageIndexChanging="StockDisplayGrid_PageIndexChanging"   onrowcancelingedit="StockDisplayGrid_RowCancelingEdit" 
                 onrowcommand="StockDisplayGrid_RowCommand" OnRowDataBound="StockDisplayGrid_RowDataBound" onrowdeleting="StockDisplayGrid_RowDeleting" onrowediting="StockDisplayGrid_RowEditing" >
                  <Columns>
-                     <asp:TemplateField>
+                    <asp:TemplateField>
                         <ItemTemplate>
                             <asp:Label ID="OrderDetailNo" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("OrderDetailID") %>' Visible="false"></asp:Label>
                         </ItemTemplate>
                         <ItemStyle  Width="1px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
-                     <asp:TemplateField HeaderText="From" HeaderStyle-Width ="110px">
+                    <asp:TemplateField HeaderText="From" HeaderStyle-Width ="110px">
                         <ItemTemplate>
                             <asp:Label ID="RequestedFrom" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("FromPlace") %>' Width="100px" ></asp:Label>
                         </ItemTemplate>
@@ -101,9 +93,8 @@
                         </EditItemTemplate>
                           <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-
                     
-                     <asp:TemplateField HeaderText="Order Status" HeaderStyle-Width ="110px">
+                     <asp:TemplateField HeaderText="Request Status" HeaderStyle-Width ="110px">
                         <ItemTemplate>
                             <asp:Label ID="lblStatus" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Status") %>'  Width="100px"></asp:Label>
                         </ItemTemplate>
@@ -120,16 +111,15 @@
 
                         <EditItemTemplate>
 
-                            <asp:LinkButton CssClass="btn btn-default" ID="btnUpdate" Text="Update" runat="server" CommandName="UpdateStock" />
-                            <br />
-                            <asp:LinkButton CssClass="btn btn-default" ID="btnCancel" Text="Cancel" runat="server" CommandName="Cancel" />
+                            <asp:Button CssClass="btn btn-default" ID="btnUpdate" Text="Update" runat="server" CommandName="UpdateStock" />
+                            <asp:Button CssClass="btn btn-default" ID="btnCancel" Text="Cancel" runat="server" CommandName="Cancel" />
                         </EditItemTemplate>
                          <ItemStyle  Width="200px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                  </Columns>
              </asp:GridView>
         <br />
-         <asp:Button ID="btnAccept" runat="server" OnClick="btnAccept_Click" Text="GENERATE ORDER" CssClass="btn btn-large" Visible="false"/>
+         <asp:Button ID="btnAccept" runat="server" OnClick="btnAccept_Click" Text="CREATE ORDER" CssClass="btn btn-large" Visible="false"/>
          <asp:Button ID="btnDecline" runat="server" OnClick="btnDecline_Click" Text="CANCEL ORDER" CssClass="btn btn-large" Visible="false" />
     </div>
     <div class="form-group">

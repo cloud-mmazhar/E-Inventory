@@ -271,6 +271,7 @@
     <Content Include="ViewPurchaseOrders.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="WarehouseMain.aspx" />
+    <Content Include="WarehouseSalesOrder.aspx" />
     <Content Include="Warehouse_StoreRequestDetails.aspx" />
     <Content Include="Warehouse_StoreRequests.aspx" />
     <Content Include="Warehouse_StoreRequest_Response.aspx" />
@@ -690,6 +691,13 @@
     </Compile>
     <Compile Include="WarehouseMain.aspx.designer.cs">
       <DependentUpon>WarehouseMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WarehouseSalesOrder.aspx.cs">
+      <DependentUpon>WarehouseSalesOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WarehouseSalesOrder.aspx.designer.cs">
+      <DependentUpon>WarehouseSalesOrder.aspx</DependentUpon>
     </Compile>
     <Compile Include="Warehouse_StoreRequestDetails.aspx.cs">
       <DependentUpon>Warehouse_StoreRequestDetails.aspx</DependentUpon>

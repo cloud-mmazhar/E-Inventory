@@ -15,6 +15,14 @@
                 AutoGenerateColumns="false" OnPageIndexChanging="StockDisplayGrid_PageIndexChanging" 
             onrowcommand="StockDisplayGrid_RowCommand" OnRowDataBound="StockDisplayGrid_RowDataBound">
                  <Columns>
+                     <asp:TemplateField HeaderText="Action">
+                        <ItemTemplate>
+                            <asp:LinkButton CssClass="btn btn-default" ID="btnEdit" Text="Select Product" runat="server" CommandName="Select" CommandArgument='<%# Container.DisplayIndex  %>' />
+                            <br />
+                        </ItemTemplate>
+                         <ItemStyle  Width="70px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+
                      <asp:TemplateField HeaderText="Item No.">
                         <ItemTemplate>
                             <asp:Label ID="DrugID" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Drug_id") %>' Width="130px"></asp:Label>
@@ -49,6 +57,27 @@
                         </ItemTemplate>
                         <ItemStyle  Width="130px" HorizontalAlign="Left"/>
                        
+                    </asp:TemplateField>
+
+                       <asp:TemplateField HeaderText="Unit Sale Price">
+                        <ItemTemplate>
+                            <asp:Label ID="UnitSale" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("UnitSale") %>' Width="110px"></asp:Label>
+                        </ItemTemplate>
+                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Unit Cost Price">
+                        <ItemTemplate>
+                            <asp:Label ID="UnitCost" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("UnitCost") %>' Width="110px"></asp:Label>
+                        </ItemTemplate>
+                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Item WholeSale Price">
+                        <ItemTemplate>
+                            <asp:Label ID="itemAWT" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("itemAWT") %>' Width="110px"></asp:Label>
+                        </ItemTemplate>
+                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
                      <asp:TemplateField HeaderText="Generic Name">
@@ -100,27 +129,6 @@
                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
-                     <asp:TemplateField HeaderText="Unit Sale Price">
-                        <ItemTemplate>
-                            <asp:Label ID="UnitSale" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("UnitSale") %>' Width="110px"></asp:Label>
-                        </ItemTemplate>
-                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
-
-                    <asp:TemplateField HeaderText="Unit Cost Price">
-                        <ItemTemplate>
-                            <asp:Label ID="UnitCost" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("UnitCost") %>' Width="110px"></asp:Label>
-                        </ItemTemplate>
-                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
-
-                    <asp:TemplateField HeaderText="Item WholeSale Price">
-                        <ItemTemplate>
-                            <asp:Label ID="itemAWT" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("itemAWT") %>' Width="110px"></asp:Label>
-                        </ItemTemplate>
-                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
-
                     <asp:TemplateField HeaderText="Item Form">
                         <ItemTemplate>
                             <asp:Label ID="itemForm" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("itemForm") %>' Width="110px"></asp:Label>
@@ -150,13 +158,7 @@
                     </asp:TemplateField>
 
 
-                     <asp:TemplateField HeaderText="Action">
-                        <ItemTemplate>
-                            <asp:LinkButton CssClass="btn btn-default" ID="btnEdit" Text="Select Product" runat="server" CommandName="Select" CommandArgument='<%# Container.DisplayIndex  %>' />
-                            <br />
-                        </ItemTemplate>
-                         <ItemStyle  Width="70px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
+                    
                  </Columns>
              </asp:GridView>
         <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>

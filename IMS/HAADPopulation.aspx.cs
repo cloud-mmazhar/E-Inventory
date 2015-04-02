@@ -79,116 +79,126 @@ namespace IMS
                 {
                     try
                     {
-                        String GreenRain = dt.Rows[i]["Greenrain Code"].ToString();
-                        String ProductName = dt.Rows[i]["Package Name"].ToString();
-                        String GenericName = dt.Rows[i]["Generic Name"].ToString();
-                        String Strength = dt.Rows[i]["Strength"].ToString();
-                        String Form = dt.Rows[i]["Dosage Form"].ToString();
-                        String PackSize = dt.Rows[i]["Package Size"].ToString();
-                        String UnitSalePrice = dt.Rows[i]["Unit Price to Public"].ToString();
-                        String UnitCostPrice = dt.Rows[i][10].ToString();
-                        String Status = dt.Rows[i][11].ToString();
-                        String Manufacturer = dt.Rows[i][15].ToString();
-                        String BarCodeSerial = "";
+                        String Status = dt.Rows[i]["Status"].ToString();
 
-                        #region Populating BarCode Serial
-
-                        connection.Open();
-                        SqlCommand command2 = new SqlCommand("Select Count(*) From tbl_ProductMaster Where DrugType = 'MEDICINE(HAAD)' AND ItemCode IS NOT NULL", connection);
-                        DataSet ds = new DataSet();
-                        SqlDataAdapter sA = new SqlDataAdapter(command2);
-                        sA.Fill(ds);
-
-                        if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(7))
+                        if (Status.ToLower().Equals("active"))
                         {
-                            BarCodeSerial = "1" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            String GreenRain = dt.Rows[i]["Greenrain Code"].ToString();
+                            String ProductName = dt.Rows[i]["Package Name"].ToString();
+                            String GenericName = dt.Rows[i]["Generic Name"].ToString();
+                            String Strength = dt.Rows[i]["Strength"].ToString();
+                            String Form = dt.Rows[i]["Dosage Form"].ToString();
+                            String PackSize = dt.Rows[i]["Package Size"].ToString();
+                            String UnitSalePrice = dt.Rows[i]["Package Price to Public"].ToString();
+                            String UnitCostPrice = dt.Rows[i]["Package Price to Pharmacy"].ToString();
+                            String Manufacturer = dt.Rows[i][15].ToString();
+                            String BarCodeSerial = "";
+
+                            #region Populating BarCode Serial
+                            if(connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
+                            connection.Open();
+                            SqlCommand command2 = new SqlCommand("Select Count(*) From tbl_ProductMasterHaadList Where DrugType = 'MEDICINE(HAAD)' AND ItemCode IS NOT NULL", connection);
+                            DataSet ds = new DataSet();
+                            SqlDataAdapter sA = new SqlDataAdapter(command2);
+                            sA.Fill(ds);
+
+                            if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(7))
+                            {
+                                BarCodeSerial = "1" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            }
+                            else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(6))
+                            {
+                                BarCodeSerial = "10" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            }
+                            else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(5))
+                            {
+                                BarCodeSerial = "100" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            }
+                            else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(4))
+                            {
+                                BarCodeSerial = "1000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            }
+                            else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(3))
+                            {
+                                BarCodeSerial = "10000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            }
+
+                            else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(2))
+                            {
+                                BarCodeSerial = "100000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            }
+
+                            else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(1))
+                            {
+                                BarCodeSerial = "1000000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            }
+                            else if (ds.Tables[0].Rows[0][0].ToString().Length < 1)
+                            {
+                                BarCodeSerial = "1000000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
+                            }
+                            connection.Close();
+                            #endregion
+
+                            #region Creation Product
+
+
+                            if (connection.State == ConnectionState.Open)
+                            {
+                                connection.Close();
+                            }
+                            connection.Open();
+                            SqlCommand command = new SqlCommand("sp_InsertProductHaad", connection);
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@p_BarCodeSerial", BarCodeSerial.ToString());
+                            command.Parameters.AddWithValue("@p_ProductCode", GreenRain.ToString());
+                            command.Parameters.AddWithValue("@p_ProductName", ProductName.ToString());
+                            command.Parameters.AddWithValue("@p_Description", ProductName.ToString());
+                            command.Parameters.AddWithValue("@p_BrandName", GenericName.ToString());
+                            command.Parameters.AddWithValue("@p_ProductType", "MEDICINE(HAAD)");
+                            int res1, res4;
+                            float res2, res3, res5;
+
+                            command.Parameters.AddWithValue("@p_SubCategoryID", 0);
+
+                            if (float.TryParse(UnitCostPrice.ToString(), out res2))
+                            {
+                                command.Parameters.AddWithValue("@p_UnitCost", res2);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_UnitCost", 0);
+                            }
+
+                            if (float.TryParse(UnitSalePrice.ToString(), out res3))
+                            {
+                                command.Parameters.AddWithValue("@p_SP", res3);
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_SP", 0);
+                            }
+
+                            command.Parameters.AddWithValue("@p_MaxiMumDiscount", 0);
+
+                            command.Parameters.AddWithValue("@p_AWT", 0);
+
+
+
+                            command.Parameters.AddWithValue("@p_form", Form.ToString());
+                            command.Parameters.AddWithValue("@p_strength", Strength.ToString());
+                            command.Parameters.AddWithValue("@p_packtype", "0");
+                            command.Parameters.AddWithValue("@p_packsize", PackSize.ToString());
+
+                            command.Parameters.AddWithValue("@p_shelf", "0");
+                            command.Parameters.AddWithValue("@p_rack", "0");
+                            command.Parameters.AddWithValue("@p_bin", "0");
+
+                            x = command.ExecuteNonQuery();
+                            #endregion
                         }
-                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(6))
-                        {
-                            BarCodeSerial = "10" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                        }
-                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(5))
-                        {
-                            BarCodeSerial = "100" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                        }
-                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(4))
-                        {
-                            BarCodeSerial = "1000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                        }
-                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(3))
-                        {
-                            BarCodeSerial = "10000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                        }
-
-                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(2))
-                        {
-                            BarCodeSerial = "100000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                        }
-
-                        else if (ds.Tables[0].Rows[0][0].ToString().Length.Equals(1))
-                        {
-                            BarCodeSerial = "1000000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                        }
-                        else if (ds.Tables[0].Rows[0][0].ToString().Length < 1)
-                        {
-                            BarCodeSerial = "1000000" + (Int32.Parse(ds.Tables[0].Rows[0][0].ToString()) + 1).ToString();
-                        }
-                        connection.Close();
-                        #endregion
-
-                        #region Creation Product
-
-
-
-                        connection.Open();
-                        SqlCommand command = new SqlCommand("sp_InsertProduct", connection);
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@p_BarCodeSerial", BarCodeSerial.ToString());
-                        command.Parameters.AddWithValue("@p_ProductCode", GreenRain.ToString());
-                        command.Parameters.AddWithValue("@p_ProductName", ProductName.ToString());
-                        command.Parameters.AddWithValue("@p_Description", ProductName.ToString());
-                        command.Parameters.AddWithValue("@p_BrandName", GenericName.ToString());
-                        command.Parameters.AddWithValue("@p_ProductType", "MEDICINE(HAAD)");
-                        int res1, res4;
-                        float res2, res3, res5;
-
-                        command.Parameters.AddWithValue("@p_SubCategoryID", 0);
-
-                        if (float.TryParse(UnitCostPrice.ToString(), out res2))
-                        {
-                            command.Parameters.AddWithValue("@p_UnitCost", res2);
-                        }
-                        else
-                        {
-                            command.Parameters.AddWithValue("@p_UnitCost", 0);
-                        }
-
-                        if (float.TryParse(UnitSalePrice.ToString(), out res3))
-                        {
-                            command.Parameters.AddWithValue("@p_SP", res3);
-                        }
-                        else
-                        {
-                            command.Parameters.AddWithValue("@p_SP", 0);
-                        }
-
-                        command.Parameters.AddWithValue("@p_MaxiMumDiscount", 0);
-
-                        command.Parameters.AddWithValue("@p_AWT", 0);
-
-
-
-                        command.Parameters.AddWithValue("@p_form", Form.ToString());
-                        command.Parameters.AddWithValue("@p_strength", Strength.ToString());
-                        command.Parameters.AddWithValue("@p_packtype", "0");
-                        command.Parameters.AddWithValue("@p_packsize", PackSize.ToString());
-
-                        command.Parameters.AddWithValue("@p_shelf", "0");
-                        command.Parameters.AddWithValue("@p_rack", "0");
-                        command.Parameters.AddWithValue("@p_bin", "0");
-
-                        x = command.ExecuteNonQuery();
-                        #endregion
                     }
                     catch (Exception ex)
                     {
@@ -196,7 +206,7 @@ namespace IMS
                     }
                     finally
                     {
-                        connection.Close();
+                        //connection.Close();
                     }
 
                     //if (x == 1)

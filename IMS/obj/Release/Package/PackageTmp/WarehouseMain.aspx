@@ -7,5 +7,6 @@
          <asp:Button ID="btnManageVendor" runat="server" CssClass="btn btn-primary btn-large" Text="Manage Vendor" OnClick="btnManageVendor_Click"/>
          <asp:Button ID="btnRegisterUser" runat="server" CssClass="btn btn-primary btn-large" Text="Register Users" OnClick="btnRegisterUser_Click" Visible="false"/>
          <asp:Button ID="tbnStoreRequests" runat="server" CssClass="btn btn-primary btn-large" Text="Store Requests" OnClick="tbnStoreRequests_Click"/>
+         <asp:Button ID="btnHaadList" runat="server" CssClass="btn btn-primary btn-large" Text="Haad List Population" OnClick="btnHaadList_Click" Visible="false"/>
          <asp:Button ID="ButtonBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" Visible="false" OnClick="ButtonBack_Click"/>
 </asp:Content>

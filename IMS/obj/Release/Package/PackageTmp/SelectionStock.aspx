@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-
+     <%----%>
     <div class="form-horizontal">
     <div class="form-group">
         <asp:GridView ID="StockDisplayGrid" CssClass="table table-striped table-bordered table-condensed" runat="server" AllowPaging="True" PageSize="10" 
@@ -24,7 +24,7 @@
                         </ItemTemplate>
                          <ItemStyle  Width="120px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-
+                      
                      <asp:TemplateField HeaderText="Name">
                         <ItemTemplate>
                             <asp:Label ID="ProductName" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("ProductName") %>' Width="300px"></asp:Label>
@@ -76,7 +76,7 @@
                         <ItemTemplate>
                             <asp:LinkButton CssClass="btn btn-default" ID="btnEdit" Text="Edit" runat="server" CommandName="Edit" />
                             <span onclick="return confirm('Are you sure you want to delete this record?')">
-                                <asp:LinkButton CssClass="btn btn-default" ID="btnDelete" Text="Delete" runat="server" CommandName="Delete"/>
+                                <asp:LinkButton CssClass="btn btn-default" ID="btnDelete" Text="Delete" runat="server" CommandArgument='<%# Eval("StockID") %>' CommandName="Delete"/>
                             </span>
                         </ItemTemplate>
                          <ItemStyle  Width="180px" HorizontalAlign="Left"/>
@@ -85,6 +85,12 @@
                             <asp:LinkButton CssClass="btn btn-default" ID="btnUpdate" Text="Update" runat="server" CommandName="UpdateStock" />
                             <asp:LinkButton CssClass="btn btn-default" ID="btnCancel" Text="Cancel" runat="server" CommandName="Cancel" />
                         </EditItemTemplate>
+                    </asp:TemplateField>
+                     <asp:TemplateField HeaderText="StockID" Visible="false">
+                        <ItemTemplate>
+                            <asp:Label ID="lblStockID" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("StockID") %>' Width="110px"></asp:Label>
+                        </ItemTemplate>
+                         <ItemStyle  Width="120px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                  </Columns>
              </asp:GridView>

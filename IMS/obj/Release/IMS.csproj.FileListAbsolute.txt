@@ -296,3 +296,7 @@ G:\Digital Processing Systems\E-Inventory\IMS\obj\Release\RdlCompile.cache
 G:\Digital Processing Systems\E-Inventory\IMS\obj\Release\RdlCompile.compiled
 G:\Digital Processing Systems\E-Inventory\IMS\obj\Release\IMS.dll
 G:\Digital Processing Systems\E-Inventory\IMS\obj\Release\IMS.pdb
+G:\Digital Processing Systems\E-Inventory\IMS\bin\itextsharp.dll
+G:\Digital Processing Systems\E-Inventory\IMS\bin\itextsharp.pdfa.dll
+G:\Digital Processing Systems\E-Inventory\IMS\bin\itextsharp.xtra.dll
+G:\Digital Processing Systems\E-Inventory\IMS\bin\itextsharp.xml

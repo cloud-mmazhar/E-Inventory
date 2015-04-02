@@ -1,26 +1,15 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Warehouse_StoreRequests.aspx.cs" Inherits="IMS.Warehouse_StoreRequests" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-    <h2> Store Requests</h2> 
-    <br />
-
-    <div class="form-horizontal">
-    <div class="form-group">
-        <asp:Label runat="server" AssociatedControlID="StockAt" CssClass="col-md-2 control-label">Select Store </asp:Label>
-            <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="StockAt" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="StockAt_SelectedIndexChanged"/>
-                <br/>
-            </div>
-    </div>
-    </div>
-
-    <div class="form-horizontal">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewPurchaseOrders.aspx.cs" Inherits="IMS.ViewPurchaseOrders" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <h3>View Purchase Orders </h3> 
+     <div class="form-horizontal">
     <div class="form-group">
         <asp:GridView ID="StockDisplayGrid" CssClass="table table-striped table-bordered table-condensed"  Visible="true" runat="server" AllowPaging="True" PageSize="10" 
                 AutoGenerateColumns="false" OnSelectedIndexChanged="StockDisplayGrid_SelectedIndexChanged" OnPageIndexChanging="StockDisplayGrid_PageIndexChanging"   onrowcancelingedit="StockDisplayGrid_RowCancelingEdit" 
                 onrowcommand="StockDisplayGrid_RowCommand" onrowediting="StockDisplayGrid_RowEditing" >
                  <Columns>
-                    <asp:TemplateField HeaderText="Request No." HeaderStyle-Width ="110px">
+                    <asp:TemplateField HeaderText="Request No."   HeaderStyle-Width ="110px" Visible="false">
                         <ItemTemplate>
                             <asp:Label ID="RequestedNO" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("OrderID") %>' Width="100px" ></asp:Label>
                         </ItemTemplate>
@@ -35,9 +24,23 @@
                         <ItemStyle  Width="150px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
-                     <asp:TemplateField HeaderText="Request From" HeaderStyle-Width ="200px">
+                     <asp:TemplateField HeaderText="Requested From" HeaderStyle-Width ="200px">
                         <ItemTemplate>
-                            <asp:Label ID="RequestedFrom" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Location") %>'  Width="200px" ></asp:Label>
+                            <asp:Label ID="RequestedFrom" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("reqFrom") %>'  Width="200px" ></asp:Label>
+                        </ItemTemplate>
+                         <ItemStyle  Width="250px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+
+                     <asp:TemplateField HeaderText="Requested From ID" HeaderStyle-Width ="200px" Visible="false">
+                        <ItemTemplate>
+                            <asp:Label ID="RequestedFromID" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("reqFromID") %>'  Width="200px" ></asp:Label>
+                        </ItemTemplate>
+                         <ItemStyle  Width="250px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+
+                      <asp:TemplateField HeaderText="role" HeaderStyle-Width ="200px" Visible="false">
+                        <ItemTemplate>
+                            <asp:Label ID="lblSysRole" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("roleName") %>'  Width="200px" ></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="250px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
@@ -55,22 +58,14 @@
                         </ItemTemplate>
                          <ItemStyle  Width="200px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
+                     
                  </Columns>
              </asp:GridView>
     </div>
     <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-               <!-- Back Button if needed-->
+              <asp:Button ID="btnBack" runat="server" OnClick="btnBack_Click" Text="BACK" CssClass="btn btn-large" Visible="true" />
             </div>
         </div>
     </div>
-
-    <div class="form-horizontal">
-    <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <asp:Button ID="btnPackingList" runat="server" OnClick="btnPackingList_Click" Enabled="false" Text="Generate Packing List" CssClass="btn btn-default" Visible="false"/>
-                <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
-            </div>
-     </div>
-     </div>
 </asp:Content>
