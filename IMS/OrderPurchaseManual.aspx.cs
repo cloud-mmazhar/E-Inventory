@@ -112,32 +112,70 @@ namespace IMS
 
         protected void StockDisplayGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-
+            StockDisplayGrid.PageIndex = e.NewPageIndex;
+            BindGrid();
         }
 
         protected void StockDisplayGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-
+            StockDisplayGrid.EditIndex = -1;
+            BindGrid();
         }
 
         protected void StockDisplayGrid_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
+            try
+            {
+                if (e.CommandName.Equals("UpdateStock"))
+                {
+                    int quan = int.Parse(((TextBox)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("txtQuantity")).Text);
+                    int orderDetID = int.Parse(((Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("OrderDetailNo")).Text);
+                    connection.Open();  
+                    SqlCommand command = new SqlCommand("sp_UpdateOrderDetailsQuantity", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_OrderDetailID", orderDetID);
+                    command.Parameters.AddWithValue("@p_Qauntity", quan);
+                    
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception exp) { }
+            finally
+            {
+                connection.Close();
+                StockDisplayGrid.EditIndex = -1;
+                BindGrid();
+            }
         }
 
-        protected void StockDisplayGrid_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-
-        }
+       
 
         protected void StockDisplayGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+            try
+            {
+                int orderDetID = int.Parse(((Label)StockDisplayGrid.Rows[e.RowIndex].FindControl("OrderDetailNo")).Text);
+                connection.Open();
+                SqlCommand command = new SqlCommand("sp_DeleteOrderDetailsbyID", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@p_OrderDetailID", orderDetID);
+                
 
+                command.ExecuteNonQuery();
+            }
+            catch (Exception exp) { }
+            finally
+            {
+                connection.Close();
+                StockDisplayGrid.EditIndex = -1;
+                BindGrid();
+            }
         }
 
         protected void StockDisplayGrid_RowEditing(object sender, GridViewEditEventArgs e)
         {
-
+            StockDisplayGrid.EditIndex = e.NewEditIndex;
+            LoadData();
         }
 
         protected void btnCreateOrder_Click(object sender, EventArgs e)
@@ -341,6 +379,12 @@ namespace IMS
                 }
             }
 
+            BindGrid();
+        }
+
+
+        private void BindGrid() 
+        {
             #region Display Products
             try
             {
@@ -371,7 +415,6 @@ namespace IMS
             }
             #endregion
         }
-
         protected void btnRefresh_Click(object sender, EventArgs e)
         {
             RequestTo.Enabled = true;
