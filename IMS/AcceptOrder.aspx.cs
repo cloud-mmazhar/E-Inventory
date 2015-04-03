@@ -169,13 +169,13 @@ namespace IMS
                                 {
                                     if (retQuan != retQuanOrg)
                                     {
-                                        UpdateStock(int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text), retQuan);
+                                        UpdateStock(int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text), retQuan,expiryDate);
                                     }
                                 }
                                 else
                                 {
                                     //update returned quantity
-                                    UpdateStock(int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text), retQuan);
+                                    UpdateStock(int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text), retQuan,expiryDate);
                                 }
                             }
                             connection.Open();
@@ -242,7 +242,7 @@ namespace IMS
            
         }
 
-        private void UpdateStock(int orderDetailID, int quantity)
+        private void UpdateStock(int orderDetailID, int quantity,DateTime expiryDate)
         {
             try
             {
@@ -262,11 +262,24 @@ namespace IMS
 
                 foreach (DataRow row in stockDet.Tables[0].Rows)
                 {
-                    stockSet.Add(int.Parse(row["StockID"].ToString()), quantity);//only set to the first stock
-                    break;
+                    DateTime exisExp ;
+                    DateTime.TryParse(row["ExpiryDate"].ToString(),out exisExp);
+                    if (exisExp.Equals(expiryDate))
+                    {
+                        stockSet.Add(int.Parse(row["StockID"].ToString()), quantity);
+                        break;
+                    }
+                    
                 }
 
-
+                if (stockSet.Count == 0) 
+                {
+                    foreach (DataRow row in stockDet.Tables[0].Rows)
+                    {
+                        stockSet.Add(int.Parse(row["StockID"].ToString()), quantity); // just set it to the first one, in case no product with expiry is found
+                        break;
+                    }
+                }
                 foreach (int id in stockSet.Keys)
                 {
                     command = new SqlCommand("Sp_UpdateStockBy_StockID", connection);

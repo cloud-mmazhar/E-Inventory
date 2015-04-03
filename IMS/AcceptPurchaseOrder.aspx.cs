@@ -113,6 +113,7 @@ namespace IMS
                     string  barcode=((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblbarCode")).Text;
                     string expDate= ((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtExpDate")).Text;
                     string status = ((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblStatus")).Text;
+                    int bonusOrg = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblBonusOrg")).Text);
                     string batch= ((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtBatch")).Text;
                     int bonusQuan = 0;
                     string bonusTxt=((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtBonus")).Text;
@@ -184,6 +185,10 @@ namespace IMS
                         else
                         {
                             remQuan = remQuan - (recQuan + expQuan + expQuan);
+                        }
+                        if (bonusQuan == bonusOrg)
+                        {
+                            bonusQuan = 0;
                         }
                     }
                     else 
