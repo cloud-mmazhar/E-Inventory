@@ -10,16 +10,7 @@
 namespace IMS {
     
     
-    public partial class PackingListGeneration {
-        
-        /// <summary>
-        /// StockAt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList StockAt;
+    public partial class ViewPackingList {
         
         /// <summary>
         /// StockDisplayGrid control.

@@ -268,6 +268,7 @@
     <Content Include="UserControl\uc_printBarcode.ascx" />
     <Content Include="UserControl\uc_Select_System.ascx" />
     <Content Include="ViewInventory.aspx" />
+    <Content Include="ViewPackingList.aspx" />
     <Content Include="ViewPurchaseOrders.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="WarehouseMain.aspx" />
@@ -670,6 +671,13 @@
     </Compile>
     <Compile Include="ViewInventory.aspx.designer.cs">
       <DependentUpon>ViewInventory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPackingList.aspx.cs">
+      <DependentUpon>ViewPackingList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPackingList.aspx.designer.cs">
+      <DependentUpon>ViewPackingList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPurchaseOrders.aspx.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>

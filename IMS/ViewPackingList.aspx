@@ -1,21 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="PackingListGeneration.aspx.cs" Inherits="IMS.PackingListGeneration" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewPackingList.aspx.cs" Inherits="IMS.ViewPackingList" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
-  <h2> Packing List Generation </h2> 
-    <br />
-
-    <div class="form-horizontal">
-    <div class="form-group">
-        <asp:Label runat="server" AssociatedControlID="StockAt" CssClass="col-md-2 control-label">Select Store </asp:Label>
-            <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="StockAt" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="StockAt_SelectedIndexChanged1"/>
-                <br/>
-            </div>
-    </div>
-    </div>
-
     <div class="form-horizontal">
     <div class="form-group">
         <asp:GridView ID="StockDisplayGrid" CssClass="table table-striped table-bordered table-condensed"  Visible="true" runat="server" AllowPaging="True" PageSize="10" 
@@ -74,5 +60,4 @@
             </div>
      </div>
      </div>
-
 </asp:Content>

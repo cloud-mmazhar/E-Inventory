@@ -17,40 +17,73 @@ namespace IMS
     {
         public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["IMSConnectionString"].ToString());
         public static DataSet ProductSet;
+        public static DataSet systemSet;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
-                LoadData();
-            }
-        }
-
-        public void LoadData()
-        {
-            StockAt.Text = Session["SelectedSysName"].ToString();
-            DataTable dt = new DataTable();
-            DataSet ds = new DataSet();
-            #region Getting Product Details
-            try
-            {
-                int id;
-                if (int.TryParse(Session["SelectedSys"].ToString(), out id))
+                #region Populating System Types
+                try
                 {
-                    
                     connection.Open();
-                    SqlCommand command = new SqlCommand("sp_GeneratePackingList", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@p_SysID", id);
+                    SqlCommand command = new SqlCommand("Select * From tbl_System WHERE System_RoleID =2;", connection); // needs to be completed
+                    DataSet ds = new DataSet();
+                    SqlDataAdapter sA = new SqlDataAdapter(command);
+                    sA.Fill(ds);
+                    StockAt.DataSource = ds.Tables[0];
+                    StockAt.DataTextField = "SystemName";
+                    StockAt.DataValueField = "SystemID";
+                    StockAt.DataBind();
+                    if (StockAt != null)
+                    {
+                        StockAt.Items.Insert(0, "Select System");
+                        StockAt.SelectedIndex = 0;
+                    }
+                }
+                catch (Exception ex)
+                {
 
-                    SqlDataAdapter SA = new SqlDataAdapter(command);
-                    SA.Fill(ds);
-                    StockDisplayGrid.DataSource = ds;
-                    StockDisplayGrid.DataBind();
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                #endregion
+
+                if (StockAt.SelectedIndex == -1)
+                {
+                    LoadData(null);
+                }
+                else
+                {
+                    LoadData(StockAt.SelectedValue);
                 }
 
             }
+        }
+
+        public void LoadData(String StoreID)
+        {
+            #region Display Requests
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("sp_GetGeneratedOrder_store_warehouse", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@p_StoreID", StoreID);
+
+                DataSet ds = new DataSet();
+
+                SqlDataAdapter sA = new SqlDataAdapter(command);
+                sA.Fill(ds);
+                ProductSet = ds;
+                StockDisplayGrid.DataSource = null;
+                StockDisplayGrid.DataSource = ds.Tables[0];
+                StockDisplayGrid.DataBind();
+            }
             catch (Exception ex)
             {
+
             }
             finally
             {
@@ -58,16 +91,134 @@ namespace IMS
             }
             #endregion
         }
-        protected void btnPrint_Click(object sender, EventArgs e)
+        protected void StockDisplayGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Packing List has been printed successfully')", true);
-            WebMessageBoxUtil.Show("Packing List has been printed successfully");
-            Response.Redirect("Warehouse_StoreRequests.aspx");
+            StockDisplayGrid.EditIndex = -1;
+            if (StockAt.SelectedIndex == -1)
+            {
+                LoadData(null);
+            }
+            else
+            {
+                LoadData(StockAt.SelectedValue);
+            }
+        }
+
+        protected void StockDisplayGrid_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            StockDisplayGrid.EditIndex = e.NewEditIndex;
+            if (StockAt.SelectedIndex == -1)
+            {
+                LoadData(null);
+            }
+            else
+            {
+                LoadData(StockAt.SelectedValue);
+            }
+        }
+
+        protected void StockDisplayGrid_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+            try
+            {
+                if (e.CommandName.Equals("Edit"))
+                {
+                    int RowNumber = 0;
+                    int Pageindex = Convert.ToInt32(StockDisplayGrid.PageIndex);
+
+                    Label RequestNo = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("RequestedNO");
+                    Label RequestFrom = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("RequestedFrom");
+                    Label RequestDate = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("RequestedDate");
+                    Session["RequestedNO"] = RequestNo.Text.ToString();
+                    Session["RequestedFrom"] = RequestFrom.Text.ToString();
+                    Session["RequestedDate"] = RequestDate.Text.ToString();
+                   // Response.Redirect("Warehouse_StoreRequestDetails.aspx");
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
+
+        protected void StockDisplayGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            StockDisplayGrid.PageIndex = e.NewPageIndex;
+            if (StockAt.SelectedIndex == -1)
+            {
+                LoadData(null);
+            }
+            else
+            {
+                LoadData(StockAt.SelectedValue);
+            }
+        }
+
+        protected void StockDisplayGrid_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (StockAt.SelectedIndex == -1)
+            {
+                LoadData(null);
+            }
+            else
+            {
+                LoadData(StockAt.SelectedValue);
+            }
+        }
+
+        protected void StockAt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (StockAt.SelectedIndex == -1)
+            {
+                LoadData(null);
+            }
+            else
+            {
+                LoadData(StockAt.SelectedValue);
+                Session["SelectedSys"] = StockAt.SelectedValue;
+                Session["SelectedSysName"] = StockAt.SelectedItem;
+            }
+
+            if (StockDisplayGrid.DataSource != null)
+            {
+                //btnPackingList.Visible = true;
+               // btnPackingList.Enabled = true;
+            }
+        }
+
+        protected void btnPackingList_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PackingListGeneration.aspx");
         }
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Warehouse_StoreRequests.aspx");
+            Response.Redirect("WarehouseMain.aspx");
+        }
+
+        protected void StockAt_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            if (StockAt.SelectedIndex == -1)
+            {
+                LoadData(null);
+            }
+            else
+            {
+                LoadData(StockAt.SelectedValue);
+                Session["SelectedSys"] = StockAt.SelectedValue;
+                Session["SelectedSysName"] = StockAt.SelectedItem;
+            }
+
+            if (StockDisplayGrid.DataSource != null)
+            {
+                //btnPackingList.Visible = true;
+                // btnPackingList.Enabled = true;
+            }
         }
     }
 }

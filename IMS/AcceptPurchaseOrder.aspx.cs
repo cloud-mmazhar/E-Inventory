@@ -120,10 +120,10 @@ namespace IMS
 
                     if (!DateTime.TryParse(expDate, out expiryDate))
                     {
-                        WebMessageBoxUtil.Show("Expiry Date is in incorrect Format");
-                        StockDisplayGrid.EditIndex = -1;
-                        LoadData();
-                        return;
+                        //WebMessageBoxUtil.Show("Expiry Date is in incorrect Format");
+                        //StockDisplayGrid.EditIndex = -1;
+                        //LoadData();
+                        //return;
                     }
                     if (!int.TryParse(bonusTxt, out bonusQuan))
                     {
