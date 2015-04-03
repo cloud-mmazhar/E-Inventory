@@ -71,7 +71,7 @@ namespace IMS
                 SqlCommand command = new SqlCommand("sp_GetGeneratedOrder_store_warehouse", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@p_StoreID", StoreID);
-
+                Session["RequestedFromID"] = StoreID;
                 DataSet ds = new DataSet();
 
                 SqlDataAdapter sA = new SqlDataAdapter(command);
@@ -132,8 +132,9 @@ namespace IMS
                     Label RequestDate = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("RequestedDate");
                     Session["RequestedNO"] = RequestNo.Text.ToString();
                     Session["RequestedFrom"] = RequestFrom.Text.ToString();
+                    
                     Session["RequestedDate"] = RequestDate.Text.ToString();
-                   // Response.Redirect("Warehouse_StoreRequestDetails.aspx");
+                    Response.Redirect("ViewPackingList.aspx");
                 }
             }
             catch (Exception ex)
