@@ -378,7 +378,30 @@ namespace IMS
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record can not be inserted, because it is already present')", true);
                 }
             }
+            #region Populate Product Info
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("Sp_FillPO_Details", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                int OrderNumber = 0;
+                if (int.TryParse(Session["OrderNumber"].ToString(), out OrderNumber))
+                {
+                    command.Parameters.AddWithValue("@p_OrderID", OrderNumber);
+                    command.ExecuteNonQuery();
+                }
 
+                
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            #endregion
             BindGrid();
         }
 
@@ -440,7 +463,7 @@ namespace IMS
                 SelectProduct.Visible = true;
             }
         }
-
+        //Sp_FillPO_Details
         public void PopulateDropDown(String Text)
         {
             #region Populating Product Name Dropdown

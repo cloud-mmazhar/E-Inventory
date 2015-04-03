@@ -151,9 +151,20 @@
                         <ItemTemplate>
                             <asp:Label ID="lblExpDate" runat="server" Text='<%# Eval("Expiry") %>'></asp:Label>
                         </ItemTemplate>
+                          <EditItemTemplate>
+                             <asp:TextBox ID="txtExpDate"  runat="server" Text='<%# Eval("Expiry")==DBNull.Value?"":Convert.ToDateTime( Eval("Expiry")).ToString("MMM dd ,yyyy") %>'></asp:TextBox>
+                         </EditItemTemplate>
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-
+                      <asp:TemplateField HeaderText="Batch Number" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblBatch" runat="server" ></asp:Label>
+                        </ItemTemplate>
+                          <EditItemTemplate>
+                             <asp:TextBox ID="txtBatch"  runat="server"></asp:TextBox>
+                         </EditItemTemplate>
+                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
                      <asp:TemplateField HeaderText="BarCode" HeaderStyle-Width ="110px">
                         <ItemTemplate>
                             <asp:Label ID="lblbarCode" runat="server" Text='<%# Eval("BarCode") %>'></asp:Label>

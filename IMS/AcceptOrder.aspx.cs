@@ -102,8 +102,19 @@ namespace IMS
                         int defQuanOrg = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblDefQuanOrg")).Text);
                         int retQuanOrg = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblretQuanOrg")).Text);
                         int remQuan = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblRemainQuan")).Text);
+                        string expDate = ((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtExpDate")).Text;
                         string status = ((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblStatus")).Text;
                         int orderedQuantity = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblQuantity")).Text);
+                        string batch = ((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtBatch")).Text;
+                        DateTime expiryDate= new DateTime();
+                     
+                        if(!DateTime.TryParse(expDate, out expiryDate))
+                        {
+                            WebMessageBoxUtil.Show("Expiry Date is in incorrect Format");
+                            StockDisplayGrid.EditIndex = -1;
+                            LoadData();
+                            return;
+                        }
                         if (recQuan < 0 || expQuan < 0 || defQuan < 0) 
                         {
                             WebMessageBoxUtil.Show("Entered value cannot be negative");
@@ -181,8 +192,10 @@ namespace IMS
 
                             command.Parameters.AddWithValue("@p_ProductID", int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblProd_id")).Text));
                             command.Parameters.AddWithValue("@p_BarCode", ((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblbarCode")).Text);
-                            command.Parameters.AddWithValue("@p_Expiry", DateTime.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblExpDate")).Text));
-
+                            command.Parameters.AddWithValue("@p_Expiry", expiryDate);
+                            command.Parameters.AddWithValue("@p_DiscountPercentage", 0);
+                            command.Parameters.AddWithValue("@p_Bonus", 0);
+                            command.Parameters.AddWithValue("@p_BatchNumber", batch);
                             command.Parameters.AddWithValue("@p_Cost", float.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblCP")).Text));
                             command.Parameters.AddWithValue("@p_Sales", float.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblSP")).Text));
                             command.Parameters.AddWithValue("@p_orderMasterID", int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdMs_id")).Text));

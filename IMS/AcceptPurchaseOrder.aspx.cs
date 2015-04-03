@@ -113,6 +113,34 @@ namespace IMS
                     string  barcode=((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblbarCode")).Text;
                     string expDate= ((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtExpDate")).Text;
                     string status = ((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblStatus")).Text;
+                    string batch= ((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtBatch")).Text;
+                    int bonusQuan = 0;
+                    string bonusTxt=((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtBonus")).Text;
+                    DateTime expiryDate = new DateTime();
+
+                    if (!DateTime.TryParse(expDate, out expiryDate))
+                    {
+                        WebMessageBoxUtil.Show("Expiry Date is in incorrect Format");
+                        StockDisplayGrid.EditIndex = -1;
+                        LoadData();
+                        return;
+                    }
+                    if (!int.TryParse(bonusTxt, out bonusQuan))
+                    {
+                        WebMessageBoxUtil.Show("Invalid Format for Bonus");
+                        StockDisplayGrid.EditIndex = -1;
+                        LoadData();
+                        return;
+                    }
+
+                    float txtDisc=0;
+                    if (!float.TryParse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtDisc")).Text, out txtDisc))
+                    {
+                        WebMessageBoxUtil.Show("Invalid Format for Discount");
+                        StockDisplayGrid.EditIndex = -1;
+                        LoadData();
+                        return;
+                    }
                     long newBarcode = 0;
                     if(barcode.Equals("0"))
                     {
@@ -195,13 +223,16 @@ namespace IMS
                         
                         command.Parameters.AddWithValue("@p_ProductID", int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblProd_id")).Text));
                         command.Parameters.AddWithValue("@p_BarCode", newBarcode);
+                        command.Parameters.AddWithValue("@p_DiscountPercentage", txtDisc);
+                        command.Parameters.AddWithValue("@p_Bonus", bonusQuan);
+                        command.Parameters.AddWithValue("@p_BatchNumber",  batch);
                         if (string.IsNullOrEmpty(expDate))
                         {
                             command.Parameters.AddWithValue("@p_Expiry", DBNull.Value);
                         }
                         else 
                         {
-                            command.Parameters.AddWithValue("@p_Expiry", expDate);
+                            command.Parameters.AddWithValue("@p_Expiry", expiryDate);
                         }
                         command.Parameters.AddWithValue("@p_Cost", txtCP);
                         command.Parameters.AddWithValue("@p_Sales", txtSP);
