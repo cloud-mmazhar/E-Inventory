@@ -181,7 +181,7 @@ namespace IMS
                                 }
                                 else 
                                 {
-                                    command.Parameters.AddWithValue("@p_Status", "Partial");
+                                    command.Parameters.AddWithValue("@p_Status", "Pending");
                                 }
                                 command.ExecuteNonQuery();
                             }

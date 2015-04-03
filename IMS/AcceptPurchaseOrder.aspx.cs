@@ -118,14 +118,14 @@ namespace IMS
                     int bonusQuan = 0;
                     string bonusTxt=((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtBonus")).Text;
                     DateTime expiryDate = new DateTime();
-
-                    if (!DateTime.TryParse(expDate, out expiryDate))
-                    {
-                        //WebMessageBoxUtil.Show("Expiry Date is in incorrect Format");
-                        //StockDisplayGrid.EditIndex = -1;
-                        //LoadData();
-                        //return;
-                    }
+                    DateTime.TryParse(expDate, out expiryDate);
+                    //if (!)
+                    //{
+                    //    //WebMessageBoxUtil.Show("Expiry Date is in incorrect Format");
+                    //    //StockDisplayGrid.EditIndex = -1;
+                    //    //LoadData();
+                    //    //return;
+                    //}
                     if (!int.TryParse(bonusTxt, out bonusQuan))
                     {
                         WebMessageBoxUtil.Show("Invalid Format for Bonus");

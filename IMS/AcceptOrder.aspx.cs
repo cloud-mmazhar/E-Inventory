@@ -106,18 +106,25 @@ namespace IMS
                         string status = ((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblStatus")).Text;
                         int orderedQuantity = int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblQuantity")).Text);
                         string batch = ((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtBatch")).Text;
-                        DateTime expiryDate= new DateTime();
-                     
-                        if(!DateTime.TryParse(expDate, out expiryDate))
+                        DateTime expiryDate;
+                     DateTime.TryParse(expDate, out expiryDate);
+                        //if()
+                        //{
+                            //WebMessageBoxUtil.Show("Expiry Date is in incorrect Format");
+                            //StockDisplayGrid.EditIndex = -1;
+                            //LoadData();
+                            //return;
+                        //}
+                        if (recQuan < 0 || expQuan < 0 || defQuan < 0) 
                         {
-                            WebMessageBoxUtil.Show("Expiry Date is in incorrect Format");
+                            WebMessageBoxUtil.Show("Entered value cannot be negative");
                             StockDisplayGrid.EditIndex = -1;
                             LoadData();
                             return;
                         }
-                        if (recQuan < 0 || expQuan < 0 || defQuan < 0) 
+                        if (recQuan > sentQuan) 
                         {
-                            WebMessageBoxUtil.Show("Entered value cannot be negative");
+                            WebMessageBoxUtil.Show("Received value cannot be larger than sent quantity");
                             StockDisplayGrid.EditIndex = -1;
                             LoadData();
                             return;
@@ -249,10 +256,10 @@ namespace IMS
                 int requesteeID = int.Parse(Session["RequestDesID"].ToString());
                 DataSet stockDet;
                 connection.Open();
-                SqlCommand command = new SqlCommand("Sp_GetStockBy_OrderDetID", connection);
+                SqlCommand command = new SqlCommand("sp_GetpackingList", connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@p_OrderDetailID", orderDetailID);
-                command.Parameters.AddWithValue("@p_StoredAt", requesteeID);
+                command.Parameters.AddWithValue("@p_OrderDetID", orderDetailID);
+               // command.Parameters.AddWithValue("@p_StoredAt", requesteeID);
 
                 DataSet ds = new DataSet();
                 SqlDataAdapter dA = new SqlDataAdapter(command);
@@ -263,7 +270,7 @@ namespace IMS
                 foreach (DataRow row in stockDet.Tables[0].Rows)
                 {
                     DateTime exisExp ;
-                    DateTime.TryParse(row["ExpiryDate"].ToString(),out exisExp);
+                    DateTime.TryParse(row["ExpiryDate"].ToString(), out exisExp);
                     if (exisExp.Equals(expiryDate))
                     {
                         stockSet.Add(int.Parse(row["StockID"].ToString()), quantity);
