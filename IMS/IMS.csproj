@@ -295,6 +295,7 @@
     <None Include="Project_Readme.html" />
     <Content Include="Site.Mobile.Master" />
     <None Include="Properties\PublishProfiles\DPS.pubxml" />
+    <None Include="Properties\PublishProfiles\SA.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
