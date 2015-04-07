@@ -86,9 +86,9 @@
                      
                      <asp:TemplateField HeaderText="Order Date" HeaderStyle-Width ="150px">
                         <ItemTemplate>
-                            <asp:Label ID="OrderDate" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("OrderDate") %>'  Width="170px"></asp:Label>
+                            <asp:Label ID="OrderDate" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("OrderDate") %>'  Width="180px"></asp:Label>
                         </ItemTemplate>
-                        <ItemStyle  Width="170px" HorizontalAlign="Left"/>
+                        <ItemStyle  Width="180px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
                      <asp:TemplateField HeaderText="Order To" HeaderStyle-Width ="200px">
