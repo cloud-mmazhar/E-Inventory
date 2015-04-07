@@ -115,9 +115,9 @@
                    
                      <asp:TemplateField HeaderText="Expiry">
                         <ItemTemplate>
-                            <asp:Label ID="lblExpiry" CssClass="col-md-2 control-label"  runat="server" Text='<%# Eval("Expiry") %>' Width="190px"></asp:Label>
+                            <asp:Label ID="lblExpiry" CssClass="col-md-2 control-label"  runat="server" Text='<%# Eval(("Expiry").ToString(), "{0:dd/MM/yyyy}")%>' Width="100px"></asp:Label>
                         </ItemTemplate>
-                         <ItemStyle  Width="190px" HorizontalAlign="Left"/>
+                         <ItemStyle  Width="100px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
                      <asp:TemplateField HeaderText="Unit Cost">
