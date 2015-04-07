@@ -32,13 +32,24 @@
                         <ItemStyle  Width="1px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="Name" HeaderStyle-Width ="250px">
+                    <asp:TemplateField HeaderText="Name" Visible="false" HeaderStyle-Width ="250px">
                         <ItemTemplate>
                             <asp:Label ID="ProductName" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("ProductName") %>'  Width="250px" ></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="250px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-                     
+                      <asp:TemplateField HeaderText=" Ordered Product Name : Strength : Form : Pack Size" HeaderStyle-Width="500" HeaderStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <asp:Label ID="ProductName" padding-right="5px" runat="server" Text='<%# Eval("ProductName") %>'></asp:Label>
+                            <asp:Label ID="Label1" padding-right="5px" runat="server" Text=" : "></asp:Label>
+                            <asp:Label ID="ProductStrength2" padding-right="5px" runat="server" Text='<%# Eval("strength") %>'  ></asp:Label>
+                            <asp:Label ID="Label2" runat="server" Text=" : " padding-right="5px"></asp:Label>
+                            <asp:Label ID="dosage2"  runat="server" Text='<%# Eval("dosageForm") %>' padding-right="5px" ></asp:Label>
+                            <asp:Label ID="Label3" runat="server" Text=" : " padding-right="5px"></asp:Label>
+                            <asp:Label ID="packSize2" runat="server" Text='<%# Eval("PackageSize") %>' padding-right="5px" ></asp:Label>
+                        </ItemTemplate>
+                        
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Available Stock" HeaderStyle-Width ="250px">
                         <ItemTemplate>
                             <asp:Label ID="Stock" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Stock") %>'  Width="250px" ></asp:Label>
