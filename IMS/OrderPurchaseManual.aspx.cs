@@ -29,6 +29,11 @@ namespace IMS
                     ProductSet = new DataSet();
                     LoadData();
                     BindGrid();
+                    if (StockDisplayGrid.DataSource != null)
+                    {
+                        btnAccept.Visible = true;
+                        btnDecline.Visible = true;
+                    }
                 }
                 else
                 {
@@ -134,6 +139,7 @@ namespace IMS
                 RequestTo.SelectedIndex = -1;
                 btnAccept.Visible = false;
                 btnDecline.Visible = false;
+                FirstOrder = false;
             }
             catch(Exception ex)
             {
@@ -450,6 +456,14 @@ namespace IMS
             }
             #endregion
             BindGrid();
+            txtVendor.Text = "";
+            txtProduct.Text = "";
+            SelectProduct.Visible = false;
+            RequestTo.Visible = false;
+            SelectQuantity.Text = "";
+            SelectPrice.Text = "";
+            SelectProduct.SelectedIndex = -1;
+            RequestTo.SelectedIndex = -1;
         }
 
 

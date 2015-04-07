@@ -130,8 +130,8 @@ namespace IMS
                     ddlProductOrderType.SelectedIndex = 0;
                 } 
                 #endregion
-                
-                BindGrid();
+
+                BindGridbyFilters();
             }
         }
         private void BindGrid()
@@ -424,7 +424,7 @@ namespace IMS
 
         protected void btnRefresh_Click(object sender, EventArgs e)
         {
-            BindGrid();
+            BindGridbyFilters();
         }
 
         protected void btnSearchProduct_Click(object sender, ImageClickEventArgs e)
