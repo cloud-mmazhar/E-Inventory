@@ -217,15 +217,20 @@ namespace IMS
                             {
                                 if (status.Equals("Partial"))
                                 {
+                                    int val = 0;
                                     if (retQuan != retQuanOrg)
                                     {
-                                        UpdateStock(int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text), retQuan,expiryDate);
+                                        UpdateStock(int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text), retQuan, expiryDate);
                                     }
+
+                                    
+
                                 }
                                 else
                                 {
+                                    
                                     //update returned quantity
-                                    UpdateStock(int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text), retQuan,expiryDate);
+                                    UpdateStock(int.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblOrdDet_id")).Text), retQuan, expiryDate);
                                 }
                             }
                             connection.Open();
@@ -245,6 +250,7 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_Expiry", expiryDate);
                             command.Parameters.AddWithValue("@p_DiscountPercentage", 0);
                             command.Parameters.AddWithValue("@p_Bonus", 0);
+                            command.Parameters.AddWithValue("@p_BonusTotal", 0);
                             command.Parameters.AddWithValue("@p_BatchNumber", batch);
                             command.Parameters.AddWithValue("@p_Cost", float.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblCP")).Text));
                             command.Parameters.AddWithValue("@p_Sales", float.Parse(((Label)StockDisplayGrid.Rows[RowIndex].FindControl("lblSP")).Text));

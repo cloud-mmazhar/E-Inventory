@@ -176,7 +176,13 @@ namespace IMS
                         LoadData();
                         return;
                     }
-
+                    if (bonusQuan == 0 && defQuan == 0 && recQuan == 0 && expQuan == 0 && retQuan == 0) 
+                    {
+                        WebMessageBoxUtil.Show("All values cannot be 0");
+                        StockDisplayGrid.EditIndex = -1;
+                        LoadData();
+                        return;
+                    }
                     float txtDisc=0;
                     if (!float.TryParse(((TextBox)StockDisplayGrid.Rows[RowIndex].FindControl("txtDisc")).Text, out txtDisc))
                     {
@@ -227,16 +233,13 @@ namespace IMS
                         }
                         else
                         {
-                            remQuan = remQuan - (recQuan + expQuan + expQuan);
+                            remQuan = remQuan - (recQuan + expQuan + defQuan);
                         }
-                        if (bonusQuan == bonusOrg)
-                        {
-                            bonusQuan = 0;
-                        }
+                        
                     }
                     else 
                     {
-                        remQuan = remQuan - (recQuan + expQuan + expQuan);
+                        remQuan = remQuan - (recQuan + expQuan + defQuan);
                     }
 
                     if (txtCP < 0 || txtSP < 0) 
@@ -247,7 +250,7 @@ namespace IMS
                         return;
                     }
 
-                    if (recQuan < 0 || expQuan < 0 || expQuan < 0)
+                    if (recQuan < 0 || expQuan < 0 || defQuan < 0)
                     {
                         WebMessageBoxUtil.Show("Entered value cannot be negative");
                         StockDisplayGrid.EditIndex = -1;
@@ -273,6 +276,7 @@ namespace IMS
                         command.Parameters.AddWithValue("@p_BarCode", newBarcode);
                         command.Parameters.AddWithValue("@p_DiscountPercentage", txtDisc);
                         command.Parameters.AddWithValue("@p_Bonus", bonusQuan);
+                        command.Parameters.AddWithValue("@p_BonusTotal", bonusQuan + bonusOrg);// total bonus added
                         command.Parameters.AddWithValue("@p_BatchNumber",  batch);
                         if (string.IsNullOrEmpty(expDate))
                         {
