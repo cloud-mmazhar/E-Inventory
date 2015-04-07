@@ -48,6 +48,7 @@
     <Compile Include="SubCategory.cs" />
     <Compile Include="Util\BarcodeUtility.cs" />
     <Compile Include="Util\Ean13.cs" />
+    <Compile Include="Util\ProductOrderType.cs" />
     <Compile Include="Util\RoleNames.cs" />
     <Compile Include="Util\WebMessageBoxUtil.cs" />
     <Compile Include="Vendor.cs" />

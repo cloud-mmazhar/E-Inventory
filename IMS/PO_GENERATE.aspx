@@ -142,7 +142,24 @@
                     </ItemTemplate>
                     <ItemStyle Width="330px" HorizontalAlign="Left" />
                 </asp:TemplateField>
-
+                 <asp:TemplateField HeaderText="Package Size" HeaderStyle-Width ="160px">
+                        <ItemTemplate>
+                            <asp:Label ID="packSize" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("PackageSize") %>'  Width="150px" ></asp:Label>
+                        </ItemTemplate>
+                         <ItemStyle  Width="160px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+                      <asp:TemplateField HeaderText="Strength" HeaderStyle-Width ="150px">
+                        <ItemTemplate>
+                            <asp:Label ID="ProductStrength" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("strength") %>'  Width="150px" ></asp:Label>
+                        </ItemTemplate>
+                         <ItemStyle  Width="160px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+                     <asp:TemplateField HeaderText="Dosage Form" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="dosage" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("dosageForm") %>'  Width="100px" ></asp:Label>
+                        </ItemTemplate>
+                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
                 <asp:TemplateField HeaderText="Ordered Quantity" HeaderStyle-Width="150px">
                     <ItemTemplate>
                         <asp:Label ID="lblQuantity" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Qauntity") %>'></asp:Label>
@@ -185,6 +202,36 @@
                 <td>&nbsp;</td>
                 <td class="auto-style3">&nbsp;</td>
                 <td><strong>Company Stamp:</strong> ____________</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="auto-style3">&nbsp;</td>
+                <td><br /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="auto-style3">&nbsp;</td>
+                <td><strong>Prepared By:</strong> ____________</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="auto-style3">&nbsp;</td>
+                <td><br /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="auto-style3">&nbsp;</td>
+                <td><strong>Checked By:</strong> ____________</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="auto-style3">&nbsp;</td>
+                <td><br /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="auto-style3">&nbsp;</td>
+                <td><strong>Received By:</strong> ____________</td>
             </tr>
         </table>
         <div class="form-group">

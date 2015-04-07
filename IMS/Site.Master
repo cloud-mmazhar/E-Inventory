@@ -74,7 +74,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Digital Processing System</p>
+                <p>&copy; <%: DateTime.Now.Year %> - Software Alliance LLC.</p>
             </footer>
         </div>
     </form>

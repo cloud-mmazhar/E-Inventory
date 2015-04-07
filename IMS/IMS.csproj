@@ -186,6 +186,7 @@
     <Content Include="Images\Gakuseisean-Ivista-2-Start-Menu-Search.ico" />
     <Content Include="Images\search-icon-512.png" />
     <Content Include="IMSLogin.aspx" />
+    <Content Include="Inventory_Print.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ManageCategory.aspx" />
     <Content Include="ManageDepartment.aspx" />
@@ -409,6 +410,13 @@
     </Compile>
     <Compile Include="IMSLogin.aspx.designer.cs">
       <DependentUpon>IMSLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory_Print.aspx.cs">
+      <DependentUpon>Inventory_Print.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory_Print.aspx.designer.cs">
+      <DependentUpon>Inventory_Print.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

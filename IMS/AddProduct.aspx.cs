@@ -136,9 +136,32 @@ namespace IMS
                     connection.Close();
                 }
                 #endregion
+
+                #region Populate Product Order Type
+
+                ddlProductOrderType.DataSource=IMSGlobal.GetOrdersType();
+                ddlProductOrderType.DataTextField = "Name";
+                ddlProductOrderType.DataValueField = "OrderTypeId";
+                ddlProductOrderType.DataBind();
+                
+                if (ddlProductOrderType !=null)
+                {
+                    ddlProductOrderType.Items.Insert(0,"Select Product Order Type");
+                    ddlProductOrderType.SelectedIndex = 0;
+                }
+               
+                if (Session["MODE"].Equals("EDIT")) 
+                {
+                    int selIndex; 
+                    int.TryParse(Session["MS_ProductOrderType"].ToString(),out selIndex); 
+                    ddlProductOrderType.SelectedIndex =selIndex;
+                   // foreach( )
+                }
+                #endregion
             }
         }
 
+       
         public void FromMaster_Load(String ItemNo, String ItemName, String ItemType, String Manufacturer, String Category, String GenericName,
                                     String Control, String BinNumber, String GreenRain, String BrandName, String MaxDiscount, String LineID, 
                                     String UnitSale, String UnitCost, String ItemAwt, String Form, String Strength, String itemPackType,
@@ -157,6 +180,7 @@ namespace IMS
             PackType.Text = itemPackType;
             PackSize.Text = itemPackSize;
             binNumber.Text = BinNumber;
+
         }
         protected void btnAddProduct_Click(object sender, EventArgs e)
         {
@@ -215,7 +239,14 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_Description", ProdcutDesc.Text.ToString());
                             command.Parameters.AddWithValue("@p_BrandName", ProdcutBrand.Text.ToString());
                             command.Parameters.AddWithValue("@p_ProductType", ProductType.SelectedItem.ToString());
-
+                            if (ddlProductOrderType.SelectedIndex > 0)
+                            {
+                                command.Parameters.AddWithValue("@p_productOrderType", int.Parse(ddlProductOrderType.SelectedValue.ToString()));
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_productOrderType", DBNull.Value);
+                            }
                             int res1, res4;
                             float res2, res3, res5;
                             if (int.TryParse(ProductSubCat.SelectedValue.ToString(), out res1))
@@ -297,6 +328,7 @@ namespace IMS
                             ProductSubCat.SelectedIndex = -1;
                             ProductDept.SelectedIndex = -1;
                             ProductCat.SelectedIndex = -1;
+                            ddlProductOrderType.SelectedIndex = 0;
                             ProductCost.Text = "";
                             ProductSale.Text = "";
                             ProductDiscount.Text = "";
@@ -329,7 +361,14 @@ namespace IMS
                             command.Parameters.AddWithValue("@p_Description", ProdcutDesc.Text.ToString());
                             command.Parameters.AddWithValue("@p_BrandName", ProdcutBrand.Text.ToString());
                             command.Parameters.AddWithValue("@p_ProductType", ProductType.SelectedItem.ToString());
-
+                            if (ddlProductOrderType.SelectedIndex > 0)
+                            {
+                                command.Parameters.AddWithValue("@p_productOrderType", int.Parse(ddlProductOrderType.SelectedValue.ToString()));
+                            }
+                            else
+                            {
+                                command.Parameters.AddWithValue("@p_productOrderType", DBNull.Value);
+                            }
                             int res1, res4,res6;
                             float res2, res3, res5;
 
@@ -445,6 +484,7 @@ namespace IMS
                 ProdcutBrand.Text = string.Empty;
                 ProductType.SelectedIndex = -1;
                 ProductDept.SelectedIndex=0;
+                ddlProductOrderType.SelectedIndex = 0;
                 ProductCat.Items.Clear();
                 ProductSubCat.Items.Clear();
                 ProductCost.Text = string.Empty;

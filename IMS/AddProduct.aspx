@@ -93,6 +93,13 @@
             </div>
         </div>
 
+         <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ddlProductOrderType" CssClass="col-md-2 control-label">Product Order Type</asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList runat="server" ID="ddlProductOrderType" CssClass="form-control" Width="29%"/>
+                <br />
+            </div>
+        </div>
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="ProductCost" CssClass="col-md-2 control-label">Unit Cost Price</asp:Label>
             <div class="col-md-10">

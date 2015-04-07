@@ -49,6 +49,15 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.DropDownList ProductSubCat;
         
         /// <summary>
+        /// ddlProductOrderType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlProductOrderType;
+        
+        /// <summary>
         /// SelectProduct control.
         /// </summary>
         /// <remarks>
@@ -119,6 +128,33 @@ namespace IMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnBack;
+        
+        /// <summary>
+        /// btnPrint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPrint;
+        
+        /// <summary>
+        /// btnFax control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFax;
+        
+        /// <summary>
+        /// btnEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEmail;
         
         /// <summary>
         /// _editPopupButton control.

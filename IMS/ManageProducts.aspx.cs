@@ -147,6 +147,7 @@ namespace IMS
                     Session["MS_itemPackType"] = dt.Rows[0]["itemPackType"].ToString();
                     Session["MS_itemPackSize"] = dt.Rows[0]["itemPackSize"].ToString();
                     Session["MS_ProductID"] = dt.Rows[0]["ProductID"].ToString();
+                    Session["MS_ProductOrderType"] = dt.Rows[0]["productOrderType"].ToString();
                     Response.Redirect("Addproduct.aspx");
                     #endregion
 
