@@ -53,7 +53,11 @@ namespace IMS
                 float TCost = 0;
                 for(int i=0;i<ProductSet.Tables[0].Rows.Count;i++)
                 {
-                    TCost += Convert.ToInt32(ProductSet.Tables[0].Rows[i]["totalCostPrice"].ToString());
+                    float Cost =0;
+                    if (float.TryParse(ProductSet.Tables[0].Rows[i]["totalCostPrice"].ToString(), out Cost ))
+                    {
+                        TCost += Cost;
+                    }
                 }
                 lblTotalCostALL.Text = "TOTAL COST: AED " + TCost;
                 #endregion

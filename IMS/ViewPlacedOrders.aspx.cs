@@ -201,6 +201,7 @@ namespace IMS
                     int Pageindex = Convert.ToInt32(StockDisplayGrid.PageIndex);
 
                     Label OrderNo = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("OrderNO");
+                    //session is setting
                     Session["OrderNumber"] = OrderNo.Text.ToString();
                     Session["FromViewPlacedOrders"] = "true";
                     Response.Redirect("OrderPurchaseManual.aspx");
@@ -245,6 +246,8 @@ namespace IMS
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
+            Session["OrderNumber"] = null;
+            Session["FromViewPlacedOrders"] = "false";
             Response.Redirect("ManageOrders.aspx");
         }
 
@@ -280,6 +283,8 @@ namespace IMS
 
         protected void btnRefresh_Click(object sender, EventArgs e)
         {
+            Session["OrderNumber"] = null;
+            Session["FromViewPlacedOrders"] = "false";
             SelectProduct.Text = "";
             StockAt.Visible = false;
             StockAt.SelectedIndex = -1;

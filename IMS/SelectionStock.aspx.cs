@@ -175,14 +175,14 @@ namespace IMS
                         }
                         #endregion
 
-                        String Query = "Update tblStock_Detail Set BarCode= '" + BarCodeNumber + "', Quantity = '" + Decimal.Parse(Quantity.Text.ToString()) + "', UCostPrice = '" + Decimal.Parse(UnitCostPrice.Text.ToString()) + "', USalePrice = '" + Decimal.Parse(UnitSalePrice.Text.ToString()) + "' Where StockID = '" +stockID + "'";
+                        String Query = "Update tblStock_Detail Set BarCode= '" + BarCodeNumber + "', Quantity = '" + Decimal.Parse(Quantity.Text.ToString()) + "', UCostPrice = '" + Math.Round(Decimal.Parse(UnitCostPrice.Text.ToString()),2) + "', USalePrice = '" + Math.Round(Decimal.Parse(UnitSalePrice.Text.ToString()),2) + "' Where StockID = '" +stockID + "'";
                         connection.Open();
                         SqlCommand command = new SqlCommand(Query, connection);
                         command.ExecuteNonQuery();
                     }
                     else
                     {
-                        String Query = "Update tblStock_Detail Set Quantity = '" + Decimal.Parse(Quantity.Text.ToString()) + "', UCostPrice = '" + Decimal.Parse(UnitCostPrice.Text.ToString()) + "', USalePrice = '" + Decimal.Parse(UnitSalePrice.Text.ToString()) + "' Where StockID = '" + stockID + "'";
+                        String Query = "Update tblStock_Detail Set Quantity = '" + Decimal.Parse(Quantity.Text.ToString()) + "', UCostPrice = '" + Math.Round(Decimal.Parse(UnitCostPrice.Text.ToString()),2) + "', USalePrice = '" + Math.Round(Decimal.Parse(UnitSalePrice.Text.ToString()),2) + "' Where StockID = '" + stockID + "'";
                         connection.Open();
                         SqlCommand command = new SqlCommand(Query, connection);
                         command.ExecuteNonQuery();

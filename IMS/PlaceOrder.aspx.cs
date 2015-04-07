@@ -21,6 +21,8 @@ namespace IMS
 
         protected void btnManualPurchase_Click(object sender, EventArgs e)
         {
+            Session["OrderNumber"] = null;
+            Session["FromViewPlacedOrders"] = "false";
             Response.Redirect("OrderPurchaseManual.aspx");
         }
 
@@ -31,6 +33,8 @@ namespace IMS
 
         protected void btnBack_Click(object sender, EventArgs e)
         {
+            Session["OrderNumber"] = null;
+            Session["FromViewPlacedOrders"] = "false";
             Response.Redirect("ManageOrders.aspx");
         }
     }

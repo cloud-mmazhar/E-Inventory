@@ -22,7 +22,7 @@ namespace IMS
         {
             if (!IsPostBack)
             {
-                if (Session["OrderNumber"] != null)
+                if (Session["OrderNumber"] != null && Session["FromViewPlacedOrders"] != null)
                 {
                     FirstOrder = true;
                     systemSet = new DataSet();
@@ -104,21 +104,48 @@ namespace IMS
         }
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            
-
             Response.Redirect("PO_GENERATE.aspx");
         }
 
         protected void btnDecline_Click(object sender, EventArgs e)
         {
-            RequestTo.Enabled = true;
-            StockDisplayGrid.DataSource = null;
-            StockDisplayGrid.DataBind();
-            SelectQuantity.Text = "";
-            SelectProduct.SelectedIndex = -1;
-            RequestTo.SelectedIndex = -1;
-            btnAccept.Visible = false;
-            btnDecline.Visible = false;
+            try
+            {
+                if (Session["OrderNumber"] != null)
+                {
+                    int orderID = int.Parse(Session["OrderNumber"].ToString());
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("sp_DeleteOrder", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_OrderID", orderID);
+                    command.ExecuteNonQuery();
+                }
+                Session["OrderNumber"] = null;
+                Session["FromViewPlacedOrders"] = "false";
+                txtVendor.Text = "";
+                txtProduct.Text = "";
+                SelectProduct.Visible = false;
+                RequestTo.Visible = false;
+                RequestTo.Enabled = true;
+                StockDisplayGrid.DataSource = null;
+                StockDisplayGrid.DataBind();
+                SelectQuantity.Text = "";
+                SelectProduct.SelectedIndex = -1;
+                RequestTo.SelectedIndex = -1;
+                btnAccept.Visible = false;
+                btnDecline.Visible = false;
+            }
+            catch(Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (connection.State == ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
         }
 
         protected void StockDisplayGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -474,12 +501,17 @@ namespace IMS
 
         protected void btnCancelOrder_Click(object sender, EventArgs e)
         {
+            //must be checked for sessions
             if (Session["FromViewPlacedOrders"].ToString().Equals("true") && Session["FromViewPlacedOrders"].ToString() != null && Session["FromViewPlacedOrders"] !=null)
             {
+                Session["OrderNumber"] = "";
+                Session["FromViewPlacedOrders"] = "false";
                 Response.Redirect("ViewPlacedOrders.aspx");
             }
             else
             {
+                Session["OrderNumber"] = "";
+                Session["FromViewPlacedOrders"] = "false";
                 Response.Redirect("PlaceOrder.aspx");
             }
         }
