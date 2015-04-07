@@ -78,7 +78,6 @@ namespace IMS
         }
         public void LoadData(String VendorID)
         {
-           
             #region Display Orders
             try
             {
@@ -259,7 +258,6 @@ namespace IMS
 
                 if (Status.Text.Equals("Complete"))
                 {
-                    btnEdit.Enabled = false;
                     btnDelete.Enabled = false;
                 }
                 else

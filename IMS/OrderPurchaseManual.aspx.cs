@@ -554,9 +554,8 @@ namespace IMS
                 Button btnEdit = (Button)e.Row.FindControl("btnEdit");
                 Button btnDelete = (Button)e.Row.FindControl("btnDelete");
 
-                if(Status.Text.Equals("Complete"))
+                if (Status.Text.Equals("Complete") || Status.Text.Equals("Partial"))
                 {
-                    btnEdit.Enabled = false;
                     btnDelete.Enabled = false;
                 }
                 else

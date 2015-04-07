@@ -16,6 +16,8 @@ namespace IMS
 
         protected void btnPlaceOrder_Click(object sender, EventArgs e)
         {
+            Session["OrderNumber"] = null;
+            Session["FromViewPlacedOrders"] = "false";
             Response.Redirect("PlaceOrder.aspx");
         }
 
