@@ -65,7 +65,7 @@
     <div class="form-group">
         <asp:GridView ID="StockDisplayGrid" CssClass="table table-striped table-bordered table-condensed"  Visible="true" runat="server" AllowPaging="True" PageSize="10" 
                 AutoGenerateColumns="false" OnPageIndexChanging="StockDisplayGrid_PageIndexChanging"   onrowcancelingedit="StockDisplayGrid_RowCancelingEdit" 
-                onrowcommand="StockDisplayGrid_RowCommand"  onrowdeleting="StockDisplayGrid_RowDeleting" onrowediting="StockDisplayGrid_RowEditing" >
+                onrowcommand="StockDisplayGrid_RowCommand"  onrowdeleting="StockDisplayGrid_RowDeleting" onrowediting="StockDisplayGrid_RowEditing" OnRowDataBound="StockDisplayGrid_RowDataBound" >
                  <Columns>
                      <asp:TemplateField Visible="false">
                         <ItemTemplate>
@@ -88,6 +88,7 @@
                         </ItemTemplate>
                         <ItemStyle  Width="150px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
+
                       <asp:TemplateField HeaderText="Action" HeaderStyle-Width ="110px">
                         <ItemTemplate>
                             <asp:Button CssClass="btn btn-default" ID="btnEdit" Text="Edit" runat="server" CommandName="Edit" />
@@ -105,6 +106,7 @@
                          
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
+
                      <asp:TemplateField HeaderText="Name" HeaderStyle-Width ="150px">
                         <ItemTemplate>
                             <asp:Label ID="ProductName" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("ProductName") %>'  Width="150px" ></asp:Label>

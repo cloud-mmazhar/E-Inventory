@@ -22,10 +22,21 @@ namespace IMS
         {
             if (!IsPostBack)
             {
-                FirstOrder = false;
-                systemSet = new DataSet();
-                ProductSet = new DataSet();
-                LoadData();
+                if (Session["OrderNumber"] != null || Session["OrderNumber"].ToString() != null)
+                {
+                    FirstOrder = true;
+                    systemSet = new DataSet();
+                    ProductSet = new DataSet();
+                    LoadData();
+                    BindGrid();
+                }
+                else
+                {
+                    FirstOrder = false;
+                    systemSet = new DataSet();
+                    ProductSet = new DataSet();
+                    LoadData();
+                }
 
             }
         }
@@ -138,6 +149,16 @@ namespace IMS
                     
                     command.ExecuteNonQuery();
                 }
+                else if (e.CommandName.Equals("Delete"))
+                {
+                    int orderDetID = int.Parse(((Label)StockDisplayGrid.Rows[StockDisplayGrid.EditIndex].FindControl("OrderDetailNo")).Text);
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("sp_DeleteOrderDetailsbyID", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@p_OrderDetailID", orderDetID);
+
+                    command.ExecuteNonQuery();
+                }
             }
             catch (Exception exp) { }
             finally
@@ -148,7 +169,6 @@ namespace IMS
             }
         }
 
-       
 
         protected void StockDisplayGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
@@ -514,6 +534,27 @@ namespace IMS
         protected void RequestTo_SelectedIndexChanged(object sender, EventArgs e)
         {
             RequestTo.Enabled = false;
+        }
+
+        protected void StockDisplayGrid_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label Status = (Label)e.Row.FindControl("lblStatus");
+                Button btnEdit = (Button)e.Row.FindControl("btnEdit");
+                Button btnDelete = (Button)e.Row.FindControl("btnDelete");
+
+                if(Status.Text.Equals("Complete"))
+                {
+                    btnEdit.Enabled = false;
+                    btnDelete.Enabled = false;
+                }
+                else
+                {
+                    btnEdit.Enabled = true;
+                    btnDelete.Enabled = true;
+                }
+            }
         }
     }
 }

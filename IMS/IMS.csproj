@@ -270,6 +270,7 @@
     <Content Include="UserControl\uc_Select_System.ascx" />
     <Content Include="ViewInventory.aspx" />
     <Content Include="ViewPackingList.aspx" />
+    <Content Include="ViewPlacedOrders.aspx" />
     <Content Include="ViewPurchaseOrders.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="WarehouseMain.aspx" />
@@ -686,6 +687,13 @@
     </Compile>
     <Compile Include="ViewPackingList.aspx.designer.cs">
       <DependentUpon>ViewPackingList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPlacedOrders.aspx.cs">
+      <DependentUpon>ViewPlacedOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewPlacedOrders.aspx.designer.cs">
+      <DependentUpon>ViewPlacedOrders.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewPurchaseOrders.aspx.cs">
       <DependentUpon>ViewPurchaseOrders.aspx</DependentUpon>

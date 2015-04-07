@@ -26,7 +26,7 @@ namespace IMS
 
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
-
+            Response.Redirect("ViewPlacedOrders.aspx");
         }
 
         protected void btnBack_Click(object sender, EventArgs e)
