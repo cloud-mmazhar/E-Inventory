@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="Inventory" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ViewInventory.aspx.cs" Inherits="IMS.ViewInventory" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
 <%@ Register TagPrefix="uc" TagName="print_uc" Src="~/UserControl/uc_printBarcode.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <br />
     <div class="form-group">
@@ -38,7 +39,13 @@
                 <br />
             </div>
         </div>
-
+          <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ddlProductOrderType" CssClass="col-md-2 control-label">Product Order Type</asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList runat="server" ID="ddlProductOrderType" CssClass="form-control" Width="29%"/>
+                <br />
+            </div>
+        </div>
             <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="SelectProduct" CssClass="col-md-2 control-label">Select Product</asp:Label>
             <div class="col-md-10">
@@ -83,28 +90,39 @@
 
                      <asp:TemplateField HeaderText="Name">
                         <ItemTemplate>
-                            <asp:Label ID="ProductName" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("ProductName") %>' Width="310px"></asp:Label>
+                            <asp:Label ID="ProductName" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("ProductName") %>' Width="150px"></asp:Label>
                         </ItemTemplate>
-                         <ItemStyle  Width="320px" HorizontalAlign="Left"/>
+                         <ItemStyle  Width="150px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-
-                     <asp:TemplateField HeaderText="Quantity">
+                     <asp:TemplateField HeaderText="Strength" HeaderStyle-Width ="125px">
                         <ItemTemplate>
-                            <asp:Label ID="lblQuantity" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Qauntity") %>' Width="40px"></asp:Label>
+                            <asp:Label ID="ProductStrength" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("strength") %>'  Width="125px" ></asp:Label>
                         </ItemTemplate>
-                        <ItemStyle  Width="50px" HorizontalAlign="Left"/>
+                         <ItemStyle  Width="125px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-                    
+                     <asp:TemplateField HeaderText="Dosage Form" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="dosage" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("dosageForm") %>'  Width="100px" ></asp:Label>
+                        </ItemTemplate>
+                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+                      <asp:TemplateField HeaderText="Package Size" HeaderStyle-Width ="160px">
+                        <ItemTemplate>
+                            <asp:Label ID="packSize" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("PackageSize") %>'  Width="170px" ></asp:Label>
+                        </ItemTemplate>
+                         <ItemStyle  Width="170px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+                   
                      <asp:TemplateField HeaderText="Expiry">
                         <ItemTemplate>
                             <asp:Label ID="lblExpiry" CssClass="col-md-2 control-label"  runat="server" Text='<%# Eval("Expiry") %>' Width="190px"></asp:Label>
                         </ItemTemplate>
-                         <ItemStyle  Width="200px" HorizontalAlign="Left"/>
+                         <ItemStyle  Width="190px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
                      <asp:TemplateField HeaderText="Unit Cost">
                         <ItemTemplate>
-                            <asp:Label ID="lblUnitCostPrice" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("CostPrice") %>' Width="50px"></asp:Label>
+                            <asp:Label ID="lblUnitCostPrice" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("CostPrice") %>' Width="60px"></asp:Label>
                         </ItemTemplate>
                         <ItemStyle  Width="60px" HorizontalAlign="Left"/>
                        
@@ -112,16 +130,31 @@
 
                      <asp:TemplateField HeaderText="Unit Sale">
                         <ItemTemplate>
-                            <asp:Label ID="lblUnitSalePrice" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("SalePrice") %>' Width="50px"></asp:Label>
+                            <asp:Label ID="lblUnitSalePrice" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("SalePrice") %>' Width="60px"></asp:Label>
                         </ItemTemplate>
                         <ItemStyle  Width="60px" HorizontalAlign="Left"/>
                        
                     </asp:TemplateField>
+                       <asp:TemplateField HeaderText="Quantity">
+                        <ItemTemplate>
+                            <asp:Label ID="lblQuantity" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Qauntity") %>' Width="40px"></asp:Label>
+                        </ItemTemplate>
+                        <ItemStyle  Width="50px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+                    
                      <%-- org command argument CommandArgument='<%# Eval("BarCode") %>'--%>
                      
                  </Columns>
              </asp:GridView>
-        <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
+       
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
+                <asp:Button ID="btnPrint" runat="server" OnClick="btnPrint_Click" Text="PRINT" CssClass="btn btn-large no-print" Visible="true" />
+                <asp:Button ID="btnFax" runat="server" Text="FAX" CssClass="btn btn-large no-print" Visible="false" />
+                <asp:Button ID="btnEmail" runat="server"  Text="EMAIL" CssClass="btn btn-large no-print" Visible="false" />
+            </div>
+        </div>
     </div>
     </div>
 

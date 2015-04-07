@@ -10,6 +10,10 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Configuration;
 using IMSCommon.Util;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
 
 namespace IMS
 {
@@ -113,6 +117,19 @@ namespace IMS
                     connection.Close();
                 }
                 #endregion
+
+                #region ProductOrderType dropdown population
+                ddlProductOrderType.DataSource = IMSGlobal.GetOrdersType();
+                ddlProductOrderType.DataTextField = "Name";
+                ddlProductOrderType.DataValueField = "OrderTypeId";
+                ddlProductOrderType.DataBind();
+
+                if (ddlProductOrderType != null)
+                {
+                    ddlProductOrderType.Items.Insert(0, "Select Product Order Type");
+                    ddlProductOrderType.SelectedIndex = 0;
+                } 
+                #endregion
                 
                 BindGrid();
             }
@@ -127,7 +144,9 @@ namespace IMS
                 int id;
                 if (int.TryParse(Session["UserSys"].ToString(), out id))
                 {
-                    String Query = "Select tblStock_Detail.ProductID AS ProductID ,tbl_ProductMaster.Product_Name AS ProductName, tblStock_Detail.BarCode AS BarCode, tblStock_Detail.Quantity AS Qauntity, tblStock_Detail.ExpiryDate As Expiry, tblStock_Detail.UCostPrice AS CostPrice, tblStock_Detail.USalePrice AS SalePrice, tbl_System.SystemName AS Location From  tblStock_Detail INNER JOIN tbl_ProductMaster ON tblStock_Detail.ProductID = tbl_ProductMaster.ProductID INNER JOIN tbl_System ON tblStock_Detail.StoredAt = tbl_System.SystemID AND tblStock_Detail.StoredAt = '" + id.ToString() + "'";
+                    String Query = "Select tblStock_Detail.ProductID AS ProductID ,tbl_ProductMaster.Product_Name AS ProductName, tblStock_Detail.BarCode AS BarCode, tblStock_Detail.Quantity AS Qauntity, tblStock_Detail.ExpiryDate As Expiry,tbl_ProductMaster.Product_Name AS ProductName,"+ 
+				 " tbl_ProductMaster.itemPackSize as PackageSize, tbl_ProductMaster.itemStrength as strength, tbl_ProductMaster.itemForm as dosageForm, tblStock_Detail.UCostPrice AS CostPrice, tblStock_Detail.USalePrice AS SalePrice, tbl_System.SystemName AS Location"+
+                 " From  tblStock_Detail INNER JOIN tbl_ProductMaster ON tblStock_Detail.ProductID = tbl_ProductMaster.ProductID INNER JOIN tbl_System ON tblStock_Detail.StoredAt = tbl_System.SystemID AND tblStock_Detail.StoredAt = '" + id.ToString() + "'";
 
                     connection.Open();
                     SqlCommand command = new SqlCommand(Query, connection);
@@ -207,6 +226,16 @@ namespace IMS
                         command.Parameters.AddWithValue("@p_SubCatID", Convert.ToInt32(ProductSubCat.SelectedValue.ToString()));
                     }
 
+                    if (ddlProductOrderType.SelectedIndex <= 0)
+                    {
+                        command.Parameters.AddWithValue("@p_productOrderType", DBNull.Value);
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@p_productOrderType", Convert.ToInt32(ddlProductOrderType.SelectedValue.ToString()));
+                    }
+
+
                     if (ProductType.SelectedIndex <= 0)
                     {
                         command.Parameters.AddWithValue("@p_ProdType", DBNull.Value);
@@ -257,36 +286,36 @@ namespace IMS
             {
                 if (e.CommandName.Equals("Print"))
                 {
-                    Image BarcodeImage=new Image();
-                    //int 
+                   // Image BarcodeImage=new Image();
+                   // //int 
                    
-                    Label Barcode = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("BarCode");
-                    Label Quantity = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("lblQuantity");
-                    Label ProductName = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("ProductName");
-                    long ProductBarCode = long.Parse(e.CommandArgument.ToString());
-                   // int PrintQuantity = Int32.Parse(Quantity.Text.ToString());
+                   // Label Barcode = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("BarCode");
+                   // Label Quantity = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("lblQuantity");
+                   // Label ProductName = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("ProductName");
+                   // long ProductBarCode = long.Parse(e.CommandArgument.ToString());
+                   //// int PrintQuantity = Int32.Parse(Quantity.Text.ToString());
 
-                    #region barcode creation
-                    #region previous approach
-                    //System.Drawing.Image barcodeImage = null;
-                    //BarcodeLib.Barcode b = new BarcodeLib.Barcode();
-                    //b.IncludeLabel = true;
-                    //barcodeImage = b.Encode(BarcodeLib.TYPE.EAN13, ProductBarCode.ToString(), System.Drawing.ColorTranslator.FromHtml("#" + "000000"), System.Drawing.ColorTranslator.FromHtml("#" + "FFFFFF"), 300, 150);
-                    ////string strImageURL = "generateBarCode.aspx?d=" + ProductBarCode + "&h=" + 300 + "&w=" + 150;
-                    ////BarcodeImage.ImageUrl = strImageURL;
-                    ////BarcodeImage.Width = 300;
-                    ////BarcodeImage.Height = 150;
+                   // #region barcode creation
+                   // #region previous approach
+                   // //System.Drawing.Image barcodeImage = null;
+                   // //BarcodeLib.Barcode b = new BarcodeLib.Barcode();
+                   // //b.IncludeLabel = true;
+                   // //barcodeImage = b.Encode(BarcodeLib.TYPE.EAN13, ProductBarCode.ToString(), System.Drawing.ColorTranslator.FromHtml("#" + "000000"), System.Drawing.ColorTranslator.FromHtml("#" + "FFFFFF"), 300, 150);
+                   // ////string strImageURL = "generateBarCode.aspx?d=" + ProductBarCode + "&h=" + 300 + "&w=" + 150;
+                   // ////BarcodeImage.ImageUrl = strImageURL;
+                   // ////BarcodeImage.Width = 300;
+                   // ////BarcodeImage.Height = 150;
 
-                    //BarcodeUtility bUtil = new BarcodeUtility();
-                    //bUtil.Print(barcodeImage); 
-                    #endregion
-                    ucPrint.ProductName = ProductName.Text;
-                    ucPrint.CompanyName = "Pharmacy";
-                    ucPrint.PrintCount = int.Parse(Quantity.Text);
-                    ucPrint.BarcodeValue = Barcode.Text;
+                   // //BarcodeUtility bUtil = new BarcodeUtility();
+                   // //bUtil.Print(barcodeImage); 
+                   // #endregion
+                   // ucPrint.ProductName = ProductName.Text;
+                   // ucPrint.CompanyName = "Pharmacy";
+                   // ucPrint.PrintCount = int.Parse(Quantity.Text);
+                   // ucPrint.BarcodeValue = Barcode.Text;
                     
-                    mpeEditProduct.Show();
-                    #endregion
+                   // mpeEditProduct.Show();
+                   // #endregion
                     
                 }
             }
@@ -410,6 +439,72 @@ namespace IMS
             BindGridbyFilters();
         }
 
-       
+        private void ExportGridToPDF()
+        {
+            try
+            {
+                //Response.ContentType = "application/pdf";
+                //Response.AddHeader("content-disposition", "attachment;filename=PO_" + Session["OrderNumber"].ToString() + ".pdf");
+                //Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                StringWriter sw = new StringWriter();
+                sw.WriteLine("");
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+               
+                StockDisplayGrid.RenderControl(hw);
+                
+                StringReader sr = new StringReader(sw.ToString());
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+                HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+                pdfDoc.Open();
+
+                htmlparser.Parse(sr);
+                String FilePath = Server.MapPath(@"~\PurchaseOrders");
+                String FileName = "Inventory"+ ".pdf";
+                FileStream fs = new FileStream(FilePath + @"\" + FileName, FileMode.Create);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, fs);
+                writer.Close();
+                pdfDoc.Close();
+                fs.Close();
+                //Response.Write(pdfDoc);
+
+                //Response.Flush();
+                //Response.SuppressContent = true; 
+                //Response.End();
+                //Response.Redirect("PO_GENEREATE.aspx");
+                //StockDisplayGrid.AllowPaging = true;
+                //StockDisplayGrid.DataBind();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                // MAINDIV.Visible = false;
+                // TotalCostDiv.Visible = false;
+               // btnEmail.Visible = true;
+                //btnFax.Visible = true;
+                //btnPrint.Enabled = false;
+            }
+
+        }
+        protected void btnPrint_Click(object sender, EventArgs e)
+        {
+
+            #region Setting  parameters
+                Session["Search_DepID"] = ProductDept.SelectedValue.ToString() ;
+                Session["Search_CatID"] =ProductCat.SelectedValue.ToString();
+                Session["Search_SubCatID"] = ProductSubCat.SelectedValue.ToString();
+                Session["Search_ProdIdOrg"] = ddlProductOrderType.SelectedValue.ToString();
+                Session["Search_ProdType"] = ProductType.SelectedItem.ToString();
+                Session["Search_ProdId"] = ProductList.SelectedValue.ToString();
+               
+           
+            #endregion
+
+            Response.Redirect("Inventory_Print.aspx");
+          
+
+        }
     }
 }
