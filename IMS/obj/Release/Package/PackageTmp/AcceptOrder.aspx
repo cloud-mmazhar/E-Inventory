@@ -56,12 +56,7 @@
                           <ItemStyle  Width="150px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                     
-                      <asp:TemplateField HeaderText="Delivery Date" HeaderStyle-Width ="150px">
-                        <ItemTemplate>
-                            <asp:Label ID="lblDDate"  runat="server" Text='<%# Eval("SendDate") %>' ></asp:Label>
-                        </ItemTemplate>
-                          <ItemStyle  Width="150px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
+                     
 
                       <asp:TemplateField HeaderText="Received Quantity" HeaderStyle-Width ="110px">
                         <ItemTemplate>
@@ -79,7 +74,39 @@
                          </EditItemTemplate>
                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
+                       <asp:TemplateField HeaderText="Expiry Date" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblExpDate" runat="server" Text='<%# Eval("Expiry") %>'></asp:Label>
+                        </ItemTemplate>
+                          <EditItemTemplate>
+                             <asp:TextBox ID="txtExpDate"  runat="server" Text='<%# Eval("Expiry")==DBNull.Value?"":Convert.ToDateTime( Eval("Expiry")).ToString("MMM dd ,yyyy") %>'></asp:TextBox>
+                         </EditItemTemplate>
+                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
 
+                      <asp:TemplateField HeaderText="Batch Number" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblBatch" Text='<%# Eval("BatchNumber")==DBNull.Value?"":Eval("BatchNumber") %>' runat="server" ></asp:Label>
+                        </ItemTemplate>
+                          <EditItemTemplate>
+                             <asp:TextBox ID="txtBatch" Text='<%# Eval("BatchNumber")==DBNull.Value?"":Eval("BatchNumber") %>'  runat="server"></asp:TextBox>
+                         </EditItemTemplate>
+                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+
+
+                     <asp:TemplateField HeaderText="BarCode" HeaderStyle-Width ="110px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblbarCode" runat="server" Text='<%# Eval("BarCode") %>'></asp:Label>
+                        </ItemTemplate>
+                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+                     <asp:TemplateField HeaderText="Remaining Quantity" Visible="True" HeaderStyle-Width ="130px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblRemainQuan" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("RemainingQuantity") %>' ></asp:Label>
+                        </ItemTemplate>
+                          <ItemStyle  Width="130px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
                      <asp:TemplateField HeaderText="Expired Quantity" HeaderStyle-Width ="110px">
                         <ItemTemplate>
                             <asp:Label ID="lblExpQuan" runat="server" Text=' <%#Eval("ExpiredQuantity")==DBNull.Value?0:int.Parse( Eval("ExpiredQuantity").ToString())  %>'></asp:Label>
@@ -142,23 +169,17 @@
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
-                     <asp:TemplateField HeaderText="Expiry Date" HeaderStyle-Width ="110px">
-                        <ItemTemplate>
-                            <asp:Label ID="lblExpDate" runat="server" Text='<%# Eval("Expiry") %>'></asp:Label>
-                        </ItemTemplate>
-                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
-
-                     <asp:TemplateField HeaderText="BarCode" HeaderStyle-Width ="110px">
-                        <ItemTemplate>
-                            <asp:Label ID="lblbarCode" runat="server" Text='<%# Eval("BarCode") %>'></asp:Label>
-                        </ItemTemplate>
-                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
+                   
                       <asp:TemplateField HeaderText="Status" HeaderStyle-Width ="110px">
                         <ItemTemplate>
                             <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
                         </ItemTemplate>
+                    </asp:TemplateField>
+                      <asp:TemplateField HeaderText="Delivery Date" HeaderStyle-Width ="150px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblDDate"  runat="server" Text='<%# Eval("SendDate") %>' ></asp:Label>
+                        </ItemTemplate>
+                          <ItemStyle  Width="150px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                      <asp:TemplateField HeaderText="Action" HeaderStyle-Width ="200px">
                         <ItemTemplate>
@@ -189,12 +210,7 @@
                                 <asp:Label ID="lblOrdMs_id" runat="server" Text='<%# Eval("OrderNO") %>'></asp:Label>
                             </ItemTemplate>
                       </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Remaining Quantity" Visible="false" HeaderStyle-Width ="130px">
-                        <ItemTemplate>
-                            <asp:Label ID="lblRemainQuan" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("RemainingQuantity") %>' ></asp:Label>
-                        </ItemTemplate>
-                          <ItemStyle  Width="130px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
+                   
                  </Columns>
              </asp:GridView>
              <br />
