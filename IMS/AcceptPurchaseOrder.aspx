@@ -53,7 +53,7 @@
                     </asp:TemplateField>
                       <asp:TemplateField HeaderText="Name : Strength : Form : Pack Size" HeaderStyle-Width="500" HeaderStyle-HorizontalAlign="Center">
                         <ItemTemplate>
-                            <asp:Label ID="ProductName" padding-right="5px" runat="server" Text='<%# Eval("ProductName") %>'></asp:Label>
+                            <asp:Label ID="ProductName2" padding-right="5px" runat="server" Text='<%# Eval("ProductName") %>'></asp:Label>
                             <asp:Label ID="Label1" padding-right="5px" runat="server" Text=" : "></asp:Label>
                             <asp:Label ID="ProductStrength2" padding-right="5px" runat="server" Text='<%# Eval("strength") %>'  ></asp:Label>
                             <asp:Label ID="Label2" runat="server" Text=" : " padding-right="5px"></asp:Label>
@@ -150,14 +150,14 @@
                          </EditItemTemplate>
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Discount Percentage" HeaderStyle-Width ="110px">
+                     <asp:TemplateField HeaderText="Discount Percentage" >
                         <ItemTemplate>
-                            <asp:Label ID="lblDisc"  runat="server" ></asp:Label>
+                            <asp:Label ID="lblDisc" Text='<%# Eval("discountPer") %>' runat="server" ></asp:Label>
                         </ItemTemplate>
                           <EditItemTemplate>
-                             <asp:TextBox ID="txtDisc" Text="0"  runat="server" Width="60px"></asp:TextBox>
+                             <asp:TextBox ID="txtDisc" Text='<%# Eval("discountPer") %>'  runat="server" Width="60px"></asp:TextBox>
                          </EditItemTemplate>
-                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                         <ItemStyle  Width="70px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                      <asp:TemplateField HeaderText="Expiry Date" HeaderStyle-Width ="110px">
                         <ItemTemplate>
@@ -168,14 +168,14 @@
                          </EditItemTemplate>
                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Batch Number" HeaderStyle-Width ="110px">
+                     <asp:TemplateField HeaderText="Batch Number" HeaderStyle-Width ="80">
                         <ItemTemplate>
                             <asp:Label ID="lblBatch" runat="server" ></asp:Label>
                         </ItemTemplate>
                           <EditItemTemplate>
                              <asp:TextBox ID="txtBatch"  runat="server" Width="80px"></asp:TextBox>
                          </EditItemTemplate>
-                        <ItemStyle  Width="110px" HorizontalAlign="Left"/>
+                        <ItemStyle  Width="80" HorizontalAlign="Left"/>
                     </asp:TemplateField>
                      
                     <asp:TemplateField HeaderText="Status" HeaderStyle-Width ="110px">

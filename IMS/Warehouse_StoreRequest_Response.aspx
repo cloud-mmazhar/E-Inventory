@@ -40,7 +40,7 @@
                     </asp:TemplateField>
                       <asp:TemplateField HeaderText=" Ordered Product Name : Strength : Form : Pack Size" HeaderStyle-Width="500" HeaderStyle-HorizontalAlign="Center">
                         <ItemTemplate>
-                            <asp:Label ID="ProductName" padding-right="5px" runat="server" Text='<%# Eval("ProductName") %>'></asp:Label>
+                            <asp:Label ID="ProductName2" padding-right="5px" runat="server" Text='<%# Eval("ProductName") %>'></asp:Label>
                             <asp:Label ID="Label1" padding-right="5px" runat="server" Text=" : "></asp:Label>
                             <asp:Label ID="ProductStrength2" padding-right="5px" runat="server" Text='<%# Eval("strength") %>'  ></asp:Label>
                             <asp:Label ID="Label2" runat="server" Text=" : " padding-right="5px"></asp:Label>

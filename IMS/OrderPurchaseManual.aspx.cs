@@ -195,7 +195,7 @@ namespace IMS
         protected void StockDisplayGrid_RowEditing(object sender, GridViewEditEventArgs e)
         {
             StockDisplayGrid.EditIndex = e.NewEditIndex;
-            LoadData();
+            BindGrid();
         }
 
         protected void btnCreateOrder_Click(object sender, EventArgs e)
