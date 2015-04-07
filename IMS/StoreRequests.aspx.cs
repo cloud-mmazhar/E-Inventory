@@ -279,13 +279,19 @@ namespace IMS
             }
             
             #region Display Products
+            BindGrid();
+            #endregion
+        }
+
+        private void BindGrid() 
+        {
             try
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand("sp_GetStoreRequest_byOrderID", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 int OrderNumber = 0;
-                DataSet ds  = new DataSet();
+                DataSet ds = new DataSet();
 
                 if (int.TryParse(Session["OrderNumber"].ToString(), out OrderNumber))
                 {
@@ -298,7 +304,7 @@ namespace IMS
                 StockDisplayGrid.DataSource = ds.Tables[0];
                 StockDisplayGrid.DataBind();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -306,9 +312,7 @@ namespace IMS
             {
                 connection.Close();
             }
-            #endregion
         }
-
         protected void btnCancelOrder_Click(object sender, EventArgs e)
         {
             //should Delete all the rows, if final accept is not pressed.
@@ -354,13 +358,56 @@ namespace IMS
             {
                 connection.Close();
                 StockDisplayGrid.EditIndex = -1;
-                LoadData();
+                BindGrid();
             }
         }
 
         protected void StockDisplayGrid_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label ProductStrength = (Label)e.Row.FindControl("ProductStrength2");
+                Label Label1 = (Label)e.Row.FindControl("Label1");
 
+                Label dosage = (Label)e.Row.FindControl("dosage2");
+                Label Label2 = (Label)e.Row.FindControl("Label2");
+
+                Label packSize = (Label)e.Row.FindControl("packSize2");
+                Label Label3 = (Label)e.Row.FindControl("Label3");
+
+                if (String.IsNullOrWhiteSpace(ProductStrength.Text))
+                {
+                    ProductStrength.Visible = false;
+                    Label1.Visible = false;
+                }
+                else
+                {
+                    ProductStrength.Visible = true;
+                    Label1.Visible = true;
+                }
+
+                if (String.IsNullOrWhiteSpace(dosage.Text))
+                {
+                    dosage.Visible = false;
+                    Label2.Visible = false;
+                }
+                else
+                {
+                    dosage.Visible = true;
+                    Label2.Visible = true;
+                }
+
+                if (String.IsNullOrWhiteSpace(packSize.Text))
+                {
+                    packSize.Visible = false;
+                    Label3.Visible = false;
+                }
+                else
+                {
+                    packSize.Visible = true;
+                    Label3.Visible = true;
+                }
+            }
         }
 
         protected void StockDisplayGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -371,19 +418,19 @@ namespace IMS
         protected void StockDisplayGrid_RowEditing(object sender, GridViewEditEventArgs e)
         {
             StockDisplayGrid.EditIndex = e.NewEditIndex;
-            LoadData();
+            BindGrid();
         }
 
         protected void StockDisplayGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             StockDisplayGrid.EditIndex = -1;
-            LoadData();
+            BindGrid();
         }
 
         protected void StockDisplayGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             StockDisplayGrid.PageIndex = e.NewPageIndex;
-            LoadData();
+            BindGrid();
         }
 
         protected void btnRefresh_Click(object sender, EventArgs e)
@@ -482,8 +529,9 @@ namespace IMS
 
                 ProductSet = null;
                 ProductSet = ds;
+                ds.Tables[0].Columns.Add("ProductInfo", typeof(string), "Product_Name+ ' '+itemStrength+' '+itemPackSize+' '+itemForm");
                 SelectProduct.DataSource = ds.Tables[0];
-                SelectProduct.DataTextField = "Product_Name";
+                SelectProduct.DataTextField = "ProductInfo";
                 SelectProduct.DataValueField = "ProductID";
                 SelectProduct.DataBind();
                 if (ProductList != null)

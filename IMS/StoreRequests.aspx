@@ -53,14 +53,14 @@
                 AutoGenerateColumns="false" OnPageIndexChanging="StockDisplayGrid_PageIndexChanging"   onrowcancelingedit="StockDisplayGrid_RowCancelingEdit" 
                 onrowcommand="StockDisplayGrid_RowCommand" OnRowDataBound="StockDisplayGrid_RowDataBound" onrowdeleting="StockDisplayGrid_RowDeleting" onrowediting="StockDisplayGrid_RowEditing" >
                  <Columns>
-                    <asp:TemplateField>
+                    <asp:TemplateField Visible="false">
                         <ItemTemplate>
                             <asp:Label ID="OrderDetailNo" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("OrderDetailID") %>' Visible="false"></asp:Label>
                         </ItemTemplate>
                         <ItemStyle  Width="1px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="From" HeaderStyle-Width ="110px">
+                    <asp:TemplateField HeaderText="From" Visible="false" HeaderStyle-Width ="110px">
                         <ItemTemplate>
                             <asp:Label ID="RequestedFrom" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("FromPlace") %>' Width="100px" ></asp:Label>
                         </ItemTemplate>
@@ -68,40 +68,20 @@
 
                     </asp:TemplateField>
                      
-                     <asp:TemplateField HeaderText="To" HeaderStyle-Width ="150px">
+                     <asp:TemplateField HeaderText="To" Visible="false" HeaderStyle-Width ="150px">
                         <ItemTemplate>
                             <asp:Label ID="RequestedTo" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("ToPlace") %>'  Width="140px"></asp:Label>
                         </ItemTemplate>
                         <ItemStyle  Width="150px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
-                     <asp:TemplateField HeaderText="Name" HeaderStyle-Width ="250px">
+                     <asp:TemplateField HeaderText="Name" Visible="false" HeaderStyle-Width ="250px">
                         <ItemTemplate>
                             <asp:Label ID="ProductName" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("ProductName") %>'  Width="250px" ></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="250px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-
-                     <asp:TemplateField HeaderText="Quantity" HeaderStyle-Width ="110px">
-                        <ItemTemplate>
-                            <asp:Label ID="lblQuantity" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Qauntity") %>' ></asp:Label>
-                        </ItemTemplate>
-                        
-                        <EditItemTemplate>
-                            <asp:TextBox ID="txtQuantity" CssClass="form-control" runat="server" Text='<%#Eval("Qauntity") %>' ></asp:TextBox>
-                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtQuantity" CssClass="text-danger" ErrorMessage="The product quantity field is required." />
-                        </EditItemTemplate>
-                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
-                    
-                     <asp:TemplateField HeaderText="Request Status" HeaderStyle-Width ="110px">
-                        <ItemTemplate>
-                            <asp:Label ID="lblStatus" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Status") %>'  Width="100px"></asp:Label>
-                        </ItemTemplate>
-                         <ItemStyle  Width="110px" HorizontalAlign="Left"/>
-                    </asp:TemplateField>
-
-                     <asp:TemplateField HeaderText="Action" HeaderStyle-Width ="200px">
+                        <asp:TemplateField HeaderText="Action" HeaderStyle-Width ="200px">
                         <ItemTemplate>
                             <asp:Button CssClass="btn btn-default" ID="btnEdit" Text="Edit" runat="server" CommandName="Edit" />
                             <span onclick="return confirm('Are you sure you want to delete this record?')">
@@ -116,6 +96,38 @@
                         </EditItemTemplate>
                          <ItemStyle  Width="200px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
+                       <asp:TemplateField HeaderText="Product Name : Strength : Form : Pack Size" HeaderStyle-Width="500" HeaderStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <asp:Label ID="ProductName2" padding-right="5px" runat="server" Text='<%# Eval("ProductName") %>'></asp:Label>
+                            <asp:Label ID="Label1" padding-right="5px" runat="server" Text=" : "></asp:Label>
+                            <asp:Label ID="ProductStrength2" padding-right="5px" runat="server" Text='<%# Eval("strength") %>'  ></asp:Label>
+                            <asp:Label ID="Label2" runat="server" Text=" : " padding-right="5px"></asp:Label>
+                            <asp:Label ID="dosage2"  runat="server" Text='<%# Eval("dosageForm") %>' padding-right="5px" ></asp:Label>
+                            <asp:Label ID="Label3" runat="server" Text=" : " padding-right="5px"></asp:Label>
+                            <asp:Label ID="packSize2" runat="server" Text='<%# Eval("PackageSize") %>' padding-right="5px" ></asp:Label>
+                        </ItemTemplate>
+                        
+                    </asp:TemplateField>
+                     <asp:TemplateField HeaderText="Quantity" HeaderStyle-Width ="60px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblQuantity" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Qauntity") %>' ></asp:Label>
+                        </ItemTemplate>
+                        
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtQuantity" CssClass="form-control" runat="server" Text='<%#Eval("Qauntity") %>' ></asp:TextBox>
+                             <asp:RequiredFieldValidator runat="server" ControlToValidate="txtQuantity" CssClass="text-danger" ErrorMessage="The product quantity field is required." />
+                        </EditItemTemplate>
+                          <ItemStyle  Width="60px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+                    
+                     <asp:TemplateField HeaderText="Request Status" HeaderStyle-Width ="80px">
+                        <ItemTemplate>
+                            <asp:Label ID="lblStatus" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("Status") %>'  Width="80px"></asp:Label>
+                        </ItemTemplate>
+                         <ItemStyle  Width="80px" HorizontalAlign="Left"/>
+                    </asp:TemplateField>
+
+                  
                  </Columns>
              </asp:GridView>
         <br />

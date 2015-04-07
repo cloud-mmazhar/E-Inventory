@@ -33,8 +33,9 @@ namespace IMS
                     SqlDataAdapter sA = new SqlDataAdapter(command);
                     sA.Fill(ds);
                     ProductSet = ds;
+                    ds.Tables[0].Columns.Add("ProductInfo", typeof(string), "Product_Name+ ' '+itemStrength+' '+itemPackSize+' '+itemForm");
                     SelectProduct.DataSource = ds.Tables[0];
-                    SelectProduct.DataTextField = "Product_Name";
+                    SelectProduct.DataTextField = "ProductInfo";
                     SelectProduct.DataValueField = "ProductID";
                     SelectProduct.DataBind();
                     if (SelectProduct != null)

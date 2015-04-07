@@ -87,26 +87,37 @@
                         </ItemTemplate>
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-
-                     <asp:TemplateField HeaderText="Name">
+                      <asp:TemplateField HeaderText="Product Name : Strength : Form : Pack Size" HeaderStyle-Width="500" HeaderStyle-HorizontalAlign="Center">
+                        <ItemTemplate>
+                            <asp:Label ID="ProductName" padding-right="5px" runat="server" Text='<%# Eval("ProductName") %>'></asp:Label>
+                            <asp:Label ID="Label1" padding-right="5px" runat="server" Text=" : "></asp:Label>
+                            <asp:Label ID="ProductStrength2" padding-right="5px" runat="server" Text='<%# Eval("strength") %>'  ></asp:Label>
+                            <asp:Label ID="Label2" runat="server" Text=" : " padding-right="5px"></asp:Label>
+                            <asp:Label ID="dosage2"  runat="server" Text='<%# Eval("dosageForm") %>' padding-right="5px" ></asp:Label>
+                            <asp:Label ID="Label3" runat="server" Text=" : " padding-right="5px"></asp:Label>
+                            <asp:Label ID="packSize2" runat="server" Text='<%# Eval("PackageSize") %>' padding-right="5px" ></asp:Label>
+                        </ItemTemplate>
+                        
+                    </asp:TemplateField>
+                     <asp:TemplateField Visible="false" HeaderText="Name">
                         <ItemTemplate>
                             <asp:Label ID="ProductName" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("ProductName") %>' Width="150px"></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="150px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Strength" HeaderStyle-Width ="125px">
+                     <asp:TemplateField HeaderText="Strength" Visible="false" HeaderStyle-Width ="125px">
                         <ItemTemplate>
                             <asp:Label ID="ProductStrength" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("strength") %>'  Width="125px" ></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="125px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="Dosage Form" HeaderStyle-Width ="110px">
+                     <asp:TemplateField HeaderText="Dosage Form" Visible="false" HeaderStyle-Width ="110px">
                         <ItemTemplate>
                             <asp:Label ID="dosage" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("dosageForm") %>'  Width="100px" ></asp:Label>
                         </ItemTemplate>
                          <ItemStyle  Width="110px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
-                      <asp:TemplateField HeaderText="Package Size" HeaderStyle-Width ="160px">
+                      <asp:TemplateField HeaderText="Package Size" Visible="false" HeaderStyle-Width ="160px">
                         <ItemTemplate>
                             <asp:Label ID="packSize" CssClass="col-md-2 control-label" runat="server" Text='<%# Eval("PackageSize") %>'  Width="170px" ></asp:Label>
                         </ItemTemplate>
