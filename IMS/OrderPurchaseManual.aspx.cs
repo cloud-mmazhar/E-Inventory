@@ -22,7 +22,7 @@ namespace IMS
         {
             if (!IsPostBack)
             {
-                if (Session["OrderNumber"] != null || Session["OrderNumber"].ToString() != null)
+                if (Session["OrderNumber"] != null)
                 {
                     FirstOrder = true;
                     systemSet = new DataSet();
@@ -472,7 +472,14 @@ namespace IMS
 
         protected void btnCancelOrder_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PlaceOrder.aspx");
+            if (Session["FromViewPlacedOrders"].ToString().Equals("true") && Session["FromViewPlacedOrders"].ToString() != null && Session["FromViewPlacedOrders"] !=null)
+            {
+                Response.Redirect("ViewPlacedOrders.aspx");
+            }
+            else
+            {
+                Response.Redirect("PlaceOrder.aspx");
+            }
         }
 
         protected void btnSearchProduct_Click(object sender, ImageClickEventArgs e)
@@ -555,6 +562,7 @@ namespace IMS
                     btnEdit.Enabled = true;
                     btnDelete.Enabled = true;
                 }
+
                 Label ProductStrength = (Label)e.Row.FindControl("ProductStrength2");
                 Label Label1 = (Label)e.Row.FindControl("Label1");
 

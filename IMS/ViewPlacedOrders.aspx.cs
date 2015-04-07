@@ -23,33 +23,33 @@ namespace IMS
             if (!IsPostBack)
             {
                 #region Getting Vendors
-                try
-                {
-                    connection.Open();
-                    DataSet ds = new DataSet();
-                    SqlCommand command = new SqlCommand("Sp_GetVendor", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    SqlDataAdapter dA = new SqlDataAdapter(command);
-                    dA.Fill(ds);
+                //try
+                //{
+                //    connection.Open();
+                //    DataSet ds = new DataSet();
+                //    SqlCommand command = new SqlCommand("Sp_GetVendor", connection);
+                //    command.CommandType = CommandType.StoredProcedure;
+                //    SqlDataAdapter dA = new SqlDataAdapter(command);
+                //    dA.Fill(ds);
 
-                    StockAt.DataSource = ds.Tables[0];
-                    StockAt.DataTextField = "SupName";
-                    StockAt.DataValueField = "SuppID";
-                    StockAt.DataBind();
-                    if (StockAt != null)
-                    {
-                        StockAt.Items.Insert(0, "Select Vendor");
-                        StockAt.SelectedIndex = 0;
-                    }
-                }
-                catch (Exception ex)
-                {
+                //    StockAt.DataSource = ds.Tables[0];
+                //    StockAt.DataTextField = "SupName";
+                //    StockAt.DataValueField = "SuppID";
+                //    StockAt.DataBind();
+                //    if (StockAt != null)
+                //    {
+                //        StockAt.Items.Insert(0, "Select Vendor");
+                //        StockAt.SelectedIndex = 0;
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
 
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                //}
+                //finally
+                //{
+                //    connection.Close();
+                //}
                 #endregion
 
                 #region Populating Order Status DropDown
@@ -203,6 +203,7 @@ namespace IMS
 
                     Label OrderNo = (Label)StockDisplayGrid.Rows[Convert.ToInt32(e.CommandArgument)].FindControl("OrderNO");
                     Session["OrderNumber"] = OrderNo.Text.ToString();
+                    Session["FromViewPlacedOrders"] = "true";
                     Response.Redirect("OrderPurchaseManual.aspx");
                 }
                 else if (e.CommandName.Equals("Delete"))
@@ -281,11 +282,63 @@ namespace IMS
 
         protected void btnRefresh_Click(object sender, EventArgs e)
         {
+            SelectProduct.Text = "";
+            StockAt.Visible = false;
             StockAt.SelectedIndex = -1;
             txtOrderNO.Text = "";
             DateTextBox.Text = "";
             OrderStatus.SelectedIndex = 0;
             LoadData("");
+        }
+
+        protected void btnSearchProduct_Click(object sender, ImageClickEventArgs e)
+        {
+            if (SelectProduct.Text.Length >= 3)
+            {
+                PopulateDropDown(SelectProduct.Text);
+                StockAt.Visible = true;
+            }
+        }
+
+        public void PopulateDropDown(String Text)
+        {
+            #region Populating Product Name Dropdown
+
+            try
+            {
+                connection.Open();
+
+                Text = Text + "%";
+                SqlCommand command = new SqlCommand("Select * From tblVendor Where tblVendor.SupName LIKE '" + Text + "'", connection);
+                DataSet ds = new DataSet();
+                SqlDataAdapter sA = new SqlDataAdapter(command);
+                sA.Fill(ds);
+                if (StockAt.DataSource != null)
+                {
+                    StockAt.DataSource = null;
+                }
+
+                ProductSet = null;
+                ProductSet = ds;
+                StockAt.DataSource = ds.Tables[0];
+                StockAt.DataTextField = "SupName";
+                StockAt.DataValueField = "SuppID";
+                StockAt.DataBind();
+                if (StockAt != null)
+                {
+                    StockAt.Items.Insert(0, "Select Vendor");
+                    StockAt.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            #endregion
         }
     }
 }

@@ -47,7 +47,7 @@ D:\Digital Processing System\E-Inventory\IMSCommon\bin\Debug\IMSCommon.dll
 D:\Digital Processing System\E-Inventory\IMSCommon\bin\Debug\IMSCommon.pdb
 D:\Digital Processing System\E-Inventory\IMSCommon\obj\Debug\IMSCommon.dll
 D:\Digital Processing System\E-Inventory\IMSCommon\obj\Debug\IMSCommon.pdb
-G:\Digital Processing Systems\E-Inventory\IMSCommon\obj\Debug\IMSCommon.pdb
 G:\Digital Processing Systems\E-Inventory\IMSCommon\bin\Debug\IMSCommon.dll
 G:\Digital Processing Systems\E-Inventory\IMSCommon\bin\Debug\IMSCommon.pdb
 G:\Digital Processing Systems\E-Inventory\IMSCommon\obj\Debug\IMSCommon.dll
+G:\Digital Processing Systems\E-Inventory\IMSCommon\obj\Debug\IMSCommon.pdb
