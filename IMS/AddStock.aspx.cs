@@ -131,8 +131,8 @@ namespace IMS
                     command.Parameters.AddWithValue("@p_UserRoleID", Int32.Parse(StockAt.SelectedValue.ToString()));
                     command.Parameters.AddWithValue("@p_BarCode", BarCode);
                     command.Parameters.AddWithValue("@p_Expiry", DateTextBox.Text); // Calender Date or DateTime Picker Date
-                    command.Parameters.AddWithValue("@p_Cost", Decimal.Parse(ProductCost.Text.ToString()));
-                    command.Parameters.AddWithValue("@p_Sales", Decimal.Parse(ProductSale.Text.ToString()));
+                    command.Parameters.AddWithValue("@p_Cost", float.Parse(ProductCost.Text.ToString()));
+                    command.Parameters.AddWithValue("@p_Sales", float.Parse(ProductSale.Text.ToString()));
                     x = command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
