@@ -11,7 +11,10 @@
     <div class="form-group">
             <asp:Label runat="server"  AssociatedControlID="RequestTo" CssClass="col-md-2 control-label">Select Vendor</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList runat="server" ID="RequestTo" CssClass="form-control" Width="29%" AutoPostBack="true" OnSelectedIndexChanged="RequestTo_SelectedIndexChanged" >
+                <asp:TextBox runat="server" ID="txtVendor" CssClass="form-control product"/>
+                <asp:ImageButton ID="btnSearchVendor" runat="server" OnClick="btnSearchVendor_Click" Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
+                <br />
+                <asp:DropDownList runat="server" ID="RequestTo" CssClass="form-control" Width="29%" AutoPostBack="true" OnSelectedIndexChanged="RequestTo_SelectedIndexChanged" Visible="false" >
                 <%--class="chzn-select"   <asp:ListItem Text="" Value=""></asp:ListItem>
                   <asp:ListItem Value=''> ------------------- Select ------------------ </asp:ListItem>--%>
                  </asp:DropDownList>

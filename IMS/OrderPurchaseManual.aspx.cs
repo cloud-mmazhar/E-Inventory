@@ -460,6 +460,8 @@ namespace IMS
         }
         protected void btnRefresh_Click(object sender, EventArgs e)
         {
+            txtVendor.Text = "";
+            RequestTo.Visible = false;
             RequestTo.Enabled = true;
             StockDisplayGrid.DataSource = null;
             StockDisplayGrid.DataBind();
@@ -605,6 +607,56 @@ namespace IMS
                     Label3.Visible = true;
                 }
             }
+        }
+
+        protected void btnSearchVendor_Click(object sender, ImageClickEventArgs e)
+        {
+            if (txtVendor.Text.Length >= 3)
+            {
+                PopulateDropDownVendor(txtVendor.Text);
+                RequestTo.Visible = true;
+            }
+        }
+
+        public void PopulateDropDownVendor(String Text)
+        {
+            #region Populating Vendor Name Dropdown
+
+            try
+            {
+                connection.Open();
+
+                Text = Text + "%";
+                SqlCommand command = new SqlCommand("Select * From tblVendor Where tblVendor.SupName LIKE '" + Text + "'", connection);
+                DataSet ds = new DataSet();
+                SqlDataAdapter sA = new SqlDataAdapter(command);
+                sA.Fill(ds);
+                if (RequestTo.DataSource != null)
+                {
+                    RequestTo.DataSource = null;
+                }
+
+                ProductSet = null;
+                ProductSet = ds;
+                RequestTo.DataSource = ds.Tables[0];
+                RequestTo.DataTextField = "SupName";
+                RequestTo.DataValueField = "SuppID";
+                RequestTo.DataBind();
+                if (RequestTo != null)
+                {
+                    RequestTo.Items.Insert(0, "Select Vendor");
+                    RequestTo.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            #endregion
         }
     }
 }
