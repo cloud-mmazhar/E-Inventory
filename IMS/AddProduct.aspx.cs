@@ -107,6 +107,22 @@ namespace IMS
                 ProductType.Items.Add("Medicine(HAAD)");
                 ProductType.Items.Add("Medicine(Non HAAD)");
                 ProductType.Items.Add("NonMedicine");
+
+                if (Session["MODE"].Equals("EDIT"))
+                {
+                    foreach (ListItem Items  in ProductType.Items) 
+                    {
+                        if (Items.Text.Equals(Session["MS_ItemType"].ToString())) 
+                        {
+                            ProductType.SelectedIndex = ProductType.Items.IndexOf( Items);
+                            break;
+                        }
+                    }
+                    //int selIndex;
+                    //int.TryParse(Session["MS_ProductOrderType"].ToString(), out selIndex);
+                    //ddlProductOrderType.SelectedIndex = selIndex;
+                    // foreach( )
+                }
                 #endregion
 
                 #region Populating Product Department DropDown

@@ -43,7 +43,7 @@
             <br />
             <br />
         <asp:GridView ID="StockDisplayGrid" runat="server" CssClass="table table-striped table-bordered table-condensed" AllowPaging="false" 
-                AutoGenerateColumns="false" >
+                AutoGenerateColumns="false" OnRowDataBound="StockDisplayGrid_RowDataBound" >
                  <Columns>
                      <asp:TemplateField HeaderText="Serial" HeaderStyle-HorizontalAlign="Center">
                         <ItemTemplate>
@@ -52,15 +52,15 @@
                          <ItemStyle  Width="35px" HorizontalAlign="Left"/>
                     </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="Name : Strength : Dosage Form : Package Size" HeaderStyle-Width="500" HeaderStyle-HorizontalAlign="Center">
+                    <asp:TemplateField HeaderText="Name : Strength : Form : Pack Size" HeaderStyle-Width="500" HeaderStyle-HorizontalAlign="Center">
                         <ItemTemplate>
                             <asp:Label ID="ProductName" padding-right="5px" runat="server" Text='<%# Eval("ProductName") %>'></asp:Label>
                             <asp:Label ID="Label1" padding-right="5px" runat="server" Text=" : "></asp:Label>
-                            <asp:Label ID="ProductStrength" padding-right="5px" runat="server" Text='<%# Eval("strength") %>'  ></asp:Label>
+                            <asp:Label ID="ProductStrength2" padding-right="5px" runat="server" Text='<%# Eval("strength") %>'  ></asp:Label>
                             <asp:Label ID="Label2" runat="server" Text=" : " padding-right="5px"></asp:Label>
-                            <asp:Label ID="dosage"  runat="server" Text='<%# Eval("dosageForm") %>' padding-right="5px" ></asp:Label>
+                            <asp:Label ID="dosage2"  runat="server" Text='<%# Eval("dosageForm") %>' padding-right="5px" ></asp:Label>
                             <asp:Label ID="Label3" runat="server" Text=" : " padding-right="5px"></asp:Label>
-                            <asp:Label ID="packSize" runat="server" Text='<%# Eval("PackageSize") %>' padding-right="5px" ></asp:Label>
+                            <asp:Label ID="packSize2" runat="server" Text='<%# Eval("PackageSize") %>' padding-right="5px" ></asp:Label>
                         </ItemTemplate>
                         
                     </asp:TemplateField>

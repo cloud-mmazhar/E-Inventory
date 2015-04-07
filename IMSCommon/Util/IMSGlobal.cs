@@ -26,9 +26,9 @@ namespace IMSCommon.Util
             orderType.Columns.Add("OrderTypeId", typeof(int));
             orderType.Columns.Add("Name", typeof(string));
             orderType.Rows.Add(1, "Exclusive Store Orders");
-            orderType.Rows.Add(2, "Exclusive WareHouse Orders");
-            orderType.Rows.Add(3, "WareHouse Orders for Others");
-            orderType.Rows.Add(4, "WareHouse Orders for Stores");
+            //orderType.Rows.Add(2, "Exclusive WareHouse Orders");
+            orderType.Rows.Add(2, "Warehouse Product for all");
+            orderType.Rows.Add(3, "Warehouse Product for stores");
             return orderType;
         }
     }
