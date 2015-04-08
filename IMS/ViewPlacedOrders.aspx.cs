@@ -204,7 +204,7 @@ namespace IMS
                     //session is setting
                     Session["OrderNumber"] = OrderNo.Text.ToString();
                     Session["FromViewPlacedOrders"] = "true";
-                    Response.Redirect("OrderPurchaseManual.aspx");
+                    Response.Redirect("OrderPurchaseManual.aspx",false);
                 }
                 else if (e.CommandName.Equals("Delete"))
                 {

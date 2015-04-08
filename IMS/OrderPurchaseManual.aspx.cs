@@ -109,7 +109,7 @@ namespace IMS
         }
         protected void btnAccept_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PO_GENERATE.aspx");
+            Response.Redirect("PO_GENERATE.aspx", false);
         }
 
         protected void btnDecline_Click(object sender, EventArgs e)
@@ -520,13 +520,13 @@ namespace IMS
             {
                 Session["OrderNumber"] = "";
                 Session["FromViewPlacedOrders"] = "false";
-                Response.Redirect("ViewPlacedOrders.aspx");
+                Response.Redirect("ViewPlacedOrders.aspx", false);
             }
             else
             {
                 Session["OrderNumber"] = "";
                 Session["FromViewPlacedOrders"] = "false";
-                Response.Redirect("PlaceOrder.aspx");
+                Response.Redirect("PlaceOrder.aspx",false);
             }
         }
 
