@@ -227,7 +227,19 @@ namespace IMS
             }
             finally
             {
+                if (connection.State == ConnectionState.Open) 
+                {
+                    connection.Close();
 
+                }
+                if (StockAt.SelectedIndex <= 0)
+                {
+                    LoadData("");
+                }
+                else
+                {
+                    LoadData(StockAt.SelectedValue);
+                }
             }
         }
 
@@ -342,6 +354,11 @@ namespace IMS
                 connection.Close();
             }
             #endregion
+        }
+
+        protected void StockDisplayGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
         }
     }
 }
