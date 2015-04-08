@@ -8,5 +8,6 @@
          <asp:Button ID="btnRegisterUser" runat="server" CssClass="btn btn-primary btn-large" Text="Register Users" OnClick="btnRegisterUser_Click" Visible="false"/>
          <asp:Button ID="tbnStoreRequests" runat="server" CssClass="btn btn-primary btn-large" Text="Store Requests" OnClick="tbnStoreRequests_Click"/>
          <asp:Button ID="btnHaadList" runat="server" CssClass="btn btn-primary btn-large" Text="Haad List Population" OnClick="btnHaadList_Click" Visible="false"/>
+         <asp:Button ID="btnAdjustData" runat="server" CssClass="btn btn-primary btn-large" Text="Adjust Data" OnClick="btnAdjustData_Click" Visible="true"/>
          <asp:Button ID="ButtonBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" Visible="false" OnClick="ButtonBack_Click"/>
 </asp:Content>

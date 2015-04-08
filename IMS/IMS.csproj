@@ -185,6 +185,7 @@
     <Content Include="Images\Gakuseisean-Ivista-2-Start-Menu-Search %281%29.ico" />
     <Content Include="Images\Gakuseisean-Ivista-2-Start-Menu-Search.ico" />
     <Content Include="Images\search-icon-512.png" />
+    <Content Include="ImportingData.aspx" />
     <Content Include="IMSLogin.aspx" />
     <Content Include="Inventory_Print.aspx" />
     <Content Include="Login.aspx" />
@@ -405,6 +406,13 @@
     </Compile>
     <Compile Include="HeadOfficeMain.aspx.designer.cs">
       <DependentUpon>HeadOfficeMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ImportingData.aspx.cs">
+      <DependentUpon>ImportingData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ImportingData.aspx.designer.cs">
+      <DependentUpon>ImportingData.aspx</DependentUpon>
     </Compile>
     <Compile Include="IMSLogin.aspx.cs">
       <DependentUpon>IMSLogin.aspx</DependentUpon>

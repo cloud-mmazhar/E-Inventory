@@ -60,6 +60,11 @@ namespace IMS
             Response.Redirect("HAADPopulation.aspx", false);
         }
 
+        protected void btnAdjustData_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ImportingData.aspx", false);
+        }
+
         
     }
 }
