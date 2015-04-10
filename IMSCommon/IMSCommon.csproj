@@ -51,6 +51,7 @@
     <Compile Include="Util\IMSGlobal.cs" />
     <Compile Include="Util\RoleNames.cs" />
     <Compile Include="Util\WebMessageBoxUtil.cs" />
+    <Compile Include="Util\XLSPrintingUtility.cs" />
     <Compile Include="Vendor.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
