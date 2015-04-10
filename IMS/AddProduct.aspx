@@ -22,7 +22,7 @@
         <hr />
         
         <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="BarCodeSerial" CssClass="col-md-2 control-label">BarCode Serial</asp:Label>
+            <asp:Label runat="server" ID="lblBarcodeSerial" AssociatedControlID="BarCodeSerial" CssClass="col-md-2 control-label">BarCode Serial</asp:Label>
             <div class="col-md-10">
                 <asp:TextBox runat="server" ID="BarCodeSerial" CssClass="form-control" Enabled="false" />
                 <br />

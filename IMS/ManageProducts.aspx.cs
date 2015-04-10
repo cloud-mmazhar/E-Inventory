@@ -133,6 +133,7 @@ namespace IMS
                     Session["MS_Manufacterer"] = "";
                     Session["MS_Category"] = "";
                     Session["MS_GenericName"] = dt.Rows[0]["GName"].ToString();
+                    Session["MS_Description"] = dt.Rows[0]["Description"].ToString();
                     Session["MS_Control"] = dt.Rows[0]["Control"].ToString();
                     Session["MS_BinNumber"] = dt.Rows[0]["binNumber"].ToString();
                     Session["MS_GreenRainCode"] = GreenRainCode.Text.ToString();

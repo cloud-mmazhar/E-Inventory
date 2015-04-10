@@ -31,6 +31,15 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.Button btnMasterSearch;
         
         /// <summary>
+        /// lblBarcodeSerial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBarcodeSerial;
+        
+        /// <summary>
         /// BarCodeSerial control.
         /// </summary>
         /// <remarks>

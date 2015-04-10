@@ -88,6 +88,7 @@ namespace IMS
                 {
                     btnCreateProduct.Text = "UPDATE";
                     BarCodeSerial.Visible = false;
+                    lblBarcodeSerial.Visible = false;
                 }
 
                 #region Master Search Mechanism
@@ -98,7 +99,7 @@ namespace IMS
                                     Session["MS_Category"].ToString(), Session["MS_GenericName"].ToString(), Session["MS_Control"].ToString(), Session["MS_BinNumber"].ToString(),
                                     Session["MS_GreenRainCode"].ToString(), Session["MS_BrandName"].ToString(), Session["MS_MaxiMumDiscount"].ToString(), Session["MS_LineID"].ToString(),
                                     Session["MS_UnitSale"].ToString(), Session["MS_UnitCost"].ToString(), Session["MS_itemAWT"].ToString(), Session["MS_itemForm"].ToString(),
-                                    Session["MS_itemStrength"].ToString(), Session["MS_itemPackType"].ToString(), Session["MS_itemPackSize"].ToString());
+                                    Session["MS_itemStrength"].ToString(), Session["MS_itemPackType"].ToString(), Session["MS_itemPackSize"].ToString(),Session["MS_Description"].ToString());
                 }
                 #endregion
 
@@ -181,7 +182,7 @@ namespace IMS
         public void FromMaster_Load(String ItemNo, String ItemName, String ItemType, String Manufacturer, String Category, String GenericName,
                                     String Control, String BinNumber, String GreenRain, String BrandName, String MaxDiscount, String LineID, 
                                     String UnitSale, String UnitCost, String ItemAwt, String Form, String Strength, String itemPackType,
-                                    String itemPackSize)
+                                    String itemPackSize,string description)
         {
             GreenRainCode.Text = GreenRain;
             ProductName.Text = ItemName;
@@ -191,6 +192,7 @@ namespace IMS
             ProductSale.Text = UnitSale;
             WholeSalePrice.Text = ItemAwt;
             ProductDiscount.Text = MaxDiscount;
+            ProdcutDesc.Text = description;
             ItemForm.Text = Form;
             ItemStrength.Text = Strength;
             PackType.Text = itemPackType;
