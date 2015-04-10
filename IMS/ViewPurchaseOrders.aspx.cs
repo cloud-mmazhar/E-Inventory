@@ -32,6 +32,16 @@ namespace IMS
                 SqlCommand command = new SqlCommand("Sp_GetPendingPOs", connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@p_RequestedByID", Session["UserSys"]);
+                if(StockAt.SelectedIndex >0)
+                {
+                    command.Parameters.AddWithValue("@p_RequestedForID", Convert.ToInt32(StockAt.SelectedValue.ToString()));
+
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("@p_RequestedForID", DBNull.Value);
+
+                }
                 DataSet ds = new DataSet();
 
                 SqlDataAdapter sA = new SqlDataAdapter(command);
@@ -108,6 +118,68 @@ namespace IMS
         protected void StockDisplayGrid_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        protected void StockAt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadData();
+                //DataView dv = ProductSet.Tables[0].DefaultView;
+                //dv.RowFilter = "SuppID = " + StockAt.SelectedValue;
+                //DataTable dt = dv.ToTable();
+                //StockDisplayGrid.DataSource = null;
+                //StockDisplayGrid.DataSource = dt;
+                //StockDisplayGrid.DataBind();
+           // }
+        }
+
+        protected void btnSearchProduct_Click(object sender, ImageClickEventArgs e)
+        {
+            if (SelectProduct.Text.Length >= 3)
+            {
+                PopulateDropDown(SelectProduct.Text);
+                StockAt.Visible = true;
+            }
+        }
+
+        public void PopulateDropDown(String Text)
+        {
+            #region Populating Product Name Dropdown
+
+            try
+            {
+                connection.Open();
+
+                Text = Text + "%";
+                SqlCommand command = new SqlCommand("Select * From tblVendor Where tblVendor.SupName LIKE '" + Text + "'", connection);
+                DataSet ds = new DataSet();
+                SqlDataAdapter sA = new SqlDataAdapter(command);
+                sA.Fill(ds);
+                if (StockAt.DataSource != null)
+                {
+                    StockAt.DataSource = null;
+                }
+
+                ProductSet = null;
+                ProductSet = ds;
+                StockAt.DataSource = ds.Tables[0];
+                StockAt.DataTextField = "SupName";
+                StockAt.DataValueField = "SuppID";
+                StockAt.DataBind();
+                if (StockAt != null)
+                {
+                    StockAt.Items.Insert(0, "Select Vendor");
+                    StockAt.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            #endregion
         }
     }
 }

@@ -68,7 +68,6 @@
     <div class="form-horizontal">
     <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <asp:Button ID="btnPackingList" runat="server" OnClick="btnPackingList_Click" Enabled="false" Text="Generate Packing List" CssClass="btn btn-default" Visible="false"/>
                 <asp:Button ID="btnBack" runat="server" CssClass="btn btn-primary btn-large" Text="Go Back" OnClick="btnBack_Click"/>
             </div>
      </div>

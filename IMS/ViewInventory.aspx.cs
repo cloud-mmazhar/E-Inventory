@@ -28,8 +28,8 @@ namespace IMS
 
                 #region Populating Product Type DropDown
                 ProductType.Items.Add("Select Product Type");
-                ProductType.Items.Add("Medicine (HAAD)");
-                ProductType.Items.Add("Medicine (Non HAAD)");
+                ProductType.Items.Add("Medicine(HAAD)");
+                ProductType.Items.Add("Medicine(Non HAAD)");
                 ProductType.Items.Add("Non Medicine");
                 #endregion
 

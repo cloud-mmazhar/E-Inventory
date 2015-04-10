@@ -185,14 +185,14 @@ namespace IMS
 
             if(StockDisplayGrid.DataSource !=null)
             {
-                btnPackingList.Visible = true;
-                btnPackingList.Enabled = true; 
+               //btnPackingList.Visible = true;
+               // btnPackingList.Enabled = true; 
             }
         }
 
         protected void btnPackingList_Click(object sender, EventArgs e)
         {
-            Response.Redirect("PackingListGeneration.aspx");
+            
         }
 
         protected void btnBack_Click(object sender, EventArgs e)

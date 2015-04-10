@@ -19,8 +19,19 @@
     <h4>Manage Vendors</h4>
      
     <hr />
-
+    <div class="form-group">
+        <asp:Label runat="server" AssociatedControlID="StockAt" CssClass="col-md-2 control-label">Search by Name </asp:Label>
+            <div class="col-md-10">
+                <asp:TextBox runat="server" ID="SelectProduct" CssClass="form-control product" OnTextChanged="SelectProduct_TextChanged"/>
+                <asp:ImageButton ID="btnSearchProduct" runat="server" OnClick="btnSearchProduct_Click" Text="SearchProduct" Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
+                <br />
+                <asp:DropDownList runat="server" ID="StockAt" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="StockAt_SelectedIndexChanged" Visible="false"/>
+                <br/>
+            </div>
+    </div>
+    <br />
     <asp:Button ID="btnAddVendor" runat="server" OnClick="btnAddVendor_Click" Text="ADD Vendor" CssClass="btn btn-default" />
+    <asp:Button ID="btnRefresh" runat="server" OnClick="btnRefresh_Click" Text="Refresh List" CssClass="btn btn-default" />
     <br/>
     <asp:GridView ID="gdvVendor" runat="server"  Width="100%" CssClass="table table-striped table-bordered table-condensed" AllowPaging="True" PageSize="10"
                 AutoGenerateColumns="false" OnRowDataBound="gdvVendor_RowDataBound" OnPageIndexChanging="gdvVendor_PageIndexChanging"  ShowFooter="true"

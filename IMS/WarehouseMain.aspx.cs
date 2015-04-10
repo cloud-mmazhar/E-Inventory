@@ -65,6 +65,11 @@ namespace IMS
             Response.Redirect("ImportingData.aspx", false);
         }
 
+        protected void btnPackingList_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PackingListGeneration.aspx");
+        }
+
         
     }
 }

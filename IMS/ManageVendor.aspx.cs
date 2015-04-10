@@ -16,6 +16,8 @@ namespace IMS
     {
         DataSet ds;
         public static SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["IMSConnectionString"].ToString());
+        public static DataSet ProductSet;
+        public static DataSet systemSet;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -32,6 +34,25 @@ namespace IMS
         private void BindGrid() 
         {
             ds = VendorBLL.GetAllVendors(connection);
+            ProductSet = ds;
+            gdvVendor.DataSource = null;
+            gdvVendor.DataSource = ds;
+            gdvVendor.DataBind();
+            //drpVendor.DataSource = ds;
+            //drpVendor.Items.Insert(0, new ListItem("Select Product", ""));
+            //drpVendor.DataTextField = "SupName";
+            //drpVendor.DataValueField = "Supp_ID";
+
+            //drpVendor.DataBind();
+        }
+
+        private void BindGridDistinct(int ID)
+        {
+            Vendor vendor = new Vendor();
+            vendor.supp_ID = ID;
+            ds = VendorBLL.GetDistinct(connection, vendor);
+            ProductSet = ds;
+            gdvVendor.DataSource = null;
             gdvVendor.DataSource = ds;
             gdvVendor.DataBind();
             //drpVendor.DataSource = ds;
@@ -98,6 +119,79 @@ namespace IMS
         protected void btnGoBack_Click(object sender, EventArgs e)
         {
             Response.Redirect("WarehouseMain.aspx",false);
+        }
+
+        
+
+        protected void btnSearchProduct_Click(object sender, ImageClickEventArgs e)
+        {
+            if (SelectProduct.Text.Length >= 3)
+            {
+                PopulateDropDown(SelectProduct.Text);
+                StockAt.Visible = true;
+            }
+        }
+
+        public void PopulateDropDown(String Text)
+        {
+            #region Populating Product Name Dropdown
+
+            try
+            {
+                connection.Open();
+
+                Text = Text + "%";
+                SqlCommand command = new SqlCommand("Select * From tblVendor Where tblVendor.SupName LIKE '" + Text + "'", connection);
+                DataSet ds = new DataSet();
+                SqlDataAdapter sA = new SqlDataAdapter(command);
+                sA.Fill(ds);
+                if (StockAt.DataSource != null)
+                {
+                    StockAt.DataSource = null;
+                }
+
+                ProductSet = null;
+                ProductSet = ds;
+                StockAt.DataSource = ds.Tables[0];
+                StockAt.DataTextField = "SupName";
+                StockAt.DataValueField = "SuppID";
+                StockAt.DataBind();
+                if (StockAt != null)
+                {
+                    StockAt.Items.Insert(0, "Select Vendor");
+                    StockAt.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            #endregion
+        }
+        protected void StockAt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (StockAt.SelectedIndex == -1)
+            {
+                BindGrid();
+            }
+            else
+            {
+                BindGridDistinct(Convert.ToInt32(StockAt.SelectedValue.ToString()));
+            }
+        }
+
+        protected void SelectProduct_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnRefresh_Click(object sender, EventArgs e)
+        {
+            BindGrid();
         }
     }
 }

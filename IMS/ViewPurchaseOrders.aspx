@@ -4,6 +4,18 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h3>View Purchase Orders </h3> 
      <div class="form-horizontal">
+          <div class="form-group">
+        <asp:Label runat="server" AssociatedControlID="StockAt" CssClass="col-md-2 control-label">Search by Vendor Name </asp:Label>
+            <div class="col-md-10">
+                <asp:TextBox runat="server" ID="SelectProduct" CssClass="form-control product"/>
+                <asp:ImageButton ID="btnSearchProduct" runat="server" OnClick="btnSearchProduct_Click" Text="SearchProduct" Height="35px" ImageUrl="~/Images/search-icon-512.png" Width="45px" />
+                <br />
+                <asp:DropDownList runat="server" ID="StockAt" CssClass="form-control" Width="29%" AutoPostBack="True" OnSelectedIndexChanged="StockAt_SelectedIndexChanged" Visible="false"/>
+                <br/>
+            </div>
+    </div>
+         <br />
+
     <div class="form-group">
         <asp:GridView ID="StockDisplayGrid" CssClass="table table-striped table-bordered table-condensed"  Visible="true" runat="server" AllowPaging="True" PageSize="10" 
                 AutoGenerateColumns="false" OnSelectedIndexChanged="StockDisplayGrid_SelectedIndexChanged" OnPageIndexChanging="StockDisplayGrid_PageIndexChanging"   onrowcancelingedit="StockDisplayGrid_RowCancelingEdit" 

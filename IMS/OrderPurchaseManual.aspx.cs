@@ -129,6 +129,8 @@ namespace IMS
                 Session["FromViewPlacedOrders"] = "false";
                 txtVendor.Text = "";
                 txtProduct.Text = "";
+                txtVendor.Enabled = true;
+                btnSearchVendor.Enabled = true;
                 SelectProduct.Visible = false;
                 RequestTo.Visible = false;
                 RequestTo.Enabled = true;
@@ -459,11 +461,13 @@ namespace IMS
             txtVendor.Text = "";
             txtProduct.Text = "";
             SelectProduct.Visible = false;
-            RequestTo.Visible = false;
+            //RequestTo.Visible = false;
             SelectQuantity.Text = "";
             SelectPrice.Text = "";
+            txtVendor.Enabled = false;
+            btnSearchVendor.Enabled = false;
             SelectProduct.SelectedIndex = -1;
-            RequestTo.SelectedIndex = -1;
+            //RequestTo.SelectedIndex = -1;
         }
 
 
